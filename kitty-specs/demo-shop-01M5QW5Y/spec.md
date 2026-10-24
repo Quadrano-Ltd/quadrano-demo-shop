@@ -2,7 +2,7 @@
 
 **Mission Branch**: `feat/demo-shop`
 **Created**: 2026-10-24
-**Status**: Draft
+**Status**: Approved (Product Owner, 2026-10-24)
 **Input**: Product Owner briefing `quadrano-demo-shop-briefing.md` (2026-10-24), read with build plan §1.1, §4.3 and the *Demo shop* mission entry, and the published-artefact contract v1.0 (frozen). Discovery decisions: `DM-01M5QW6HWHFC3AXGFN4T2PFNZP`, `DM-01M5QW8D947TS6KA1SRSTE5BC2`, `DM-01M5QWAQP6Q5KKQSQDFFNG0XYJ`.
 
 ## Purpose
@@ -16,7 +16,7 @@ flowchart LR
   P[Presenter] -->|picks scenario| S[Scenario switcher]
   P -->|clicks shop action| A[Shop page]
   S -->|sets active scenario| A
-  A -->|one push per action| DL[(window.dataLayer)]
+  A -->|one event push per action| DL[(window.dataLayer)]
   DL --> GTM[Shop's GTM container]
   GTM -->|Custom HTML tag| Q[Quadrano Local snippet]
   Q -->|verdicts, format v1| C[Browser Console]
@@ -105,7 +105,7 @@ The shop is served from `demo.quadrano.com`, every push to the repository passes
 - **Container ID missing at build or deploy**: the build still completes, the page loads without GTM, and the omission is visible to the presenter in GTM Preview (no container connects). It never falls back to an ID stored in the repo.
 - **Snippet loads after early pushes**: the data layer exists before GTM loads, so Quadrano replays earlier pushes in order (contract G-10).
 - **Ecommerce clear push** (`{ecommerce: null}`): Quadrano writes nothing for a push with no `event` (contract §5.8), so it never adds noise.
-- **Repeated clicks**: each click is one action and one push; there is no double push from one click.
+- **Repeated clicks**: each click is one action and one event push (preceded by the FR-006 ecommerce clear); there is no double event push from one click.
 - **Empty basket at checkout**: placing an order is not possible; no `purchase` is pushed.
 - **Browser back/forward between scenarios**: the active scenario follows the address shown.
 - **Second Specification loaded** (e.g. two tags in the container): Quadrano writes its two-Specifications warning; the shop does nothing about it. It is a container set-up error.
@@ -144,7 +144,7 @@ Terms local to this repo, which are not domain terms:
 | FR-013 | Scenario by link | As the presenter, I want a link to name the active scenario and the page to open, defaulting to "correct" when absent or unrecognised, so that I can bookmark each step of the talk. | High | Open |
 | FR-014 | Scenario by on-page control | As the presenter, I want an on-page control on every page that selects the scenario and updates the address to match, listing scenarios in talk-script order, so that I can switch without editing the address. | High | Open |
 | FR-015 | Switching pushes nothing | As the presenter, I want changing the scenario to make no data layer push, so that the Console shows only the pushes the audience should see. | High | Open |
-| FR-016 | One push per action | As the presenter, I want each shop action (add to basket, place order) to make exactly one event push, so that every action maps to one Console group. | High | Open |
+| FR-016 | One event push per action | As the presenter, I want each shop action (add to basket, place order) to make exactly one event push, so that every action maps to one Console group. | High | Open |
 | FR-017 | No shop verdicts | As the Product Owner, I want the shop never to write anything verdict-like (no ✓ ✗ ⚠ ✅ ❌ and no pass/fail wording) to the Console or the page, so that every verdict seen is Quadrano's own. | High | Open |
 | FR-018 | Gate runner | As the Product Owner, I want one command that runs lint, build, no-secrets and provenance in that order, stops at the first failure, and also runs before every push and in CI, so that QDR-003 is enforced. | High | Open |
 | FR-019 | No-secrets gate | As the Product Owner, I want the no-secrets gate to fail when any tracked file or pushed change contains a GTM container ID or a secret-like value, so that QDR-004 is enforced. | High | Open |
@@ -158,7 +158,7 @@ Terms local to this repo, which are not domain terms:
 
 | ID | Title | Requirement | Category | Priority | Status |
 |----|-------|-------------|----------|----------|--------|
-| NFR-001 | Page speed | Each page is usable within 2 seconds of navigation on a typical 4G mobile connection. | Performance | Medium | Open |
+| NFR-001 | Page speed | Each page's Largest Contentful Paint is at most 2 seconds, measured by Lighthouse in mobile mode with its default simulated throttling (Slow 4G). | Performance | Medium | Open |
 | NFR-002 | Fast staging | From any page, the presenter reaches any scenario on any page in at most 2 interactions. | Usability | High | Open |
 | NFR-003 | Repeatable verdicts | In a pre-rehearsal check, each of the 7 scenario outcomes (2 correct events, 5 broken scenarios) produces its expected Console group in 10 out of 10 runs; then 3 consecutive clean rehearsals by Thu 19 Nov 2026. | Reliability | High | Open |
 | NFR-004 | No extra network | The shop's pages make no network requests other than for their own assets and for loading GTM: 0 requests to any other origin across a full talk-script run, excluding what GTM itself loads. | Privacy | High | Open |

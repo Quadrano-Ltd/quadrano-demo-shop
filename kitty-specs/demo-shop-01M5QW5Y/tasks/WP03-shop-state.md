@@ -75,7 +75,7 @@ Deliver the client-side state layer as **pure TypeScript modules with no DOM ren
 - A static catalogue of about four **fictional** products (C-010). The first listed is the **hero product `SKU-1001` at 1299 pence** (£12.99, research R-05).
 - `storage.ts`: sessionStorage wrapped in try/catch with an in-memory fallback (R-07).
 - `basket-store.ts`: lines `{ itemId, quantity }`, one line per item, add increments, total in pence, clear, restore.
-- `order-store.ts`: the Order record and its lifecycle (data-model.md): `Placed → Pushed`, plus "Order again". It exposes the `pushed` guard WP06 relies on for "one push per action" (FR-016, R-03).
+- `order-store.ts`: the Order record and its lifecycle (data-model.md): `Placed → Pushed`, plus "Order again". It exposes the `pushed` guard WP06 relies on for "one event push per action" (FR-016, R-03).
 - Money is **integer pence only** in this layer. Conversion to push amounts happens in WP04 (`events.ts`).
 - `pnpm lint` and `pnpm exec tsc --noEmit` pass.
 

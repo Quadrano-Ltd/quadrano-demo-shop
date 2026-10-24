@@ -13,6 +13,7 @@ requirement_refs:
 - FR-010
 - FR-011
 - FR-012
+- FR-013
 - FR-016
 - FR-017
 planning_base_branch: feat/demo-shop

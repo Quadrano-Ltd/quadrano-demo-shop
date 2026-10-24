@@ -77,7 +77,7 @@ Turn the merged shop into something that is **live, gated and safe to rehearse**
 - `pnpm gates` exits 0 on the fully merged tree (WP01–WP06), and the GitHub Actions `gates` job is green (FR-018, SC-005).
 - `demo.quadrano.com` serves the shop from Cloudflare Pages' Git integration. The GTM container ID comes **only** from the Pages build variable, and the built pages carry the snippet (FR-021, C-002, C-003, US4 scenario 4).
 - A local build serves every page and scenario with **no network** (FR-022, US4 scenario 5).
-- NFR-001 (≤ 2 s usable on 4G), NFR-004 (no other origins), NFR-005 (keyboard + focus) and FR-017 (no shop Console output) are each checked and the result recorded.
+- NFR-001 (LCP ≤ 2 s, Lighthouse mobile, Slow 4G), NFR-004 (no other origins), NFR-005 (keyboard + focus) and FR-017 (no shop Console output) are each checked and the result recorded.
 - `README.md` gives the presenter a one-page runbook. `docs/release-checks.md` holds dated evidence for every check above.
 
 ## ⚠️ Human-in-the-loop steps
@@ -152,7 +152,7 @@ Production builds from `main` only, so the first production deploy happens after
 
 ### Subtask T037 – NFR sweep
 
-- **NFR-001 page speed**: Chrome DevTools → Lighthouse (mobile) or the Performance panel with "Fast 4G" / "Slow 4G" throttling, against the production URL (or `pnpm preview` if production isn't up yet; note which). Record for each of the five pages the time until the page is usable (LCP and TBT from Lighthouse are fine proxies). Target ≤ 2 s on 4G. Also record total JS and CSS transferred per page.
+- **NFR-001 page speed**: Chrome DevTools → Lighthouse, mode Navigation, device Mobile, default simulated throttling (Slow 4G), against the production URL (or `pnpm preview` if production isn't up yet; note which). Record LCP for each of the five pages. Target LCP ≤ 2 s on every page. Do not substitute the Performance panel or another throttling profile. Also record total JS and CSS transferred per page.
 - **NFR-004 no extra network**: DevTools Network panel, "Preserve log" on for this check only, over a full talk-script run (quickstart rows 1–9). Filter by domain. **Allowed**: own origin; `www.googletagmanager.com`, and anything GTM itself loads, which is excluded by the NFR wording. Shop code must make **0** requests to any other origin. Export or screenshot the domain list as evidence.
 - **NFR-005 keyboard**: Tab through each page. Every link and control (nav, switcher `<select>`, Add to basket, Remove, Go to checkout, Place order, Order again, Continue shopping) is reachable and operable, with a visible focus ring. Record pass or fail per control as a table.
 - **FR-017 no shop output**: with GTM **not** loaded (no ID or blocked), run the whole flow with the Console open and "Verbose" on. **Zero** messages originate from shop code, and page text contains no verdict wording (✓ ✗ ⚠, pass/fail/valid/invalid). SC-002 (no verdicts without the snippet) is re-checked in WP08 with GTM installed.

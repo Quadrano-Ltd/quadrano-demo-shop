@@ -31,7 +31,7 @@ flowchart LR
 **Testing**: The four gates are lint, build (`tsc --noEmit` + `vite build`), no-secrets and provenance. A non-gate script, `pnpm verify:scenarios`, checks FR-012 (exactly one difference per broken scenario) with plain `node:assert`. The rest is a manual pre-rehearsal checklist in [quickstart.md](quickstart.md), run 10 times for NFR-003. No test framework is added (QDR-003: nothing heavier).
 **Target Platform**: Current desktop Chrome, which the presenter uses with DevTools Console and Tag Assistant. Modern evergreen browsers also need to work. Pages are served by Cloudflare Pages, with a local fallback through `vite preview`.
 **Project Type**: Single static web project. Vite `root` is `site/`, and gate scripts live in `scripts/`.
-**Performance Goals**: Each page is usable within 2 s on 4G (NFR-001). This means no web fonts, no raster images (only inline SVG/CSS art) and one small JS bundle per page.
+**Performance Goals**: Each page's LCP is ≤ 2 s in Lighthouse mobile with default (Slow 4G) throttling (NFR-001). This means no web fonts, no raster images (only inline SVG/CSS art) and one small JS bundle per page.
 **Constraints**: No backend, no Pages Functions and no secrets in the repo. The only network requests go to our own origin and GTM (NFR-004). The shop makes no Console output (FR-017, enforced by lint). Everything is keyboard operable (NFR-005). Demoable by Sun 8 Nov 2026.
 **Scale/Scope**: 5 pages, about 4 fictional products, 2 events, 6 scenarios (1 correct and 5 broken), 4 gates and 1 presenter.
 
@@ -47,10 +47,10 @@ flowchart LR
 | QDR-004 No secrets | ✅ | `VITE_GTM_CONTAINER_ID` exists only in Cloudflare Pages build variables. `dist/` is gitignored. The no-secrets gate scans tracked files, pushed file versions and full history (SC-006). |
 | QDR-005 Contract only | ✅ | The shop only pushes objects. It never imports Quadrano code, and the Console text comes from the runtime. Attribute names are reconciled at the W2 freeze (FR-024, IC-06). |
 | QDR-006 Escalation | ✅ | Open risk: nested Event Definitions on stage (spec Assumptions). This is the Product Owner's call at the freeze, not the implementer's. |
-| QDR-007 Amendments | ✅ | None needed. ⚠ **Wording drift to note:** the Charter's *Verification* section and checklist item 6 say "logs ✅/❌". Console format v1 (which the spec quotes verbatim) uses ✓/✗. The spec is correct, and the Architect should propose a **patch** amendment to align the Charter wording. That does not block this mission. |
+| QDR-007 Amendments | ✅ | None needed for this mission. The wording drift found here (the Charter said "logs ✅/❌" where Console format v1 uses ✓/✗) was fixed by Charter patch amendment 1.0.1 (2026-10-24). |
 | Terminology Canon | ✅ | Code uses `scenario` (a local term, not a domain term) and "Attribute" in docs and comments. The words "schema", "spec", "tracking plan" and "parameter" are not used for domain concepts. |
 
-**Post-design re-check (after Phase 1):** No new violations. One trade-off was checked: the decision to push `purchase` on thank-you load (R-03) still gives one push per place-order action (FR-016), because the order record is marked `pushed`.
+**Post-design re-check (after Phase 1):** No new violations. One trade-off was checked: the decision to push `purchase` on thank-you load (R-03) still gives one event push per place-order action (FR-016), because the order record is marked `pushed`.
 
 ## Project Structure
 
@@ -103,7 +103,7 @@ pnpm-workspace.yaml           # supply-chain settings (minimumReleaseAge, onlyBu
 AGENTS.md                     # tooling + exact gate commands (FR-023)
 ```
 
-**Structure decision**: Single static project with `site/` as the Vite root, so HTML, the README and repo tooling stay apart. `datalayer/push.ts` is the only module that touches `window.dataLayer`, and lint enforces this (R-08). That keeps "one push per action" and "no verdicts" checkable in one place.
+**Structure decision**: Single static project with `site/` as the Vite root, so HTML, the README and repo tooling stay apart. `datalayer/push.ts` is the only module that touches `window.dataLayer`, and lint enforces this (R-08). That keeps "one event push per action" and "no verdicts" checkable in one place.
 
 ## Complexity Tracking
 

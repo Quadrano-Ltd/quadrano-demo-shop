@@ -204,7 +204,7 @@ T017 `site/src/shop/order-store.ts` (order lifecycle, `pushed` guard) (WP03)
 **Goal**: The only module that writes to `window.dataLayer`. It holds the correct `add_to_cart`/`purchase` builders, the six-entry scenario registry whose broken entries each differ from the correct `purchase` in exactly one way, the scenario URL helpers, and `pnpm verify:scenarios`.
 **Independent Test**: `pnpm verify:scenarios` exits 0 and fails if any scenario is altered to make two differences. Builders produce exactly the objects in contracts/datalayer-pushes.md.
 **Prompt**: `tasks/WP04-datalayer-and-scenarios.md`
-**Requirement Refs**: FR-004, FR-005, FR-006, FR-007, FR-008, FR-009, FR-010, FR-011, FR-012, FR-016, FR-017
+**Requirement Refs**: FR-004, FR-005, FR-006, FR-007, FR-008, FR-009, FR-010, FR-011, FR-012, FR-013, FR-016, FR-017
 **Estimated prompt size**: ~500 lines
 
 ### Included Subtasks
@@ -359,6 +359,7 @@ T041 No-snippet run, talk timing and rehearsal sign-off record (WP08)
 
 - Blocked until (a) the freeze has happened and (b) the "Demo Shop" Specification snippet exists in the shop's GTM container. Both are external (C-007). If either is not ready, block with a structured report (QDR-006), and do not improvise.
 - FR-024 may require small edits in `site/src/datalayer/*` and `contracts/datalayer-pushes.md` (owned by WP04 and planning). These are justified out-of-map edits, recorded in the activity log.
+- If FR-024 changes anything, the live site is re-verified after the change deploys and a post-freeze entry is appended to `docs/release-checks.md` (WP07's file, out-of-map), so the release evidence stays current.
 
 ### Parallel Opportunities
 

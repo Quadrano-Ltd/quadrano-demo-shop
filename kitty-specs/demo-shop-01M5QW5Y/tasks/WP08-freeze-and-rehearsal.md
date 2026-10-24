@@ -114,6 +114,7 @@ If any is missing, **do not improvise**. Do not hand-build a stand-in Specificat
      - Update the expected tables in `verify-scenarios.ts` if they name the changed path.
      - Update `contracts/datalayer-pushes.md`: objects, the one-difference table and the expected Console groups (e.g. scenario 5's pattern text as the Event Definition holds it).
      - Run `pnpm verify:scenarios` and `pnpm gates`; both must pass.
+     - After the change reaches production (Cloudflare Pages Git integration), re-verify the live site: `demo.quadrano.com` serves the new build with GTM, and the WP07 local fallback still works. Append a dated "Post-freeze re-check" entry to `docs/release-checks.md`. This is an out-of-map edit of a WP07 file, recorded in the activity log.
      - If the expected **Console wording** changes in a way the spec's US2 table doesn't anticipate, flag it to the PO; the spec table may need a patch.
 - **Notes**: Today is before the freeze. Do not start T039 early on provisional information.
 
@@ -145,7 +146,7 @@ If any is missing, **do not improvise**. Do not hand-build a stand-in Specificat
 ## Definition of Done
 
 - [ ] Entry conditions confirmed (or the WP is blocked with a structured report).
-- [ ] Freeze comparison table recorded; any correction made in shop, verify and contract together, with `pnpm verify:scenarios` and `pnpm gates` green.
+- [ ] Freeze comparison table recorded; any correction made in shop, verify and contract together, with `pnpm verify:scenarios` and `pnpm gates` green, and a post-freeze re-check in `docs/release-checks.md` if anything changed.
 - [ ] 10 consecutive clean runs of rows 1–9 logged with verbatim comparisons.
 - [ ] No-snippet run shows zero verdict lines.
 - [ ] Talk-part timing recorded (< 3 min, or a proposal if over).
