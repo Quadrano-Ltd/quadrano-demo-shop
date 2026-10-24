@@ -1,0 +1,80 @@
+{
+  "entries": [
+    {
+      "created_at": "2026-10-24T21:13:51.249154Z",
+      "decision_id": "01M5QW6HWHFC3AXGFN4T2PFNZP",
+      "final_answer": "Quadrano runtime only, Console format v1 verbatim. The shop logs nothing verdict-like; acceptance is measured against the v1 lines; transaction_id is required so the transaction_ID scenario fails.",
+      "input_key": "verdict_source",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Quadrano runtime only, Console format v1 verbatim",
+        "Shop also shows its own expected-result hint",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Who produces the pass/fail verdicts and messages the audience sees: the Quadrano runtime (via the GTM snippet) in Console format v1 verbatim, or the shop itself?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:14:49.109923Z",
+      "resolved_by": null,
+      "slot_key": "specify.verdicts.source-of-truth",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:14:52.068744Z",
+      "decision_id": "01M5QW8D947TS6KA1SRSTE5BC2",
+      "final_answer": "Five broken scenarios including bad transaction_id regex (as a spare beyond the talk script); the five plan pages (listing, product, basket, checkout, thank-you) kept deliberately thin; switcher can jump to any page+scenario.",
+      "input_key": "scenario_scope",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Brief: 4 broken scenarios, minimal pages",
+        "Plan: 5 broken scenarios incl. bad regex, 5 pages",
+        "4 scenarios + bad regex, minimal pages",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Which broken scenarios and pages are in scope: the brief's four broken pushes on a minimal shop, or the build plan's five (adding a bad transaction_id regex) across listing, product, basket, checkout and thank-you pages?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:16:05.603934Z",
+      "resolved_by": null,
+      "slot_key": "specify.scope.scenarios-and-pages",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:16:08.262539Z",
+      "decision_id": "01M5QWAQP6Q5KKQSQDFFNG0XYJ",
+      "final_answer": "GA4 ecommerce-nested. add_to_cart: ecommerce.currency, ecommerce.value, ecommerce.items[] (item_id, item_name, price, quantity); purchase adds ecommerce.transaction_id. Each ecommerce push preceded by {ecommerce: null}. Exact Attribute names provisional until W2 freeze Tue 27 Oct.",
+      "input_key": "attribute_shape",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Flat top-level Attributes",
+        "GA4 ecommerce-nested",
+        "Defer to W2 freeze (27 Oct)",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "What shape do add_to_cart and purchase pushes take: flat top-level Attributes (value, currency, transaction_id beside event) or GA4 ecommerce-nested (ecommerce.value, ecommerce.items[])? And which Attributes does add_to_cart carry?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:18:37.505437Z",
+      "resolved_by": null,
+      "slot_key": "specify.data-layer.attribute-shape",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    }
+  ],
+  "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+  "version": 1
+}
