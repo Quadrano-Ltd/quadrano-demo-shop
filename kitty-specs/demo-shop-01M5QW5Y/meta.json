@@ -12,5 +12,7 @@
   "purpose_tldr": "A static mini-shop at demo.quadrano.com whose correct and deliberately broken data layer pushes let the Quadrano talk show live validation.",
   "slug": "demo-shop-01M5QW5Y",
   "target_branch": "feat/demo-shop",
-  "topology": "coord"
+  "topology": "coord",
+  "source_description": "Product Owner briefing quadrano-demo-shop-briefing.md (2026-10-24), with build plan §1.1/§4.3 and published-artefact contract v1.0.",
+  "vcs": "git"
 }
