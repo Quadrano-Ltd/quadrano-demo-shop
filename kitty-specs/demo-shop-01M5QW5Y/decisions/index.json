@@ -73,6 +73,78 @@
       "status": "resolved",
       "step_id": null,
       "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:42:16.121008Z",
+      "decision_id": "01M5QXTJSS08GV3TDMWA59QCGY",
+      "final_answer": "Build-time Cloudflare Pages env var (VITE_GTM_CONTAINER_ID) baked into built HTML by Vite; never in repo; missing ID builds pages without GTM.",
+      "input_key": "gtm_id_injection",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Build-time Cloudflare Pages env var",
+        "Per-request Pages Function",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "How should the GTM container ID reach the served pages: baked in at build time from a Cloudflare Pages build environment variable, or injected per request by a Cloudflare Pages Function?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:44:13.501905Z",
+      "resolved_by": null,
+      "slot_key": "plan.deploy.gtm-id-injection",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:42:18.758206Z",
+      "decision_id": "01M5QXTNC6EKYRJP56QZ5JXSCJ",
+      "final_answer": "Cloudflare Pages Git integration builds and deploys main; GitHub Actions runs pnpm gates on every push and PR; main changes only via PR with green gates.",
+      "input_key": "deploy_pipeline",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Cloudflare Pages Git integration",
+        "GitHub Actions + wrangler direct upload",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "How should production deploys run: Cloudflare Pages Git integration building from main (GitHub Actions runs the gates on PRs), or GitHub Actions running the gates then deploying with wrangler?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:44:16.299069Z",
+      "resolved_by": null,
+      "slot_key": "plan.deploy.pipeline",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:42:21.370099Z",
+      "decision_id": "01M5QXTQXTG6ASW9E96GQM6ARX",
+      "final_answer": "Yes, covered by C-009: typescript-eslint and @eslint/js allowed; gate scripts in TypeScript run by Node 24 LTS native type stripping; no tsx, husky or gitleaks; pre-push hook via core.hooksPath.",
+      "input_key": "supporting_dev_deps",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Yes, covered by C-009",
+        "No, needs a Charter amendment",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "Does C-009 (pnpm, Vite, TypeScript, ESLint) cover the supporting dev dependencies typescript-eslint and @eslint/js, with gate scripts written in TypeScript run by Node 24 LTS native type stripping (no tsx, husky or gitleaks)?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:44:18.842263Z",
+      "resolved_by": null,
+      "slot_key": "plan.tooling.supporting-dev-deps",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
     }
   ],
   "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
