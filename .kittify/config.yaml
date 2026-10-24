@@ -1,0 +1,18 @@
+project:
+  uuid: caf26392-e52e-449d-95ee-b9612f5f703c
+  slug: quadrano-demo-shop
+  node_id: 98787d5f5b19
+  build_id: 11ff6705-c84c-5393-afa4-f49238f1a314
+mission_type_activations:
+- software-dev
+- documentation
+- research
+- plan
+vcs:
+  type: git
+agents:
+  available:
+  - copilot
+  - claude
+  auto_commit: true
+  lint_on_edit: false
