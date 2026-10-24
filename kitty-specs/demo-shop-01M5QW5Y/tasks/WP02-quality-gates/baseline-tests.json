@@ -1,19 +1,19 @@
-{
-  "wp_id": "WP02",
-  "captured_at": "2026-10-24T23:05:32Z",
-  "base_branch": "feat/demo-shop",
-  "base_commit": "87077ada715091552c804057a1a17d007d5d52c8",
-  "test_runner": "pytest",
-  "total": 1,
-  "passed": 0,
-  "failed": 1,
-  "skipped": 0,
-  "failures": [
-    {
-      "test": "<gate-coverage-junit>",
-      "error": "no JUnit XML artifact produced by the scoped run",
-      "file": "unknown"
-    }
-  ],
-  "source_identity": "GateCoverageScopeSource/junit_xml"
+{
+  "wp_id": "WP02",
+  "captured_at": "2026-10-24T23:05:32Z",
+  "base_branch": "feat/demo-shop",
+  "base_commit": "87077ada715091552c804057a1a17d007d5d52c8",
+  "test_runner": "pytest",
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    {
+      "test": "<gate-coverage-junit>",
+      "error": "no JUnit XML artifact produced by the scoped run",
+      "file": "unknown"
+    }
+  ],
+  "source_identity": "GateCoverageScopeSource/junit_xml"
 }
