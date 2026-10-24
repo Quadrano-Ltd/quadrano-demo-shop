@@ -15,7 +15,7 @@ input_artifacts:
     sha256: 9ca51bfebedf1e5015992cb924cdf4cada1a21f12dfdbcdee91bfb8f50b71e41
   tasks.md:
     path: kitty-specs\demo-shop-01M5QW5Y\tasks.md
-    sha256: 864e70dd7fc7f03ed6448b7aacada97a4d9e5b521776de52a4dc3fe30ec3b3b7
+    sha256: cb3b4e8e1d2fd3187c7565cd5253d4819f0846ce50e24b692831d3cb63523211
   charter:
     path: .kittify\charter\charter.yaml
     sha256: 2161c15b5103ec5e6a0017330dd855b263e9bf23fbfdca7b486aea7f8be3d648
