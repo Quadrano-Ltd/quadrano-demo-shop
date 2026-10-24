@@ -1,0 +1,16 @@
+{
+  "coordination_branch": "kitty/mission-demo-shop-01M5QW5Y",
+  "created_at": "2026-10-24T21:13:31.556555+00:00",
+  "flattened": false,
+  "friendly_name": "Demo Shop",
+  "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+  "mission_number": null,
+  "mission_slug": "demo-shop-01M5QW5Y",
+  "mission_type": "software-dev",
+  "pr_bound": true,
+  "purpose_context": "The Quadrano talk on Thu 19 Nov needs a real website whose data layer Quadrano can validate on stage. This mission builds a small static shop with its own GTM container, buttons that push correct and deliberately broken add_to_cart and purchase events, and a scenario switcher that walks the demo script, so the audience sees Quadrano's Console verdicts on genuine pushes. It must be demoable by Sun 8 Nov and run clean in three rehearsals by Thu 19 Nov.",
+  "purpose_tldr": "A static mini-shop at demo.quadrano.com whose correct and deliberately broken data layer pushes let the Quadrano talk show live validation.",
+  "slug": "demo-shop-01M5QW5Y",
+  "target_branch": "feat/demo-shop",
+  "topology": "coord"
+}
