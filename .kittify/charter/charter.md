@@ -1,6 +1,6 @@
 # quadrano-demo-shop Charter
 
-**Version 1.0.0** · adopted 2026-10-24 · ratified when merged to `main` · see the [amendment log](#amendment-log)
+**Version 1.0.1** · adopted 2026-10-24, amended 2026-10-24 · ratified when merged to `main` · see the [amendment log](#amendment-log)
 
 This Charter is the rulebook for all work in `quadrano-demo-shop`. Where the Charter and anyone's habits disagree, the Charter wins.
 
@@ -105,9 +105,9 @@ These terms are used exactly, and with these meanings, in code, the data layer, 
 
 ## Verification that proves something
 
-- The whole point of the shop is honest signal: a correct push logs ✅, and each broken push logs ❌ with its matching plain-English message from §1.1 step 7 of the build plan.
+- The whole point of the shop is honest signal: a correct push logs ✓, and each broken push logs ✗ with its exact message in Console output format v1 (published-artefact contract v1.0), as quoted in the mission specification. §1.1 step 7 of the build plan names the problems to show; the wording is format v1's.
 - Each deliberately-broken scenario is paired with the exact message it must produce: missing `value`; `value` as the string `"12.99"`; `transaction_ID` (wrong case → suggest `transaction_id`); `currency: "gbp"` (not in GBP/EUR/USD).
-- A check that can never fail is removed. The scenario switcher must be able to show every ✅ and ❌ in the talk script.
+- A check that can never fail is removed. The scenario switcher must be able to show every ✓ and ✗ in the talk script.
 - Reviewers re-run the gates themselves rather than trusting the implementer's report.
 
 ## Code Review Checklist
@@ -119,7 +119,7 @@ Implementers check every item before moving a work package to review. Reviewers 
 3. **Provenance:** nothing copied from a non-public source, and no prior venture named anywhere in the diff or the commit messages (QDR-001).
 4. **No secrets:** no GTM container ID or keys in code, config or commits; they live in Cloudflare Pages (QDR-004).
 5. **Contract:** nothing in the published-artefact contract changed; the shop's Attribute names match the contract's Event Definitions (QDR-005).
-6. **Broken pushes:** every deliberately-broken button logs ❌ with the matching plain-English message from §1.1 step 7.
+6. **Broken pushes:** every deliberately-broken scenario logs ✗ with its exact Console output format v1 message, as quoted in the mission specification.
 7. **Terminology:** the Terminology Canon is used exactly; no new synonyms.
 8. **Code hygiene:** no secrets, no commented-out code.
 9. **Commits:** Conventional Commits scoped to the work package, with the `Agent:` trailer; atomic; no blanket staging.
@@ -128,7 +128,7 @@ Implementers check every item before moving a work package to review. Reviewers 
 
 - **Never weaken a gate to pass.** A failing gate means either the change is wrong or a requirement changed. Escalate if it's the latter.
 - **Guard the published-artefact contract.** It is frozen; every shop change is checked against its Event Definitions and message format.
-- **The scenario switcher is the demo.** If a scenario stops logging its expected ✅ or ❌, that is a regression.
+- **The scenario switcher is the demo.** If a scenario stops logging its expected ✓ or ✗ group, that is a regression.
 - **Terminology cutovers are bulk edits.** Renaming a canonical term follows Spec Kitty's bulk-edit occurrence classification; a half-renamed term is a regression.
 - **Bugs get a check first.** A fixed defect gets a check that failed before the fix; if a class of defect recurs, close it by construction (a lint rule, a guard) rather than patching each case.
 
@@ -162,3 +162,4 @@ Written rules alone don't reliably change agent behaviour, so wherever possible 
 | Version | Date | Type | Summary |
 |---|---|---|---|
 | 1.0.0 | 2026-10-24 | — | Initial Charter: roles, provenance, approved stack, minimal gates, no secrets, published-artefact contract dependency, escalation, Terminology Canon, verification, enforcement mechanisms and amendment process |
+| 1.0.1 | 2026-10-24 | Patch | Verification, Code Review Checklist item 6 and Regression Vigilance now use the ✓/✗ symbols and exact wording of Console output format v1 (frozen under QDR-005) instead of ✅/❌ and the build plan's paraphrase. Clarification only; `charter.yaml` holds no such wording, and no enforcing mechanism changes. |
