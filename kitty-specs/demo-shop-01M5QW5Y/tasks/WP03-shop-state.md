@@ -9,7 +9,7 @@ requirement_refs:
 - FR-001
 planning_base_branch: feat/demo-shop
 merge_target_branch: feat/demo-shop
-branch_strategy: Planning artifacts were generated on feat/demo-shop; completed changes must merge back into feat/demo-shop.
+branch_strategy: Planning artifacts for this mission were generated on feat/demo-shop. During /spec-kitty.implement this WP may branch from a dependency-specific base, but completed changes must merge back into feat/demo-shop unless the human explicitly redirects the landing branch.
 subtasks:
 - T014
 - T015
@@ -17,10 +17,9 @@ subtasks:
 - T017
 phase: Phase 2 - Foundational
 history:
-- !!omap
-  - at: '2026-10-24T21:50:34Z'
-  - actor: system
-  - action: Prompt generated via /spec-kitty.tasks
+- at: '2026-10-24T21:50:34Z'
+  actor: system
+  action: Prompt generated via /spec-kitty.tasks
 agent_profile: frontend-freddy
 authoritative_surface: site/src/shop/
 create_intent:

@@ -10,17 +10,16 @@ requirement_refs:
 - NFR-003
 planning_base_branch: feat/demo-shop
 merge_target_branch: feat/demo-shop
-branch_strategy: Planning artifacts were generated on feat/demo-shop; completed changes must merge back into feat/demo-shop.
+branch_strategy: Planning artifacts for this mission were generated on feat/demo-shop. During /spec-kitty.implement this WP may branch from a dependency-specific base, but completed changes must merge back into feat/demo-shop unless the human explicitly redirects the landing branch.
 subtasks:
 - T039
 - T040
 - T041
 phase: Phase 4 - Release and rehearsal
 history:
-- !!omap
-  - at: '2026-10-24T21:50:34Z'
-  - actor: system
-  - action: Prompt generated via /spec-kitty.tasks
+- at: '2026-10-24T21:50:34Z'
+  actor: system
+  action: Prompt generated via /spec-kitty.tasks
 agent_profile: implementer-ivan
 authoritative_surface: docs/rehearsal-log.md
 create_intent:
