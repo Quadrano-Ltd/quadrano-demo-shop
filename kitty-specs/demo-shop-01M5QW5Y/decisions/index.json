@@ -145,6 +145,30 @@
       "status": "resolved",
       "step_id": null,
       "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:55:07.348890Z",
+      "decision_id": "01M5QYJ3YM1435E0GJEG301ZF4",
+      "final_answer": "Yes, covered by C-009: @types/node allowed as a type-only dev dependency, pinned, recorded in AGENTS.md; scripts/ and vite.config.ts are fully type-checked and type-aware linted.",
+      "input_key": "node_types",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Yes, covered by C-009",
+        "No, keep five packages and exclude scripts from type checking",
+        "Needs a Charter amendment"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "Is @types/node (type-only, no runtime code) covered by C-009 so that gate scripts and vite.config.ts get full tsc and type-aware lint checking?",
+      "rationale": "Type definitions only; no runtime code and nothing shipped to the browser. Confirmed by the Product Owner at /spec-kitty.tasks.",
+      "resolved_at": "2026-10-24T21:55:21.959654Z",
+      "resolved_by": "Product Owner",
+      "slot_key": "plan.tooling.node-types",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
     }
   ],
   "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
