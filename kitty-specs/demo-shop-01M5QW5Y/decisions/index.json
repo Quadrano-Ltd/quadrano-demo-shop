@@ -1,176 +1,176 @@
-{
-  "entries": [
-    {
-      "created_at": "2026-10-24T21:13:51.249154Z",
-      "decision_id": "01M5QW6HWHFC3AXGFN4T2PFNZP",
-      "final_answer": "Quadrano runtime only, Console format v1 verbatim. The shop logs nothing verdict-like; acceptance is measured against the v1 lines; transaction_id is required so the transaction_ID scenario fails.",
-      "input_key": "verdict_source",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Quadrano runtime only, Console format v1 verbatim",
-        "Shop also shows its own expected-result hint",
-        "Other"
-      ],
-      "origin_flow": "specify",
-      "other_answer": false,
-      "question": "Who produces the pass/fail verdicts and messages the audience sees: the Quadrano runtime (via the GTM snippet) in Console format v1 verbatim, or the shop itself?",
-      "rationale": null,
-      "resolved_at": "2026-10-24T21:14:49.109923Z",
-      "resolved_by": null,
-      "slot_key": "specify.verdicts.source-of-truth",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    },
-    {
-      "created_at": "2026-10-24T21:14:52.068744Z",
-      "decision_id": "01M5QW8D947TS6KA1SRSTE5BC2",
-      "final_answer": "Five broken scenarios including bad transaction_id regex (as a spare beyond the talk script); the five plan pages (listing, product, basket, checkout, thank-you) kept deliberately thin; switcher can jump to any page+scenario.",
-      "input_key": "scenario_scope",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Brief: 4 broken scenarios, minimal pages",
-        "Plan: 5 broken scenarios incl. bad regex, 5 pages",
-        "4 scenarios + bad regex, minimal pages",
-        "Other"
-      ],
-      "origin_flow": "specify",
-      "other_answer": false,
-      "question": "Which broken scenarios and pages are in scope: the brief's four broken pushes on a minimal shop, or the build plan's five (adding a bad transaction_id regex) across listing, product, basket, checkout and thank-you pages?",
-      "rationale": null,
-      "resolved_at": "2026-10-24T21:16:05.603934Z",
-      "resolved_by": null,
-      "slot_key": "specify.scope.scenarios-and-pages",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    },
-    {
-      "created_at": "2026-10-24T21:16:08.262539Z",
-      "decision_id": "01M5QWAQP6Q5KKQSQDFFNG0XYJ",
-      "final_answer": "GA4 ecommerce-nested. add_to_cart: ecommerce.currency, ecommerce.value, ecommerce.items[] (item_id, item_name, price, quantity); purchase adds ecommerce.transaction_id. Each ecommerce push preceded by {ecommerce: null}. Exact Attribute names provisional until W2 freeze Tue 27 Oct.",
-      "input_key": "attribute_shape",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Flat top-level Attributes",
-        "GA4 ecommerce-nested",
-        "Defer to W2 freeze (27 Oct)",
-        "Other"
-      ],
-      "origin_flow": "specify",
-      "other_answer": false,
-      "question": "What shape do add_to_cart and purchase pushes take: flat top-level Attributes (value, currency, transaction_id beside event) or GA4 ecommerce-nested (ecommerce.value, ecommerce.items[])? And which Attributes does add_to_cart carry?",
-      "rationale": null,
-      "resolved_at": "2026-10-24T21:18:37.505437Z",
-      "resolved_by": null,
-      "slot_key": "specify.data-layer.attribute-shape",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    },
-    {
-      "created_at": "2026-10-24T21:42:16.121008Z",
-      "decision_id": "01M5QXTJSS08GV3TDMWA59QCGY",
-      "final_answer": "Build-time Cloudflare Pages env var (VITE_GTM_CONTAINER_ID) baked into built HTML by Vite; never in repo; missing ID builds pages without GTM.",
-      "input_key": "gtm_id_injection",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Build-time Cloudflare Pages env var",
-        "Per-request Pages Function",
-        "Other"
-      ],
-      "origin_flow": "plan",
-      "other_answer": false,
-      "question": "How should the GTM container ID reach the served pages: baked in at build time from a Cloudflare Pages build environment variable, or injected per request by a Cloudflare Pages Function?",
-      "rationale": null,
-      "resolved_at": "2026-10-24T21:44:13.501905Z",
-      "resolved_by": null,
-      "slot_key": "plan.deploy.gtm-id-injection",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    },
-    {
-      "created_at": "2026-10-24T21:42:18.758206Z",
-      "decision_id": "01M5QXTNC6EKYRJP56QZ5JXSCJ",
-      "final_answer": "Cloudflare Pages Git integration builds and deploys main; GitHub Actions runs pnpm gates on every push and PR; main changes only via PR with green gates.",
-      "input_key": "deploy_pipeline",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Cloudflare Pages Git integration",
-        "GitHub Actions + wrangler direct upload",
-        "Other"
-      ],
-      "origin_flow": "plan",
-      "other_answer": false,
-      "question": "How should production deploys run: Cloudflare Pages Git integration building from main (GitHub Actions runs the gates on PRs), or GitHub Actions running the gates then deploying with wrangler?",
-      "rationale": null,
-      "resolved_at": "2026-10-24T21:44:16.299069Z",
-      "resolved_by": null,
-      "slot_key": "plan.deploy.pipeline",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    },
-    {
-      "created_at": "2026-10-24T21:42:21.370099Z",
-      "decision_id": "01M5QXTQXTG6ASW9E96GQM6ARX",
-      "final_answer": "Yes, covered by C-009: typescript-eslint and @eslint/js allowed; gate scripts in TypeScript run by Node 24 LTS native type stripping; no tsx, husky or gitleaks; pre-push hook via core.hooksPath.",
-      "input_key": "supporting_dev_deps",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Yes, covered by C-009",
-        "No, needs a Charter amendment",
-        "Other"
-      ],
-      "origin_flow": "plan",
-      "other_answer": false,
-      "question": "Does C-009 (pnpm, Vite, TypeScript, ESLint) cover the supporting dev dependencies typescript-eslint and @eslint/js, with gate scripts written in TypeScript run by Node 24 LTS native type stripping (no tsx, husky or gitleaks)?",
-      "rationale": null,
-      "resolved_at": "2026-10-24T21:44:18.842263Z",
-      "resolved_by": null,
-      "slot_key": "plan.tooling.supporting-dev-deps",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    },
-    {
-      "created_at": "2026-10-24T21:55:07.348890Z",
-      "decision_id": "01M5QYJ3YM1435E0GJEG301ZF4",
-      "final_answer": "Yes, covered by C-009: @types/node allowed as a type-only dev dependency, pinned, recorded in AGENTS.md; scripts/ and vite.config.ts are fully type-checked and type-aware linted.",
-      "input_key": "node_types",
-      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-      "mission_slug": "demo-shop-01M5QW5Y",
-      "opened_by": "cli",
-      "options": [
-        "Yes, covered by C-009",
-        "No, keep five packages and exclude scripts from type checking",
-        "Needs a Charter amendment"
-      ],
-      "origin_flow": "plan",
-      "other_answer": false,
-      "question": "Is @types/node (type-only, no runtime code) covered by C-009 so that gate scripts and vite.config.ts get full tsc and type-aware lint checking?",
-      "rationale": "Type definitions only; no runtime code and nothing shipped to the browser. Confirmed by the Product Owner at /spec-kitty.tasks.",
-      "resolved_at": "2026-10-24T21:55:21.959654Z",
-      "resolved_by": "Product Owner",
-      "slot_key": "plan.tooling.node-types",
-      "status": "resolved",
-      "step_id": null,
-      "summary_json": null
-    }
-  ],
-  "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
-  "version": 1
-}
+{
+  "entries": [
+    {
+      "created_at": "2026-10-24T21:13:51.249154Z",
+      "decision_id": "01M5QW6HWHFC3AXGFN4T2PFNZP",
+      "final_answer": "Quadrano runtime only, Console format v1 verbatim. The shop logs nothing verdict-like; acceptance is measured against the v1 lines; transaction_id is required so the transaction_ID scenario fails.",
+      "input_key": "verdict_source",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Quadrano runtime only, Console format v1 verbatim",
+        "Shop also shows its own expected-result hint",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Who produces the pass/fail verdicts and messages the audience sees: the Quadrano runtime (via the GTM snippet) in Console format v1 verbatim, or the shop itself?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:14:49.109923Z",
+      "resolved_by": null,
+      "slot_key": "specify.verdicts.source-of-truth",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:14:52.068744Z",
+      "decision_id": "01M5QW8D947TS6KA1SRSTE5BC2",
+      "final_answer": "Five broken scenarios including bad transaction_id regex (as a spare beyond the talk script); the five plan pages (listing, product, basket, checkout, thank-you) kept deliberately thin; switcher can jump to any page+scenario.",
+      "input_key": "scenario_scope",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Brief: 4 broken scenarios, minimal pages",
+        "Plan: 5 broken scenarios incl. bad regex, 5 pages",
+        "4 scenarios + bad regex, minimal pages",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Which broken scenarios and pages are in scope: the brief's four broken pushes on a minimal shop, or the build plan's five (adding a bad transaction_id regex) across listing, product, basket, checkout and thank-you pages?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:16:05.603934Z",
+      "resolved_by": null,
+      "slot_key": "specify.scope.scenarios-and-pages",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:16:08.262539Z",
+      "decision_id": "01M5QWAQP6Q5KKQSQDFFNG0XYJ",
+      "final_answer": "GA4 ecommerce-nested. add_to_cart: ecommerce.currency, ecommerce.value, ecommerce.items[] (item_id, item_name, price, quantity); purchase adds ecommerce.transaction_id. Each ecommerce push preceded by {ecommerce: null}. Exact Attribute names provisional until W2 freeze Tue 27 Oct.",
+      "input_key": "attribute_shape",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Flat top-level Attributes",
+        "GA4 ecommerce-nested",
+        "Defer to W2 freeze (27 Oct)",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "What shape do add_to_cart and purchase pushes take: flat top-level Attributes (value, currency, transaction_id beside event) or GA4 ecommerce-nested (ecommerce.value, ecommerce.items[])? And which Attributes does add_to_cart carry?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:18:37.505437Z",
+      "resolved_by": null,
+      "slot_key": "specify.data-layer.attribute-shape",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:42:16.121008Z",
+      "decision_id": "01M5QXTJSS08GV3TDMWA59QCGY",
+      "final_answer": "Build-time Cloudflare Pages env var (VITE_GTM_CONTAINER_ID) baked into built HTML by Vite; never in repo; missing ID builds pages without GTM.",
+      "input_key": "gtm_id_injection",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Build-time Cloudflare Pages env var",
+        "Per-request Pages Function",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "How should the GTM container ID reach the served pages: baked in at build time from a Cloudflare Pages build environment variable, or injected per request by a Cloudflare Pages Function?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:44:13.501905Z",
+      "resolved_by": null,
+      "slot_key": "plan.deploy.gtm-id-injection",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:42:18.758206Z",
+      "decision_id": "01M5QXTNC6EKYRJP56QZ5JXSCJ",
+      "final_answer": "Cloudflare Pages Git integration builds and deploys main; GitHub Actions runs pnpm gates on every push and PR; main changes only via PR with green gates.",
+      "input_key": "deploy_pipeline",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Cloudflare Pages Git integration",
+        "GitHub Actions + wrangler direct upload",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "How should production deploys run: Cloudflare Pages Git integration building from main (GitHub Actions runs the gates on PRs), or GitHub Actions running the gates then deploying with wrangler?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:44:16.299069Z",
+      "resolved_by": null,
+      "slot_key": "plan.deploy.pipeline",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:42:21.370099Z",
+      "decision_id": "01M5QXTQXTG6ASW9E96GQM6ARX",
+      "final_answer": "Yes, covered by C-009: typescript-eslint and @eslint/js allowed; gate scripts in TypeScript run by Node 24 LTS native type stripping; no tsx, husky or gitleaks; pre-push hook via core.hooksPath.",
+      "input_key": "supporting_dev_deps",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Yes, covered by C-009",
+        "No, needs a Charter amendment",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "Does C-009 (pnpm, Vite, TypeScript, ESLint) cover the supporting dev dependencies typescript-eslint and @eslint/js, with gate scripts written in TypeScript run by Node 24 LTS native type stripping (no tsx, husky or gitleaks)?",
+      "rationale": null,
+      "resolved_at": "2026-10-24T21:44:18.842263Z",
+      "resolved_by": null,
+      "slot_key": "plan.tooling.supporting-dev-deps",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-24T21:55:07.348890Z",
+      "decision_id": "01M5QYJ3YM1435E0GJEG301ZF4",
+      "final_answer": "Yes, covered by C-009: @types/node allowed as a type-only dev dependency, pinned, recorded in AGENTS.md; scripts/ and vite.config.ts are fully type-checked and type-aware linted.",
+      "input_key": "node_types",
+      "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+      "mission_slug": "demo-shop-01M5QW5Y",
+      "opened_by": "cli",
+      "options": [
+        "Yes, covered by C-009",
+        "No, keep five packages and exclude scripts from type checking",
+        "Needs a Charter amendment"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "Is @types/node (type-only, no runtime code) covered by C-009 so that gate scripts and vite.config.ts get full tsc and type-aware lint checking?",
+      "rationale": "Type definitions only; no runtime code and nothing shipped to the browser. Confirmed by the Product Owner at /spec-kitty.tasks.",
+      "resolved_at": "2026-10-24T21:55:21.959654Z",
+      "resolved_by": "Product Owner",
+      "slot_key": "plan.tooling.node-types",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    }
+  ],
+  "mission_id": "01M5QW5YH7SY2CFCAEEQNQ57KD",
+  "version": 1
+}
