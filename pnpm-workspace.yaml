@@ -1,0 +1,3 @@
+# Supply-chain settings (research.md, supply-chain table). Single-package repo; no packages list.
+minimumReleaseAge: 10080
+onlyBuiltDependencies: []

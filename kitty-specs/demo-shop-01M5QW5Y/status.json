@@ -1,0 +1,238 @@
+{
+  "event_count": 40,
+  "last_event_id": "01M5R7KJBVKDV46EFGZWEW2ZS9",
+  "materialized_at": "2026-10-25T00:33:11.922772+00:00",
+  "mission_number": "",
+  "mission_slug": "demo-shop-01M5QW5Y",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 6,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 0,
+    "for_review": 0,
+    "in_progress": 1,
+    "in_review": 0,
+    "planned": 1
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "user",
+      "agent": "claude",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
+      "force_count": 0,
+      "lane": "approved",
+      "last_event_id": "01M5R1DX0W15G0WZGBVX0HPFWS",
+      "last_transition_at": "2026-10-24T22:45:14.908120+00:00",
+      "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: WP01 tooling foundation - pnpm 10 pinned, Node 24, exact dev deps only, lint+tsc exit 0, all R-08 rules fire, AGENTS.md records gate commands, no secrets"
+      ],
+      "provider": "__resolved_provider_absent__",
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\kitty-specs\\demo-shop-01M5QW5Y\\tasks\\WP01-tooling-foundation\\review-cycle-1.md",
+        "reference": "review-cycle://demo-shop-01M5QW5Y/WP01-tooling-foundation/review-cycle-1.md",
+        "reviewer": "user",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 28292,
+      "shell_pid_created_at": "1792881564.0294473",
+      "subtasks": {
+        "T001": "done",
+        "T002": "done",
+        "T003": "done",
+        "T004": "done",
+        "T005": "done",
+        "T006": "done"
+      }
+    },
+    "WP02": {
+      "actor": "user",
+      "agent": "claude",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
+      "force_count": 0,
+      "lane": "approved",
+      "last_event_id": "01M5R3Y7FRGZJ828NVSZVV4G32",
+      "last_transition_at": "2026-10-24T23:29:07.064925+00:00",
+      "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: quality gates - all 4 gates verified with negative checks, lint/tsc exit 0, gates runner stop-at-first-failure, pre-push hook + CI wired, no secrets/provenance leak"
+      ],
+      "provider": "__resolved_provider_absent__",
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\kitty-specs\\demo-shop-01M5QW5Y\\tasks\\WP02-quality-gates\\review-cycle-1.md",
+        "reference": "review-cycle://demo-shop-01M5QW5Y/WP02-quality-gates/review-cycle-1.md",
+        "reviewer": "user",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 35716,
+      "shell_pid_created_at": "1792884255.1828215",
+      "subtasks": {
+        "T007": "done",
+        "T008": "done",
+        "T009": "done",
+        "T010": "done",
+        "T011": "done",
+        "T012": "done",
+        "T013": "done"
+      }
+    },
+    "WP03": {
+      "actor": "user",
+      "agent": "claude",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
+      "force_count": 0,
+      "lane": "approved",
+      "last_event_id": "01M5R4QPJZ6N1129ZEPQBF2C1K",
+      "last_transition_at": "2026-10-24T23:43:01.727958+00:00",
+      "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: shop state modules catalogue/storage/basket/order correct, integer-pence, memory fallback, pushed guard single-flip, lint+tsc exit 0"
+      ],
+      "provider": "__resolved_provider_absent__",
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\kitty-specs\\demo-shop-01M5QW5Y\\tasks\\WP03-shop-state\\review-cycle-1.md",
+        "reference": "review-cycle://demo-shop-01M5QW5Y/WP03-shop-state/review-cycle-1.md",
+        "reviewer": "user",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 11580,
+      "shell_pid_created_at": "1792885191.517399",
+      "subtasks": {
+        "T014": "done",
+        "T015": "done",
+        "T016": "done",
+        "T017": "done"
+      }
+    },
+    "WP04": {
+      "actor": "user",
+      "agent": "claude",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
+      "force_count": 0,
+      "lane": "approved",
+      "last_event_id": "01M5R5RXZBQ1ETWY16NDCY3F6J",
+      "last_transition_at": "2026-10-25T00:01:10.635026+00:00",
+      "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: push.ts sole dataLayer writer, scenario registry one-difference apply verified, verify-scenarios exits 0 and fails on mutation, lint+tsc exit 0"
+      ],
+      "provider": "__resolved_provider_absent__",
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\kitty-specs\\demo-shop-01M5QW5Y\\tasks\\WP04-datalayer-and-scenarios\\review-cycle-1.md",
+        "reference": "review-cycle://demo-shop-01M5QW5Y/WP04-datalayer-and-scenarios/review-cycle-1.md",
+        "reviewer": "user",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 31400,
+      "shell_pid_created_at": "1792886237.319656",
+      "subtasks": {
+        "T018": "done",
+        "T019": "done",
+        "T020": "done",
+        "T021": "done",
+        "T022": "done"
+      }
+    },
+    "WP05": {
+      "actor": "user",
+      "agent": "claude",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
+      "force_count": 0,
+      "lane": "approved",
+      "last_event_id": "01M5R6JNMSD5CJ5W8HFWJ8KJBZ",
+      "last_transition_at": "2026-10-25T00:15:14.073193+00:00",
+      "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: native select switcher, pushState+link rewrite+scenariochange with no dataLayer push, popstate sync, mount normalisation via replaceState, keyboard operable, lint+tsc exit 0"
+      ],
+      "provider": "__resolved_provider_absent__",
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\kitty-specs\\demo-shop-01M5QW5Y\\tasks\\WP05-scenario-switcher\\review-cycle-1.md",
+        "reference": "review-cycle://demo-shop-01M5QW5Y/WP05-scenario-switcher/review-cycle-1.md",
+        "reviewer": "user",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 12768,
+      "shell_pid_created_at": "1792887068.7948415",
+      "subtasks": {
+        "T023": "done",
+        "T024": "done",
+        "T025": "done",
+        "T026": "done"
+      }
+    },
+    "WP06": {
+      "actor": "user",
+      "agent": "claude",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
+      "force_count": 0,
+      "lane": "approved",
+      "last_event_id": "01M5R7HG4F79Y0YYM3P8ET97MW",
+      "last_transition_at": "2026-10-25T00:32:04.239195+00:00",
+      "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: MPA pages + GTM injection, purchase fires once with T-###### id, reload guard, no container ID literal, no verdict wording, lint+tsc+build exit 0"
+      ],
+      "provider": "__resolved_provider_absent__",
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\kitty-specs\\demo-shop-01M5QW5Y\\tasks\\WP06-pages-layout-gtm\\review-cycle-1.md",
+        "reference": "review-cycle://demo-shop-01M5QW5Y/WP06-pages-layout-gtm/review-cycle-1.md",
+        "reviewer": "user",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 23104,
+      "shell_pid_created_at": "1792888114.492274",
+      "subtasks": {
+        "T027": "done",
+        "T028": "done",
+        "T029": "done",
+        "T030": "done",
+        "T031": "done",
+        "T032": "done",
+        "T033": "done"
+      }
+    },
+    "WP07": {
+      "actor": "copilot",
+      "agent": "copilot",
+      "agent_profile": "node-norris",
+      "agent_profile_version": "1.0",
+      "force_count": 0,
+      "lane": "in_progress",
+      "last_event_id": "01M5R7KJBVKDV46EFGZWEW2ZS9",
+      "last_transition_at": "2026-10-25T00:33:11.922772+00:00",
+      "model": "__resolved_model_absent__",
+      "provider": "__resolved_provider_absent__",
+      "role": "implementer",
+      "shell_pid": 30336,
+      "shell_pid_created_at": "1792888385.06661"
+    },
+    "WP08": {
+      "actor": "finalize-tasks",
+      "force_count": 0,
+      "lane": "planned",
+      "last_event_id": "01M5QZD0AGP26BNWJYMEEGMTZS",
+      "last_transition_at": "2026-10-24T22:09:48.368378+00:00"
+    }
+  }
+}
