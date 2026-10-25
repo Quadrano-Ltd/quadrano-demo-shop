@@ -22,3 +22,6 @@ kitty-specs/**/canary-evidence/** linguist-generated=true
 .kittify/workspaces/** -diff
 .kittify/migrations/** linguist-generated=true
 .kittify/migrations/** -diff
+
+# Git hooks must keep LF endings or sh fails on Windows checkouts
+.githooks/* text eol=lf

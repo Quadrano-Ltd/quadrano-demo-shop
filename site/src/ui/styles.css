@@ -1,0 +1,345 @@
+/* Thimblewick demo shop styles. System fonts only, no external assets (NFR-004). */
+
+:root {
+  --ink: #22242b;
+  --muted: #565b68;
+  --brand: #3b4a6b;
+  --brand-deep: #2c3852;
+  --accent: #b5482f;
+  --paper: #ffffff;
+  --wash: #f5f2ed;
+  --line: #d8d4cc;
+  --focus: #0b6bcb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 112.5%; /* 18px base for projector legibility */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--wash);
+}
+
+a {
+  color: var(--brand-deep);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+button {
+  font: inherit;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  padding: 0.9rem 1.25rem;
+  background: var(--paper);
+  border-bottom: 2px solid var(--line);
+}
+
+.site-header__wordmark {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--brand-deep);
+}
+
+.site-header__nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-header__nav a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-header__nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.site-header__badge {
+  display: inline-block;
+  min-width: 1.4rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--paper);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.site-header__switcher {
+  margin-left: auto;
+}
+
+.scenario-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.scenario-switcher__label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+#scenario-select {
+  font: inherit;
+  padding: 0.35rem 0.5rem;
+  border: 2px solid var(--line);
+  border-radius: 0.375rem;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.site-main {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.site-main h1 {
+  margin: 0 0 1.25rem;
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+.site-footer {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Product grid (listing) */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 0.625rem;
+}
+
+.product-card svg {
+  width: 100%;
+  max-height: 10rem;
+}
+
+.product-card__name {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.product-card__price {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Product page */
+.product-page svg {
+  width: min(18rem, 100%);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.product-page__price {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.product-page__blurb {
+  max-width: 36rem;
+  color: var(--muted);
+}
+
+.product-page__actions,
+.basket__checkout,
+.thank-you__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Basket */
+.basket__lines,
+.checkout__lines,
+.thank-you__lines {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.basket__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 0.5rem;
+}
+
+.basket__thumb svg {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: block;
+}
+
+.basket__name {
+  font-weight: 600;
+}
+
+.basket__unit,
+.basket__qty,
+.basket__total {
+  color: var(--muted);
+}
+
+.basket__total {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.basket__total-row,
+.checkout__total {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.basket__empty,
+.checkout__empty,
+.thank-you__none {
+  color: var(--muted);
+}
+
+/* Buttons and button-like links */
+button,
+.button-link {
+  display: inline-block;
+  padding: 0.55rem 1rem;
+  border: 2px solid var(--brand-deep);
+  border-radius: 0.5rem;
+  background: var(--brand);
+  color: var(--paper);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:hover,
+.button-link:hover {
+  background: var(--brand-deep);
+}
+
+button:disabled {
+  background: var(--line);
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.checkout__delivery {
+  margin: 1rem 0 0;
+}
+
+.checkout__note {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.checkout__scenario {
+  font-weight: 600;
+}
+
+.checkout__place {
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.thank-you__ref {
+  font-weight: 600;
+}
+
+/* Focus ring (NFR-005): links, buttons and the scenario control */
+a:focus-visible,
+button:focus-visible,
+#scenario-select:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Visually hidden, screen-reader only */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 40rem) {
+  .site-header {
+    align-items: flex-start;
+  }
+
+  .site-header__switcher {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  #scenario-select {
+    flex: 1;
+  }
+}

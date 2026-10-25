@@ -1,0 +1,3 @@
+#!/bin/sh
+# Runs the four gates before every push (QDR-003). Do not bypass with --no-verify.
+exec pnpm gates --pre-push
