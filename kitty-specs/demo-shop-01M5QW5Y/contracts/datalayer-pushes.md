@@ -54,7 +54,7 @@ Expected Console group: `✓ purchase`
 | `missing-value` | `value` key absent | `✗ purchase · 1 error` / `ecommerce.value is required, but is missing.` |
 | `value-as-text` | `value: "12.99"` | `✗ purchase · 1 error` / `ecommerce.value should be a number, but got "12.99".` |
 | `wrong-case-key` | `transaction_ID: "T-…"` in place of `transaction_id` | `✗ purchase · 1 error, 1 warning` / `ecommerce.transaction_id is required, but is missing.` / `ecommerce.transaction_ID isn't in the Event Definition. Did you mean transaction_id?` |
-| `lowercase-currency` | `currency: "gbp"` | `✗ purchase · 1 error` / `ecommerce.currency should be one of GBP, EUR, USD, but got "gbp".` |
+| `lowercase-currency` | `currency: "gbp"` | `✗ purchase · 1 error` / `ecommerce.currency should be one of "GBP", "EUR", "USD", but got "gbp".` |
 | `bad-transaction-id` (spare) | `transaction_id: "12345"` | `✗ purchase · 1 error` / `ecommerce.transaction_id should match the pattern ^T-[0-9]{6}$, but got "12345".` (the pattern is rendered as the Event Definition holds it) |
 
 ## Invariants (checked by `pnpm verify:scenarios`)
