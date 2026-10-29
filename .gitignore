@@ -43,3 +43,6 @@ dist/
 .env
 .env.*
 *.log
+
+# Spec Kitty upgrade backups (local only)
+.kittify/.migration-backup/
