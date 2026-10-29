@@ -13,10 +13,14 @@
     "lint": "eslint .",
     "gates": "node scripts/gates.ts",
     "verify:scenarios": "node scripts/verify-scenarios.ts",
+    "verify:container": "node scripts/verify-container.ts",
+    "test:e2e": "playwright test",
     "prepare": "git config core.hooksPath .githooks"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^24.19.2",
     "eslint": "^10.13.0",
     "typescript": "^5.9.3",

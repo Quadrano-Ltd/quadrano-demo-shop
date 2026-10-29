@@ -14,6 +14,9 @@ const networkSelectors = [
   "NewExpression[callee.name='EventSource']",
   "MemberExpression[property.name='sendBeacon']",
 ];
+const addressRestrictionMessage =
+  'The page address never chooses a container (FR-013, C-005)';
+
 const dataLayerRestrictions = {
   'no-restricted-globals': [
     'error',
@@ -65,6 +68,10 @@ export default tseslint.config(
       '.github/**',
       'kitty-ops/**',
       '.vite/**',
+      '.e2e-dist/**',
+      'test-results/**',
+      'playwright-report/**',
+      'blob-report/**',
     ],
   },
   js.configs.recommended,
@@ -116,6 +123,28 @@ export default tseslint.config(
             },
           ],
         },
+      ],
+    },
+  },
+  {
+    files: ['site/src/container/**/*.ts'],
+    rules: {
+      'no-restricted-globals': [
+        'error',
+        ...dataLayerRestrictions['no-restricted-globals'].slice(1),
+        { name: 'location', message: addressRestrictionMessage },
+        { name: 'URLSearchParams', message: addressRestrictionMessage },
+        { name: 'URL', message: addressRestrictionMessage },
+      ],
+      'no-restricted-properties': [
+        'error',
+        ...dataLayerRestrictions['no-restricted-properties'].slice(1),
+        { object: 'window', property: 'location', message: addressRestrictionMessage },
+        { object: 'document', property: 'location', message: addressRestrictionMessage },
+        { object: 'document', property: 'URL', message: addressRestrictionMessage },
+        { object: 'document', property: 'documentURI', message: addressRestrictionMessage },
+        { object: 'document', property: 'referrer', message: addressRestrictionMessage },
+        { object: 'globalThis', property: 'location', message: addressRestrictionMessage },
       ],
     },
   },
