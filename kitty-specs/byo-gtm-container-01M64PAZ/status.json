@@ -194,7 +194,8 @@
       "last_transition_at": "2026-10-29T23:34:45.066981+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
-        "Ready for review"
+        "Ready for review",
+        "Review passed: scope limited to 4 owned files; banner, path 1/2, storage note, playground mount, idempotent mount, Escape focus return, no verdict wording and 360px styles verified; lint and build exit 0"
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
