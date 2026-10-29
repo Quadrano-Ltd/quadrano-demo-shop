@@ -179,6 +179,112 @@ rule apply to everything under `site/`.
 
 ---
 
+## byo-gtm-container-01M64PAZ — gates and checks (WP11)
+
+Dated evidence for the Phase 5 release checks (T047, T048, T051). The
+Product-Owner-dependent steps — Lighthouse on the Pages preview, spike run 2
+and the production rehearsal — are recorded here as **not yet run** with the
+exact remaining steps, so nothing is claimed before it happens.
+
+### T047 — gates and checks on the merged tree
+
+**Checked:** all four gates, the full-history no-secrets scan, the container
+invariants, the scenario invariants and the e2e suite on the merged WP01–WP10
+tree.
+
+**How:** run in the WP11 lane worktree (`byo-gtm-container-01M64PAZ-lane-j`).
+The pinned pnpm 10.34.7 is on PATH, so the gates were run with `pnpm` directly.
+(`corepack pnpm` is not usable here: corepack's shim resolves the gate runner's
+child `pnpm` calls to pnpm 12.11.2 and fails with `ERR_PNPM_BAD_PM_VERSION`.
+Running `pnpm` directly uses the pinned version, which is what the PATH shim is
+for.)
+
+**Environment:** Microsoft Windows 11 Pro, Node v24.15.0, pnpm 10.34.7 (pinned
+by `packageManager`), clean worktree at commit `87d1c61`.
+
+**Results:**
+
+| Check | Command | Result |
+|---|---|---|
+| Dependencies | `pnpm install --frozen-lockfile` | exit 0, 115 packages, "Lockfile is up to date" |
+| Gates | `pnpm gates` | `[1/4] lint` … `[4/4] provenance`, `no-secrets: 0 findings`, `provenance: 0 findings`, `gates: all 4 passed` (exit 0) |
+| Container invariants | `pnpm verify:container` | exit 0; 10/10 `ok` (constants, well-formed IDs accepted, malformed IDs refused ≥10, parse valid/boundary/tampered, serialise round-trip, choose matrix, scanner flags a real-looking ID, scanner accepts the placeholder, rules file self-contained) |
+| Scenario invariants | `pnpm verify:scenarios` | exit 0; 8/8 `ok` (order and ids, no verdict wording, correct objects match contract, value arithmetic, top-level keys, one difference per broken scenario, transaction ids, hero literal) |
+| E2E | `pnpm test:e2e` | exit 0; 192 passed (42.4 s) on 7 workers, including the ×10 `container` project (`--repeat-each=10`) |
+
+**Full-history no-secrets (SC-006):** `node scripts/no-secrets.ts --history`
+reported **37 findings (exit 1)**, not 0. Every one is a historical false
+positive, and none is in the current tree:
+
+- 28 × `cloudflare-token-like` — the auto-generated coordination log
+  `kitty-specs/byo-gtm-container-01M64PAZ/status.events.jsonl` (committed by
+  spec-kitty, not by any work package) records `lane_head` git SHAs, which are
+  40 hex characters. The scanner flags any 40-character token-shaped string on
+  a line that also mentions `token`/`key`/`secret`, and those lines say
+  "no-secrets 0 findings" in the review reason. The matches are commit SHAs,
+  not Cloudflare tokens.
+- 9 × `gtm-container-id` — three earlier `spec.md` revisions used the placeholder
+  `GTM-XXXX` (four Xs), which is outside the scanner's allowlist
+  (`GTM-XXXXXXX`). The current `spec.md` uses the allowlisted `GTM-XXXXXXX`.
+
+The working-tree scan inside `pnpm gates` is `no-secrets: 0 findings`, and no
+secret is present in the current tree. The `--history` findings are pre-existing
+historical false positives in files outside this WP's ownership (the coordination
+event log and the planning spec), so they are recorded here, not fixed. If CI's
+`--ci` full-history scan must also read 0, those two sources need a scanner
+allowlist decision; that is a Product Owner / mission decision, not a WP11 code
+change.
+
+**CI run — not yet available (recorded, not fabricated).** `gh run list --branch
+feat/byo-gtm-container --limit 1` returns nothing because `feat/byo-gtm-container`
+and the mission branch are still local only; `origin` has `main`, `feat/demo-shop`,
+`release/demo-shop` and two `chore/…` branches, and the Product Owner has not yet
+approved the first push. The only existing `gates` workflow runs are on `main`
+(PR #5) and are green.
+
+### T048 — Lighthouse LCP on the Pages preview (NFR-004)
+
+**Not yet run.** This step needs the Cloudflare Pages preview URL for
+`feat/byo-gtm-container` (`<hash>.quadrano-demo-shop.pages.dev` or the branch
+alias), which does not exist until the mission branch is pushed; pushing needs
+the Product Owner's go-ahead. For context, the local `pnpm preview` Lighthouse
+audit in T037 already recorded all five pages under the 2 s target (950, 951,
+942, 1024, 943 ms). The Pages-preview run required by NFR-004 will be recorded
+here once the preview exists.
+
+**Remaining steps:** (1) PO approves pushing `feat/byo-gtm-container`; (2) get
+the Pages preview URL; (3) Chrome DevTools → Lighthouse → Mobile, Performance
+only, default Slow 4G, on `/`, `/product/?id=SKU-1001`, `/basket/`,
+`/checkout/`, `/thank-you/`, no saved ID, menu closed; (4) record each LCP and
+score — pass when every LCP ≤ 2.0 s.
+
+### T051 — Production rehearsal check (NFR-006, SC-007)
+
+**Not yet run.** This step needs the mission's PR merged to `main` and production
+deployed, with the Product Owner present (a real GTM account and Tag Assistant).
+
+**Remaining steps:**
+1. Path 1: fresh browser profile on production, no saved ID; press each of the 7
+   playground buttons 10 times; each press must produce its expected Console
+   group (see `contracts/datalayer-pushes.md`). Tally per button (n/10).
+2. Path 2: fresh, empty container plus a Quadrano Local snippet (in Preview,
+   unpublished, or published if T050 switched the copy); enter its ID; repeat
+   the 70 presses; tally.
+3. SC-007: confirm at least one ✓ group and one ✗ group appear via path 2.
+4. Reset to the shop's container; confirm the banner is gone.
+5. Record both tally tables with date, browser version and who pressed. Any
+   count below 10/10 is recorded and raised with the Product Owner (QDR-006).
+
+**Awaiting Product Owner sign-off.**
+
+| Check | Status | PO initials |
+|---|---|---|
+| T047 — gates and checks on the merged tree | ✅ local green (full-history scan caveat above) | |
+| T048 — Lighthouse LCP on the Pages preview | ⏳ not yet run; awaiting preview URL | |
+| T051 — production rehearsal (NFR-006, SC-007) | ⏳ not yet run; awaiting production deploy | |
+
+---
+
 ## Sign-off
 
 | Check | Status | PO initials |

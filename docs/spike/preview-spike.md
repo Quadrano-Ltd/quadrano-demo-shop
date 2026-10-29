@@ -53,7 +53,13 @@ was being previewed, and marked "not found" because the page doesn't load it.
   work.
 - **Path 2's visitor instructions (FR-024)** stay provisional until run 2.
 
-## Run 2: with the feature built (to do)
+## Run 2: with the feature built (pending the Product Owner)
+
+The six steps below were checked against the built UI on 2026-10-29 (commit
+`87d1c61`) and still match: the toggle and panel are labelled "Demo menu", the
+path 2 heading is "Let me bring my own GTM container", the save button is
+"Save", and the banner reads "Using your container GTM-XXXXXXX". No wording
+change was needed.
 
 On a preview deployment of the mission branch:
 
@@ -66,4 +72,34 @@ On a preview deployment of the mission branch:
 6. Add a Quadrano Local snippet in a Custom HTML tag, refresh Preview, and use
    the playground: check that the Console shows a ✓ group and a ✗ group (SC-007).
 
-Record the result and redacted screenshots here.
+**Status: not yet run.** Run 2 needs the Product Owner's real GTM account, the
+Tag Assistant interface and the Pages preview of `feat/byo-gtm-container`. The
+mission branch has not been pushed yet (the push needs the Product Owner's
+go-ahead), so there is no preview deployment to run against. The result and
+redacted `docs/spike/run2-*.png` screenshots will be added here once the
+Product Owner runs the six steps.
+
+### Result (run 2)
+
+| Check | Result |
+|---|---|
+| Run 2 executed | **Not yet.** Pending the Product Owner and a Pages preview. |
+
+### Conclusion (run 2)
+
+**Pending.** Whether a never-published container runs in Preview once the shop
+loads it is still open. The spec assumes run 2 passes (the usual
+install-then-Preview-then-publish GTM workflow); if it does not, path 2's step 5
+changes and nothing else.
+
+### Path 2 copy (FR-024)
+
+Run 2 has not produced a result, so the path 2 copy stays as shipped
+(provisional, matching the spec's assumption that run 2 passes). Final copy of
+step 5:
+
+> Start Preview on this shop. You don't need to publish.
+
+If run 2 shows the container does not run unpublished, step 5 becomes exactly
+"Submit and publish your container, then reload this page." (contract), as a
+one-constant change to `PREVIEW_STEP` in `site/src/menu/visitor-menu.ts`.
