@@ -1,20 +1,20 @@
 {
-  "event_count": 52,
-  "last_event_id": "01M6509J038JH5ZPG58CJBPBVM",
-  "materialized_at": "2026-10-29T23:35:31.501982+00:00",
+  "event_count": 58,
+  "last_event_id": "01M6510Z20PQE5JY67H6FXK41C",
+  "materialized_at": "2026-10-29T23:48:18.624434+00:00",
   "mission_number": "",
   "mission_slug": "byo-gtm-container-01M64PAZ",
   "mission_type": "software-dev",
   "schema_version": 2,
   "summary": {
-    "approved": 7,
+    "approved": 8,
     "blocked": 0,
     "canceled": 0,
     "claimed": 0,
     "done": 0,
-    "for_review": 0,
-    "in_progress": 3,
-    "in_review": 0,
+    "for_review": 1,
+    "in_progress": 0,
+    "in_review": 1,
     "planned": 1
   },
   "work_packages": {
@@ -254,34 +254,59 @@
     "WP08": {
       "actor": "copilot",
       "agent": "copilot",
-      "agent_profile": "implementer-ivan",
-      "agent_profile_version": "1.0",
+      "agent_profile": "__resolved_profile_absent__",
+      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
-      "lane": "in_progress",
-      "last_event_id": "01M6509DBBTG3B6F9K8S2KQTST",
-      "last_transition_at": "2026-10-29T23:35:26.735747+00:00",
+      "lane": "approved",
+      "last_event_id": "01M650ZWPECN0VWVDYKDP7TWKV",
+      "last_transition_at": "2026-10-29T23:47:43.438552+00:00",
       "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review",
+        "Review passed: WP08 e2e specs assert exactly one container request across both states and all 5 pages, cover expired/tampered/future-dated/throwing storage and reset, and prove crafted address links never change the container; 123 e2e tests, lint, and build all pass."
+      ],
       "provider": "__resolved_provider_absent__",
-      "role": "implementer",
-      "shell_pid": 7032,
-      "shell_pid_created_at": "1793316906.768961"
+      "review_result": {
+        "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP08-e2e-container-and-address\\review-cycle-1.md",
+        "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP08-e2e-container-and-address/review-cycle-1.md",
+        "reviewer": "copilot",
+        "verdict": "approved"
+      },
+      "role": "reviewer",
+      "shell_pid": 5048,
+      "shell_pid_created_at": "1793317509.6793578",
+      "subtasks": {
+        "T035": "done",
+        "T036": "done",
+        "T037": "done",
+        "T038": "done"
+      }
     },
     "WP09": {
       "actor": "copilot",
       "agent": "copilot",
-      "agent_profile": "implementer-ivan",
+      "agent_profile": "reviewer-renata",
       "agent_profile_version": "1.0",
       "force_count": 0,
       "implementer_of_record": "copilot",
-      "lane": "in_progress",
-      "last_event_id": "01M6509FRQGQ0YCAWBNWXAQR25",
-      "last_transition_at": "2026-10-29T23:35:29.212366+00:00",
+      "lane": "in_review",
+      "last_event_id": "01M6510Z20PQE5JY67H6FXK41C",
+      "last_transition_at": "2026-10-29T23:48:18.624434+00:00",
       "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review"
+      ],
       "provider": "__resolved_provider_absent__",
-      "role": "implementer",
-      "shell_pid": 14016,
-      "shell_pid_created_at": "1793316906.7739203"
+      "role": "reviewer",
+      "shell_pid": 13012,
+      "shell_pid_created_at": "1793317684.922628",
+      "subtasks": {
+        "T039": "done",
+        "T040": "done",
+        "T041": "done",
+        "T042": "done"
+      }
     },
     "WP10": {
       "actor": "copilot",
@@ -290,14 +315,24 @@
       "agent_profile_version": "1.0",
       "force_count": 0,
       "implementer_of_record": "copilot",
-      "lane": "in_progress",
-      "last_event_id": "01M6509J038JH5ZPG58CJBPBVM",
-      "last_transition_at": "2026-10-29T23:35:31.501982+00:00",
+      "lane": "for_review",
+      "last_event_id": "01M650ZDDNTBEQG4M2F3BWR7CF",
+      "last_transition_at": "2026-10-29T23:47:27.797961+00:00",
       "model": "__resolved_model_absent__",
+      "notes": [
+        "- 2026-10-29T23:46:12Z – copilot – shell_pid=27436 – T046 evidence: pnpm test:e2e green 4x consecutively (57 tests each; durations 34.1s, 31.2s, 29.8s, 30.6s). axe best-practice (non-failing): 0 violations and 0 incomplete on all 5 pages. gtm.external stayed empty. pnpm lint=0 and pnpm build=0.",
+        "Ready for review"
+      ],
       "provider": "__resolved_provider_absent__",
       "role": "implementer",
       "shell_pid": 27436,
-      "shell_pid_created_at": "1793316906.812486"
+      "shell_pid_created_at": "1793316906.812486",
+      "subtasks": {
+        "T043": "done",
+        "T044": "done",
+        "T045": "done",
+        "T046": "done"
+      }
     },
     "WP11": {
       "actor": "finalize-tasks",
