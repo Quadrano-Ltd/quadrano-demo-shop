@@ -46,10 +46,15 @@ directives:
     title: "Approved stack"
     description: >-
       A static site (no backend, no accounts, no database) deployed to
-      Cloudflare Pages at demo.quadrano.com, with its own GTM container
-      installed by a script tag and a dataLayer push on each user action.
-      Anything not listed here, including any runtime or build dependency,
-      needs a Charter amendment.
+      Cloudflare Pages at demo.quadrano.com. Each page loads exactly one GTM
+      container, installed by a script tag: the shop's own container, or a
+      container whose ID the visitor typed into the on-page menu, kept only
+      in that visitor's browser for at most 24 hours. A container is never
+      chosen by the page address, a link or another site. A dataLayer push
+      on each user action. Anything not listed here, including any runtime
+      or build dependency, needs a Charter amendment. Dev-only tooling listed
+      in the Charter's approved stack is allowed for non-gate checks and is
+      never shipped.
     severity: error
   - id: QDR-003
     title: "Minimal quality gates"
@@ -62,8 +67,8 @@ directives:
   - id: QDR-004
     title: "No secrets in the repo"
     description: >-
-      The GTM container ID and any keys live in Cloudflare Pages environment
-      and secret values, never in code, config files or commits.
+      The shop's own GTM container ID and any keys live in Cloudflare Pages
+      environment and secret values, never in code, config files or commits.
     severity: error
   - id: QDR-005
     title: "Published-artefact contract"
