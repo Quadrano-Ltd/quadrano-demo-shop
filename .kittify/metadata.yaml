@@ -4,9 +4,9 @@
 
 spec_kitty:
   schema_version: 3
-  version: 3.2.7
+  version: 4.0.0rc7
   initialized_at: '2026-10-24T20:28:54.362152+00:00'
-  last_upgraded_at:
+  last_upgraded_at: '2026-10-29T20:35:13.210749+00:00'
   schema_capabilities:
     canonical_context: true
     event_log_authority: true
@@ -17,4 +17,115 @@ environment:
   platform: win32
   platform_version: Windows-11-10.0.26200-SP0
 migrations:
-  applied: []
+  applied:
+  - id: charter_pack_cutover
+    applied_at: '2026-10-29T20:33:44.262846+00:00'
+    result: success
+    notes: '{"errors": [], "kept_for_review": [], "matches_minimal": [], "moved":
+      [".kittify/doctrine/PROVENANCE.md -> .kittify/charter-packs/PROVENANCE.md"],
+      "reset": [], "rewritten": [], "skills_kept": [], "skills_removed": [".agents/skills/spk-doctrine-charter
+      (spk-doctrine-charter; package-owned (manifest))", ".agents/skills/spk-doctrine-glossary
+      (spk-doctrine-glossary; package-owned (manifest))", ".agents/skills/spk-doctrine-profile-load
+      (spk-doctrine-profile-load; package-owned (manifest))", ".agents/skills/spk-doctrine-spdd-reasons
+      (spk-doctrine-spdd-reasons; package-owned (manifest))", ".agents/skills/spk-doctrine-bulk-edit
+      (spk-doctrine-bulk-edit; package-owned (manifest))", ".agents/skills/spk-doctrine-semantic-compression
+      (spk-doctrine-semantic-compression; package-owned (manifest))", ".agents/skills/spk-doctrine-show-me
+      (spk-doctrine-show-me; package-owned (manifest))", ".agents/skills/spec-kitty-charter-doctrine
+      (spec-kitty-charter-doctrine; package-owned (manifest))", ".agents/skills/spec-kitty-glossary-context
+      (spec-kitty-glossary-context; package-owned (manifest))", ".agents/skills/spec-kitty-bulk-edit-classification
+      (spec-kitty-bulk-edit-classification; package-owned (manifest))", ".agents/skills/spec-kitty-spdd-reasons
+      (spec-kitty-spdd-reasons; package-owned (manifest))", ".agents/skills/ad-hoc-profile-load
+      (ad-hoc-profile-load; package-owned (manifest))", ".claude/skills/spk-doctrine-charter
+      (spk-doctrine-charter; package-owned (manifest))", ".claude/skills/spk-doctrine-glossary
+      (spk-doctrine-glossary; package-owned (manifest))", ".claude/skills/spk-doctrine-profile-load
+      (spk-doctrine-profile-load; package-owned (manifest))", ".claude/skills/spk-doctrine-spdd-reasons
+      (spk-doctrine-spdd-reasons; package-owned (manifest))", ".claude/skills/spk-doctrine-bulk-edit
+      (spk-doctrine-bulk-edit; package-owned (manifest))", ".claude/skills/spk-doctrine-semantic-compression
+      (spk-doctrine-semantic-compression; package-owned (manifest))", ".claude/skills/spk-doctrine-show-me
+      (spk-doctrine-show-me; package-owned (manifest))", ".claude/skills/spec-kitty-charter-doctrine
+      (spec-kitty-charter-doctrine; package-owned (manifest))", ".claude/skills/spec-kitty-glossary-context
+      (spec-kitty-glossary-context; package-owned (manifest))", ".claude/skills/spec-kitty-bulk-edit-classification
+      (spec-kitty-bulk-edit-classification; package-owned (manifest))", ".claude/skills/spec-kitty-spdd-reasons
+      (spec-kitty-spdd-reasons; package-owned (manifest))", ".claude/skills/ad-hoc-profile-load
+      (ad-hoc-profile-load; package-owned (manifest))"]}; Moved .kittify/doctrine/PROVENANCE.md
+      -> .kittify/charter-packs/PROVENANCE.md; Removed skill .agents/skills/spk-doctrine-charter
+      (spk-doctrine-charter; package-owned (manifest)); Removed skill .agents/skills/spk-doctrine-glossary
+      (spk-doctrine-glossary; package-owned (manifest)); Removed skill .agents/skills/spk-doctrine-profile-load
+      (spk-doctrine-profile-load; package-owned (manifest)); Removed skill .agents/skills/spk-doctrine-spdd-reasons
+      (spk-doctrine-spdd-reasons; package-owned (manifest)); Removed skill .agents/skills/spk-doctrine-bulk-edit
+      (spk-doctrine-bulk-edit; package-owned (manifest)); Removed skill .agents/skills/spk-doctrine-semantic-compression
+      (spk-doctrine-semantic-compression; package-owned (manifest)); Removed skill
+      .agents/skills/spk-doctrine-show-me (spk-doctrine-show-me; package-owned (manifest));
+      Removed skill .agents/skills/spec-kitty-charter-doctrine (spec-kitty-charter-doctrine;
+      package-owned (manifest)); Removed skill .agents/skills/spec-kitty-glossary-context
+      (spec-kitty-glossary-context; package-owned (manifest)); Removed skill .agents/skills/spec-kitty-bulk-edit-classification
+      (spec-kitty-bulk-edit-classification; package-owned (manifest)); Removed skill
+      .agents/skills/spec-kitty-spdd-reasons (spec-kitty-spdd-reasons; package-owned
+      (manifest)); Removed skill .agents/skills/ad-hoc-profile-load (ad-hoc-profile-load;
+      package-owned (manifest)); Removed skill .claude/skills/spk-doctrine-charter
+      (spk-doctrine-charter; package-owned (manifest)); Removed skill .claude/skills/spk-doctrine-glossary
+      (spk-doctrine-glossary; package-owned (manifest)); Removed skill .claude/skills/spk-doctrine-profile-load
+      (spk-doctrine-profile-load; package-owned (manifest)); Removed skill .claude/skills/spk-doctrine-spdd-reasons
+      (spk-doctrine-spdd-reasons; package-owned (manifest)); Removed skill .claude/skills/spk-doctrine-bulk-edit
+      (spk-doctrine-bulk-edit; package-owned (manifest)); Removed skill .claude/skills/spk-doctrine-semantic-compression
+      (spk-doctrine-semantic-compression; package-owned (manifest)); Removed skill
+      .claude/skills/spk-doctrine-show-me (spk-doctrine-show-me; package-owned (manifest));
+      Removed skill .claude/skills/spec-kitty-charter-doctrine (spec-kitty-charter-doctrine;
+      package-owned (manifest)); Removed skill .claude/skills/spec-kitty-glossary-context
+      (spec-kitty-glossary-context; package-owned (manifest)); Removed skill .claude/skills/spec-kitty-bulk-edit-classification
+      (spec-kitty-bulk-edit-classification; package-owned (manifest)); Removed skill
+      .claude/skills/spec-kitty-spdd-reasons (spec-kitty-spdd-reasons; package-owned
+      (manifest)); Removed skill .claude/skills/ad-hoc-profile-load (ad-hoc-profile-load;
+      package-owned (manifest))'
+  - id: 4_0_0_retired_hosted_target
+    applied_at: '2026-10-29T20:33:44.265557+00:00'
+    result: skipped
+    notes: Not applicable
+  - id: 4.0.0rc5_decision_index_merge_driver
+    applied_at: '2026-10-29T20:33:44.464251+00:00'
+    result: success
+    notes: 'Added .gitattributes entry: kitty-specs/**/decisions/index.json merge=spec-kitty-decision-index;
+      Configured git merge.spec-kitty-decision-index.name; Configured git merge.spec-kitty-decision-index.driver'
+  - id: 4_0_0rc5_heal_run_index_paths
+    applied_at: '2026-10-29T20:33:44.515497+00:00'
+    result: skipped
+    notes: Not applicable
+  - id: 4_0_0rc5_heal_template_set_provenance
+    applied_at: '2026-10-29T20:34:10.850522+00:00'
+    result: skipped
+    notes: Not applicable
+  - id: 4_0_0rc5_install_lane_tip_recorder
+    applied_at: '2026-10-29T20:34:10.948166+00:00'
+    result: skipped
+    notes: Not applicable
+  - id: 4.0.0rc5_retire_bundled_dashboard
+    applied_at: '2026-10-29T20:34:10.978130+00:00'
+    result: skipped
+    notes: Not applicable
+  - id: 4.0.0rc5_retire_single_owner_doctrine_ids
+    applied_at: '2026-10-29T20:34:16.887677+00:00'
+    result: success
+    notes: Removed adversarial-squad-cadence from .kittify/charter/charter.yaml (catalog);
+      Removed bug-fixing-checklist from .kittify/charter/charter.yaml (catalog); Removed
+      locality-of-change from .kittify/charter/charter.yaml (catalog); Removed common-docs-curation
+      from .kittify/charter/charter.yaml (catalog); Removed boring-code-review from
+      .kittify/charter/charter.yaml (catalog); Removed behavior-driven-development
+      from .kittify/charter/charter.yaml (catalog); Removed iterative-deepening-review
+      from .kittify/charter/charter.yaml (catalog); Removed tracker-organisation-workflow
+      from .kittify/charter/charter.yaml (catalog)
+  - id: 4_0_0rc5_single_branch_code_lanes_restamp
+    applied_at: '2026-10-29T20:34:16.939845+00:00'
+    result: skipped
+    notes: Not applicable
+  - id: 4.0.0rc7_exclude_spec_kitty
+    applied_at: '2026-10-29T20:34:17.075659+00:00'
+    result: success
+    notes: Added .spec-kitty/ to .git/info/exclude
+  - id: 4.0.0rc7_pack_level_backfill
+    applied_at: '2026-10-29T20:34:17.118690+00:00'
+    result: success
+    notes: 'Wrote .kittify/charter-packs/pack.yaml with pack_level: project'
+  - id: 4.0.0rc7_track_charter_pack_yaml
+    applied_at: '2026-10-29T20:34:17.138314+00:00'
+    result: skipped
+    notes: Not applicable
