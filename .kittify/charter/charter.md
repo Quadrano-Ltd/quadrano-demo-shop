@@ -1,6 +1,6 @@
 # quadrano-demo-shop Charter
 
-**Version 1.0.1** · adopted 2026-10-24, amended 2026-10-24 · ratified when merged to `main` · see the [amendment log](#amendment-log)
+**Version 1.1.0** · adopted 2026-10-24, amended 2026-10-29 · ratified when merged to `main` · see the [amendment log](#amendment-log)
 
 This Charter is the rulebook for all work in `quadrano-demo-shop`. Where the Charter and anyone's habits disagree, the Charter wins.
 
@@ -12,9 +12,9 @@ It comes in two parts that must always agree:
 ## Policy Summary
 
 - Provenance (QDR-001): everything is original or from compatible public sources; nothing from any non-public third-party source; prior ventures are never named in commits, code, docs or Spec Kitty artefacts.
-- Use only the approved stack (QDR-002): a static site on Cloudflare Pages with its own GTM container; no backend, accounts or database. Anything new needs a Charter amendment.
+- Use only the approved stack (QDR-002): a static site on Cloudflare Pages; each page loads exactly one GTM container, the shop's own or one the visitor types into the on-page menu (never one from the page address); no backend, accounts or database. Anything new needs a Charter amendment.
 - Every push passes the minimal gates (QDR-003): lint, build, no-secrets, provenance, in that order. Nothing heavier is required here.
-- No secrets in the repo (QDR-004): the GTM container ID and any keys live in Cloudflare Pages environment/secret values, never in code.
+- No secrets in the repo (QDR-004): the shop's own GTM container ID and any keys live in Cloudflare Pages environment/secret values, never in code.
 - The shop depends only on the frozen published-artefact contract (QDR-005); changing the contract is a major amendment with Product Owner sign-off.
 - If the Charter doesn't cover it, stop and ask the Product Owner (QDR-006); after three failed fix attempts, block the work package with a structured report.
 
@@ -44,11 +44,14 @@ Only the Product Owner may change this rule.
 |---|---|
 | Site | Static (no backend, no accounts, no database). The framework is fixed at specification time; anything not listed here needs an amendment. |
 | Hosting | Cloudflare Pages at `demo.quadrano.com` |
-| Analytics / GTM | The shop's own GTM container, installed by a script tag. A `dataLayer` push on each user action. |
+| Analytics / GTM | Exactly one GTM container per page, installed by a script tag: the shop's own, or one the visitor types into the on-page menu, kept only in that visitor's browser for at most 24 hours. Never one named by the page address, a link or another site. A `dataLayer` push on each user action. |
 | Data layer | `window.dataLayer.push(...)` implementing the published-artefact contract's Event Definitions: `add_to_cart` and `purchase` |
 | Scenario switcher | A control that walks the talk script quickly, driving both the correct and the deliberately broken pushes |
+| Dev tooling (not shipped) | `@playwright/test` and `@axe-core/playwright` (with their transitive `playwright`, `playwright-core`, `axe-core`), for non-gate end-to-end and accessibility checks (`pnpm test:e2e`). Never shipped with the site, never run by the gates; browser binaries are fetched only by an explicit, documented command. Recorded in `AGENTS.md`. |
 
 This repo is a parallel lane in Horizon 1. It does not import or depend on the quadrano-web codebase, its build system or its internals.
+
+**Scope of the demo-shop rules (1.1.0).** The demo-shop mission's NFR-004 (no extra network) and C-011 (no consent banner) cover only the shop's own container; what a visitor's own container loads is the visitor's choice. Demo-shop FR-003 is superseded by FR-001 of mission `byo-gtm-container-01M64PAZ`.
 
 ## Minimal quality gates (QDR-003)
 
@@ -63,7 +66,9 @@ The exact linter, build tooling and commands are fixed at specification time and
 
 ## No secrets in the repo (QDR-004)
 
-The GTM container ID and any keys go in Cloudflare Pages environment and secret values, never in code, config files or commits. The no-secrets gate fails a push that introduces one.
+The shop's own GTM container ID and any keys go in Cloudflare Pages environment and secret values, never in code, config files or commits. The no-secrets gate fails a push that introduces one.
+
+Tests and docs use only the placeholder `GTM-XXXXXXX`, or IDs built while the tests run; a visitor's container ID is never written to the repository.
 
 ## Published-artefact contract dependency (QDR-005)
 
@@ -117,7 +122,7 @@ Implementers check every item before moving a work package to review. Reviewers 
 1. **Gates:** `pnpm gates` passes locally (lint, build, no-secrets, provenance).
 2. **Scope:** the diff touches only the work package's own deliverables; nothing outside the shop's scope.
 3. **Provenance:** nothing copied from a non-public source, and no prior venture named anywhere in the diff or the commit messages (QDR-001).
-4. **No secrets:** no GTM container ID or keys in code, config or commits; they live in Cloudflare Pages (QDR-004).
+4. **No secrets:** no GTM container ID (the shop's or any real-looking one) or keys in code, config or commits; tests build IDs at run time (QDR-004).
 5. **Contract:** nothing in the published-artefact contract changed; the shop's Attribute names match the contract's Event Definitions (QDR-005).
 6. **Broken pushes:** every deliberately-broken scenario logs ✗ with its exact Console output format v1 message, as quoted in the mission specification.
 7. **Terminology:** the Terminology Canon is used exactly; no new synonyms.
@@ -140,6 +145,7 @@ Written rules alone don't reliably change agent behaviour, so wherever possible 
 |---|---|
 | Minimal gates (QDR-003), provenance (QDR-001) | The gate runner (`pnpm gates`) and a git pre-push hook / CI, once the tooling is established at specification time. |
 | No secrets (QDR-004) | Cloudflare Pages environment/secret values; the no-secrets gate; review checklist item 4. |
+| One container per page (QDR-002, 1.1.0) | The head loader built from `site/src/container/active-container.ts`; a lint override forbidding `location`, `document.referrer` and `URLSearchParams` in `site/src/container/**`; the non-gate `pnpm test:e2e` (one `gtm.js` request per page load in both states); review checklist item 4. |
 | Published-artefact contract (QDR-005) | The frozen contract v1.0; review checklist item 5; Product Owner sign-off for any change. |
 | Checklist, verification discipline, escalation | The *Code Review Checklist* and *Regression Vigilance* sections above, which Spec Kitty injects into implement and review prompts. |
 | Stack, directives, terminology | `charter.yaml` (project directives QDR-001 to QDR-007), the Policy Summary above, and the Spec Kitty glossary. |
@@ -163,3 +169,4 @@ Written rules alone don't reliably change agent behaviour, so wherever possible 
 |---|---|---|---|
 | 1.0.0 | 2026-10-24 | — | Initial Charter: roles, provenance, approved stack, minimal gates, no secrets, published-artefact contract dependency, escalation, Terminology Canon, verification, enforcement mechanisms and amendment process |
 | 1.0.1 | 2026-10-24 | Patch | Verification, Code Review Checklist item 6 and Regression Vigilance now use the ✓/✗ symbols and exact wording of Console output format v1 (frozen under QDR-005) instead of ✅/❌ and the build plan's paraphrase. Clarification only; `charter.yaml` holds no such wording, and no enforcing mechanism changes. |
+| 1.1.0 | 2026-10-29 | Minor | One GTM container per page, the shop's or the visitor's, never from the address; Playwright and axe as dev-only tooling; demo-shop NFR-004 and C-011 scoped to the shop's own container. Mechanism: no gate changes; the gate set and order are unchanged (QDR-003); the no-secrets gate is unchanged in behaviour (its scanner is made importable in WP07 and a check proves it still fires); existing lint rules are unchanged, with one new lint override forbidding reading the address in `site/src/container/**`; `pnpm test:e2e` and `pnpm verify:container` are added as non-gate evidence. |
