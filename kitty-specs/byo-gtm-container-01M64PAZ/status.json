@@ -4,7 +4,7 @@
   "materialized_at": "2026-10-29T22:59:44.577868+00:00",
   "mission_number": "",
   "mission_slug": "byo-gtm-container-01M64PAZ",
-  "mission_type": "",
+  "mission_type": "software-dev",
   "schema_version": 2,
   "summary": {
     "approved": 2,
