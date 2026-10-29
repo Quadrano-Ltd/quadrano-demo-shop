@@ -1,0 +1,131 @@
+{
+  "entries": [
+    {
+      "created_at": "2026-10-29T21:06:05.188276Z",
+      "decision_id": "01M64QQXR4F4SVZFMYSAVBWASB",
+      "final_answer": "A: existing seven only",
+      "input_key": "playground_event_set",
+      "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+      "mission_slug": "byo-gtm-container-01M64PAZ",
+      "opened_by": "cli",
+      "options": [
+        "A: existing seven only",
+        "B: existing seven plus broken add_to_cart",
+        "C: wider GA4 set",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Which events and variants should the event playground offer? (A) Only today's seven: correct add_to_cart, correct purchase and the five broken purchase scenarios. No contract change and no quadrano-web dependency. (B) Today's seven plus a broken add_to_cart variant or two. Small contract extension; needs matching M11 Event Definitions. (C) A wider GA4 set (e.g. view_item, begin_checkout) with correct and broken variants. Bigger contract change, more M11 work before 19 Nov.",
+      "rationale": null,
+      "resolved_at": "2026-10-29T21:15:26.932297Z",
+      "resolved_by": null,
+      "slot_key": "specify.playground.event-set",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-29T21:16:07.593226Z",
+      "decision_id": "01M64RAA19WKDR4DQ969WWGG9A",
+      "final_answer": "A: minor 1.1.0 in this mission",
+      "input_key": "qdr002_amendment",
+      "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+      "mission_slug": "byo-gtm-container-01M64PAZ",
+      "opened_by": "cli",
+      "options": [
+        "A: minor 1.1.0 in this mission",
+        "B: major 2.0.0",
+        "C: separate PR first",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Charter QDR-002 approves only 'the shop's own GTM container, installed by a script tag'. Loading a visitor-entered container instead needs an amendment. How should it be handled? (A) Minor amendment 1.1.0 shipped inside this mission: the shop loads exactly one container per page, its own or one the visitor types into the menu; no-extra-network (NFR-004) and no-consent-banner (C-011) cover only the shop's own container. (B) Treat it as major (a changed rule) with the same content. (C) Land the amendment in its own PR before this mission's implementation starts.",
+      "rationale": null,
+      "resolved_at": "2026-10-29T21:17:49.111884Z",
+      "resolved_by": null,
+      "slot_key": "specify.governance.qdr002-amendment",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-29T21:18:11.792600Z",
+      "decision_id": "01M64RE3AGCJS35SK4A5WW0H21",
+      "final_answer": "A: assume works, fallback, spike gates implementation",
+      "input_key": "preview_spike_sequencing",
+      "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+      "mission_slug": "byo-gtm-container-01M64PAZ",
+      "opened_by": "cli",
+      "options": [
+        "A: assume works, fallback, spike gates implementation",
+        "B: pause spec until spike done",
+        "C: spec both variants",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "The Preview spike (does GTM Preview connect to a never-published container injected at runtime, across page navigations?) needs a real GTM account and the Tag Assistant UI, so the Product Owner runs it. How should the spec treat it? (A) Write the spec now on the assumption that it works, with a stated fallback (path 2 tells the visitor to publish their container) if it doesn't. The spike becomes a gating step before implementation, recorded under docs/. (B) Pause the spec until the spike result is in, then write it. (C) Spec both paths fully (Preview-only and publish-required) and let the spike pick one.",
+      "rationale": null,
+      "resolved_at": "2026-10-29T21:19:13.889127Z",
+      "resolved_by": null,
+      "slot_key": "specify.research.preview-spike",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-29T21:19:23.343214Z",
+      "decision_id": "01M64RG96F8V6JBVY0AM5SA009",
+      "final_answer": "B: out of scope",
+      "input_key": "console_panel_scope",
+      "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+      "mission_slug": "byo-gtm-container-01M64PAZ",
+      "opened_by": "cli",
+      "options": [
+        "A: in scope, lowest priority",
+        "B: out of scope",
+        "C: in scope, full priority",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "The issue marks the on-page Console panel (mirrors the snippet's Console output on the page for attendees on phones; never sends it anywhere) as optional. Is it in scope? (A) In scope, as the lowest-priority story, cut first if time runs short. (B) Out of scope for this mission. (C) In scope at full priority.",
+      "rationale": null,
+      "resolved_at": "2026-10-29T21:21:18.865834Z",
+      "resolved_by": null,
+      "slot_key": "specify.scope.console-panel",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-10-29T21:51:12.932399Z",
+      "decision_id": "01M64TAJ14KYVH94V2RCQPC8AY",
+      "final_answer": "A: Playwright + axe in the 1.1.0 amendment",
+      "input_key": "testing_automation_tooling",
+      "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+      "mission_slug": "byo-gtm-container-01M64PAZ",
+      "opened_by": "cli",
+      "options": [
+        "A: Playwright + axe in the 1.1.0 amendment",
+        "B: no new deps, scripted + manual checklist",
+        "C: Playwright only, manual a11y",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "NFR-001 (one container, 10/10 runs across 5 pages, both states), NFR-002 (automated accessibility checks, menu open and closed) and NFR-003 (0 px overflow at 360 px) imply browser automation. QDR-002 says any new build or dev dependency needs a Charter amendment, and the demo-shop mission added no test framework. How should these be verified? (A) Add Playwright and @axe-core/playwright as dev dependencies, with a non-gate pnpm test:e2e script; folded into the 1.1.0 amendment that FR-025 already requires. (B) No new dependencies: node:assert checks for the pure container logic, plus a manual quickstart checklist using Chrome DevTools (Network panel, Lighthouse accessibility audit, 360 px device mode), run 10 times. (C) Add Playwright only; accessibility checked manually with Lighthouse.",
+      "rationale": null,
+      "resolved_at": "2026-10-29T21:51:51.450268Z",
+      "resolved_by": null,
+      "slot_key": "plan.testing.automation-tooling",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    }
+  ],
+  "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+  "version": 1
+}
