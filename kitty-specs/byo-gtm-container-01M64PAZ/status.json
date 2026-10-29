@@ -29,6 +29,9 @@
       "last_event_id": "01M64Y0AKF0RHQYEB0D7K0X1PB",
       "last_transition_at": "2026-10-29T22:55:31.951989+00:00",
       "model": "__resolved_model_absent__",
+      "notes": [
+        "Ready for review"
+      ],
       "provider": "__resolved_provider_absent__",
       "role": "implementer",
       "shell_pid": 6124,
