@@ -11,6 +11,9 @@ requirement_refs:
 planning_base_branch: feat/byo-gtm-container
 merge_target_branch: feat/byo-gtm-container
 branch_strategy: Planning artifacts for this mission were generated on feat/byo-gtm-container. During /spec-kitty.implement this WP may branch from a dependency-specific base, but completed changes must merge back into feat/byo-gtm-container unless the human explicitly redirects the landing branch.
+base_branch: kitty/mission-byo-gtm-container-01M64PAZ
+base_commit: a5ed4a9ce6ac7a429f320af2eb014bb6f4acae30
+created_at: '2026-10-29T23:10:24.344706+00:00'
 subtasks:
 - T029
 - T030
