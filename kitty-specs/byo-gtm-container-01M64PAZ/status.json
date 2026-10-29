@@ -62,7 +62,8 @@
       "last_transition_at": "2026-10-29T23:12:09.066101+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
-        "Ready for review"
+        "Ready for review",
+        "Review passed: commit 6aab444 touches only spec.md and datalayer-pushes.md; FR-003/NFR-004/C-011 carry Scoped-by-Charter-1.1.0 annotations; Event playground note inserted verbatim under Sequence per action; no banned terminology; pnpm gates all 4 passed."
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
