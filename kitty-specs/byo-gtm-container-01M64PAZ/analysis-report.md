@@ -4,68 +4,46 @@ artifact_type: spec-kitty.analysis-report
 command: /spec-kitty.analyze
 mission_slug: byo-gtm-container-01M64PAZ
 mission_id: 01M64PAZQB6Q2VRYWRQN3R6V59
-generated_at: '2026-10-29T22:46:35.119442+00:00'
+generated_at: '2026-10-29T22:48:21.346093+00:00'
 analyzer_agent: copilot
 input_artifacts:
   spec.md:
     path: kitty-specs\byo-gtm-container-01M64PAZ\spec.md
-    sha256: 824c929dbdc0ddc6670371deb8c60185cde0cafdc849ab5a762cf8781e0b6a81
+    sha256: 567bf44646b318b4e437654091399ae1b25b9c24e950d9e1907de41ae51d46a9
   plan.md:
     path: kitty-specs\byo-gtm-container-01M64PAZ\plan.md
-    sha256: 23caefc20314db40a32d32c6de6e326e520cd117e82d21d9f77fe596529014d6
+    sha256: 0bcad84028d64e8f1172bbab1b95767d999ffd120307033ad302ccbff2ec20a5
   tasks.md:
     path: kitty-specs\byo-gtm-container-01M64PAZ\tasks.md
-    sha256: 254c0aa6283d1fd485edfdc5b7036d6bcc8561a4d91b120e6f56a526df98fcb8
+    sha256: 90b049c0baa7639589f11db10342687586bbdde95ed2497e7317206779b87516
   charter:
     path: .kittify\charter\charter.yaml
     sha256: e92005fb8fb0a4719f31e1e350e4256ddd156713a09b80676f92a3f33823f9a0
-verdict: unknown
+verdict: ready
 issue_counts:
-  low:
-  info:
-  critical:
-  medium:
-  high:
+  critical: 0
+  medium: 0
+  high: 0
+  low: 0
+  info: 0
 findings: []
----
-
-﻿---
-schema: analysis-findings/v1
-findings:
-  - id: I1
-    severity: medium
-    category: inconsistency
-    summary: "plan.md sequences the playground after the menu (IC-04 depends-on IC-03), but tasks.md makes WP05 independent and has WP06 depend on WP05 — contradictory dependency direction."
-  - id: C1
-    severity: medium
-    category: coverage
-    summary: "NFR-005's measurable bound (any of the 7 pushes in at most 2 interactions) is not asserted by any subtask; the coverage summary maps it to WP05/WP09, which test shapes and keyboard flows but not the interaction count."
-  - id: C2
-    severity: low
-    category: coverage
-    summary: "The Requirements Coverage Summary traces FR and NFR only; constraints C-001..C-009 have no traceability rows although every one is addressed by a WP."
-  - id: I2
-    severity: low
-    category: inconsistency
-    summary: "plan.md Summary says 'pnpm test:e2e proves the NFRs', but NFR-004 (Lighthouse LCP) and NFR-006 (production rehearsal) are manual checks per Technical Context."
-  - id: U1
-    severity: low
-    category: underspecification
-    summary: "FR-025 names only demo-shop NFR-004 and C-011 as scoped by Charter 1.1.0, but WP02 correctly scopes three rows (FR-003, NFR-004, C-011); the two lists disagree."
-counts: {critical: 0, high: 0, medium: 2, low: 3, info: 0}
 ---
 
 ## Specification Analysis Report
 
-Mission: `byo-gtm-container-01M64PAZ` · analysed 2026-10-29 · artefacts: spec.md, plan.md, tasks.md, Charter 1.0.1.
+Mission: `byo-gtm-container-01M64PAZ` · analysed 2026-10-29 (re-run after remediation) · artefacts: spec.md, plan.md, tasks.md, Charter 1.0.1.
 
-| ID | Category | Severity | Location(s) | Summary | Recommendation |
-|----|----------|----------|-------------|---------|----------------|
-| I1 | Inconsistency | MEDIUM | plan.md:155; tasks.md:24,200,223 | plan.md sequences the playground after the menu (IC-04 depends-on IC-03), but tasks.md makes WP05 independent and WP06 depend on WP05. | Align plan.md IC-04 with tasks.md: the playground module is self-contained; the menu imports it. |
-| C1 | Coverage | MEDIUM | tasks.md:282 (T042); NFR-005 | NFR-005's ≤2-interaction bound is untested; coverage maps it to WP05/WP09, which check shapes and keyboard flow, not the interaction count. | Add the ≤2-interaction assertion to WP09's playground spec. |
-| C2 | Coverage | LOW | tasks.md:338 Coverage Summary | The coverage table traces FR and NFR only; C-001..C-009 have no rows. | Add constraint rows (or mark C-004/C-009 as out of scope). |
-| I2 | Inconsistency | LOW | plan.md:10 vs plan.md:39-41 | Summary overstates e2e coverage of the NFRs; NFR-004/NFR-006 are manual. | Qualify the Summary sentence. |
-| U1 | Underspecification | LOW | spec.md:154 (FR-025) vs tasks.md:133 | FR-025 omits FR-003 from the scoped demo-shop rows that WP02 annotates. | Add FR-003 to FR-025's scoped list. |
+All findings from the first run are resolved. No open findings remain.
+
+**Resolved since the first run (2026-10-29):**
+
+| ID | Category | Severity | Resolution |
+|----|----------|----------|------------|
+| I1 | Inconsistency | MEDIUM | plan.md IC-04 now sequences `none` (self-contained module) and IC-03 lists IC-02 + IC-04, matching tasks.md's WP05-independent / WP06-depends-on-WP05 graph. |
+| C1 | Coverage | MEDIUM | WP09 T042 now asserts each push is reachable in ≤2 interactions, and WP09's Goal names NFR-005. |
+| C2 | Coverage | LOW | The Requirements Coverage Summary now traces C-001..C-009, with C-004 and C-009 marked out of scope. |
+| I2 | Inconsistency | LOW | plan.md Summary now scopes `pnpm test:e2e` to the automatable NFRs and names NFR-004/NFR-006 as manual. |
+| U1 | Underspecification | LOW | spec.md FR-025 now names FR-003, NFR-004 and C-011, matching WP02's three scoped demo-shop rows. |
 
 **Coverage Summary Table:**
 
@@ -101,10 +79,19 @@ Mission: `byo-gtm-container-01M64PAZ` · analysed 2026-10-29 · artefacts: spec.
 | NFR-002 | Yes | WP10 | |
 | NFR-003 | Yes | WP10 | |
 | NFR-004 | Yes | WP11 | manual (Lighthouse) |
-| NFR-005 | Yes | WP05, WP09 | see C1 |
+| NFR-005 | Yes | WP05, WP09 | ≤2 interactions asserted in T042 |
 | NFR-006 | Yes | WP11 | manual (rehearsal) |
+| C-001 | Yes | WP03, WP04 | localStorage only; no backend |
+| C-002 | Yes | WP01, WP07 | no-secrets gate |
+| C-003 | Yes | WP05 | existing push.ts shapes only |
+| C-004 | — | — | out of scope (no WP) |
+| C-005 | Yes | WP03, WP08 | lint forbids address reads |
+| C-006 | Yes | WP11 | land before 19 Nov 2026 |
+| C-007 | Yes | WP11 | gates on merged tree |
+| C-008 | Yes | WP01, WP02 | terminology/provenance |
+| C-009 | — | — | out of scope (no WP) |
 
-**Charter Alignment Issues:** None. The plan's Charter Check covers QDR-001 to QDR-007 and the Terminology Canon; the 1.1.0 amendment (FR-025, WP01) is sequenced first, so no principle is violated by the pending work.
+**Charter Alignment Issues:** None. The plan's Charter Check covers QDR-001 to QDR-007 and the Terminology Canon; the 1.1.0 amendment (FR-025, WP01) is sequenced first.
 
 **Unmapped Tasks:** None. Every subtask T001–T051 maps to a WP with a spec requirement.
 
@@ -115,9 +102,8 @@ Mission: `byo-gtm-container-01M64PAZ` · analysed 2026-10-29 · artefacts: spec.
 - Coverage: 100% (32/32 requirements with ≥1 WP)
 - Ambiguity Count: 0
 - Duplication Count: 0
-- Critical Issues Count: 0 (0 HIGH, 2 MEDIUM, 3 LOW)
+- Critical Issues Count: 0 (0 HIGH, 0 MEDIUM, 0 LOW)
 
 ### Next Actions
 
-- Verdict **ready** (no HIGH/CRITICAL). The five findings are all MEDIUM/LOW and are addressed by the remediation described above.
-- Resolve I1, C1, C2, I2 and U1, then re-run `/spec-kitty.analyze` and record a fresh report so the mission can advance to `/spec-kitty.implement`.
+- Verdict **ready**. Proceed to `/spec-kitty.implement`.
