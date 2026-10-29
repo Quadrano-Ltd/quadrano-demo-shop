@@ -1,7 +1,7 @@
 {
-  "event_count": 61,
-  "last_event_id": "01M6517AFPXDRR8ER4696T08X0",
-  "materialized_at": "2026-10-29T23:51:46.934300+00:00",
+  "event_count": 63,
+  "last_event_id": "01M6519F14K2G9RSXEMC28K1TR",
+  "materialized_at": "2026-10-29T23:52:57.051438+00:00",
   "mission_number": "",
   "mission_slug": "byo-gtm-container-01M64PAZ",
   "mission_type": "",
@@ -13,9 +13,9 @@
     "claimed": 0,
     "done": 0,
     "for_review": 0,
-    "in_progress": 0,
+    "in_progress": 1,
     "in_review": 0,
-    "planned": 1
+    "planned": 0
   },
   "work_packages": {
     "WP01": {
@@ -349,11 +349,15 @@
       }
     },
     "WP11": {
-      "actor": "finalize-tasks",
+      "actor": "copilot",
+      "agent": "copilot",
       "force_count": 0,
-      "lane": "planned",
-      "last_event_id": "01M64VTC0P4GEWAQHNHTR7ZFQP",
-      "last_transition_at": "2026-10-29T22:17:19.638829+00:00"
+      "implementer_of_record": "copilot",
+      "lane": "in_progress",
+      "last_event_id": "01M6519F14K2G9RSXEMC28K1TR",
+      "last_transition_at": "2026-10-29T23:52:57.051438+00:00",
+      "shell_pid": 29008,
+      "shell_pid_created_at": "1793317959.7918887"
     }
   }
 }
