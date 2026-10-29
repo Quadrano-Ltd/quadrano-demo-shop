@@ -263,7 +263,8 @@
       "last_transition_at": "2026-10-29T23:47:43.438552+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
-        "Ready for review"
+        "Ready for review",
+        "Review passed: WP08 e2e specs assert exactly one container request across both states and all 5 pages, cover expired/tampered/future-dated/throwing storage and reset, and prove crafted address links never change the container; 123 e2e tests, lint, and build all pass."
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
