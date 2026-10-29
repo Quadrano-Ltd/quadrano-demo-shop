@@ -1,7 +1,7 @@
 {
-  "event_count": 10,
-  "last_event_id": "01M64VTB6HGR51BVW7HVBCTF3J",
-  "materialized_at": "2026-10-29T22:17:18.801840+00:00",
+  "event_count": 11,
+  "last_event_id": "01M64VTC0P4GEWAQHNHTR7ZFQP",
+  "materialized_at": "2026-10-29T22:17:19.638829+00:00",
   "mission_number": "",
   "mission_slug": "byo-gtm-container-01M64PAZ",
   "mission_type": "",
@@ -15,7 +15,7 @@
     "for_review": 0,
     "in_progress": 0,
     "in_review": 0,
-    "planned": 10
+    "planned": 11
   },
   "work_packages": {
     "WP01": {
@@ -87,6 +87,13 @@
       "lane": "planned",
       "last_event_id": "01M64VTB6HGR51BVW7HVBCTF3J",
       "last_transition_at": "2026-10-29T22:17:18.801840+00:00"
+    },
+    "WP11": {
+      "actor": "finalize-tasks",
+      "force_count": 0,
+      "lane": "planned",
+      "last_event_id": "01M64VTC0P4GEWAQHNHTR7ZFQP",
+      "last_transition_at": "2026-10-29T22:17:19.638829+00:00"
     }
   }
 }
