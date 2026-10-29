@@ -19,7 +19,7 @@ flowchart TD
   Q -->|none, expired or storage unavailable| OWN[Shop's own container loads]
   Q -->|valid saved ID| THEIRS[Visitor's container loads, banner shown]
   M[Visitor menu] -->|Path 1: use the shop's container| OWN
-  M -->|Path 2: enter GTM-XXXX, valid| SAVE[ID saved, page reloads] --> THEIRS
+  M -->|Path 2: enter GTM-XXXXXXX, valid| SAVE[ID saved, page reloads] --> THEIRS
   M -->|Path 2: enter invalid ID| REFUSE[Clear message, nothing saved]
   THEIRS -->|Reset| OWN
   M -->|Playground button| PUSH[(Exactly one push)]
@@ -31,7 +31,7 @@ Exactly one container loads on each page, before the page's first push. The page
 
 ### User Story 1 - Bring my own container (Priority: P1)
 
-An attendee, or the presenter running the talk demo, has created an empty container in their own GTM account. On any page of the demo shop, they open the visitor menu, choose "Let me bring my own GTM container" and type its ID. The shop saves the ID, reloads, and from then on loads only their container on every page. A banner on each page says "Using your container GTM-XXXX" and offers a reset. They build a Specification on quadrano.com/local, paste the snippet into a Custom HTML tag in their container, start GTM Preview on the demo shop, and read ✓ and ✗ verdicts in the Console as they click around.
+An attendee, or the presenter running the talk demo, has created an empty container in their own GTM account. On any page of the demo shop, they open the visitor menu, choose "Let me bring my own GTM container" and type its ID. The shop saves the ID, reloads, and from then on loads only their container on every page. A banner on each page says "Using your container GTM-XXXXXXX" and offers a reset. They build a Specification on quadrano.com/local, paste the snippet into a Custom HTML tag in their container, start GTM Preview on the demo shop, and read ✓ and ✗ verdicts in the Console as they click around.
 
 **Why this priority**: This is the reason for the mission. Without it, attendees can't take part and the presenter can't demo a fresh snippet.
 
@@ -135,7 +135,7 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 | FR-006 | Path 2: enter my container ID | As a visitor, I want to type a container ID into the menu and, if it matches `GTM-` followed by 4 to 10 upper-case letters or digits, have it saved in my browser and the page reloaded, so that my container is used from then on. | High | Open | [build] | no |
 | FR-007 | Malformed ID refused | As a visitor, I want a malformed ID refused with a clear message that shows the expected format, with nothing saved and the current container unchanged, so that a typo can't break the shop. | High | Open | [build] | no — paired with FR-006's well-formed ID on the same input field |
 | FR-008 | Saved ID carries across pages | As a visitor, I want my saved ID to apply on every shop page, so that I can move through the shop in GTM Preview. | High | Open | [build] | no |
-| FR-009 | Banner while my container is active | As a visitor, I want a banner on every page reading "Using your container GTM-XXXX" (my ID) while my container is active, so that I always know which container is running. | High | Open | [build] | no |
+| FR-009 | Banner while my container is active | As a visitor, I want a banner on every page reading "Using your container GTM-XXXXXXX" (my ID) while my container is active, so that I always know which container is running. | High | Open | [build] | no |
 | FR-010 | Reset to the shop's container | As a visitor, I want a reset in the banner and in the menu that removes my saved ID and reloads, so that I can return to the shop's own container. Choosing path 1 does the same. | High | Open | [build] | no |
 | FR-011 | Saved ID expires | As the Product Owner, I want a saved ID to stop applying 24 hours after it was saved, so that a forgotten or planted ID doesn't run indefinitely. | Medium | Open | [build] | no — paired with FR-008 on the same saved ID before expiry |
 | FR-012 | Storage failure falls back | As a visitor, I want the shop to load its own container whenever browser storage can't be read or written, or holds a malformed value, and the menu to say bring-your-own is unavailable, so that the shop never breaks. | High | Open | [build] | no |
