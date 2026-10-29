@@ -41,7 +41,7 @@ Setup: Chrome with DevTools Console open, "Preserve log" **off**, Tag Assistant 
 | 3 | Order again, choose `1 · Missing value`, then Place order | `✗ purchase · 1 error` / `ecommerce.value is required, but is missing.` |
 | 4 | Order again, `2 · Value as text`, Place order | `… should be a number, but got "12.99".` |
 | 5 | Order again, `3 · Wrong-case key`, Place order | `✗ purchase · 1 error, 1 warning` + both lines |
-| 6 | Order again, `4 · Lower-case currency`, Place order | `… should be one of GBP, EUR, USD, but got "gbp".` |
+| 6 | Order again, `4 · Lower-case currency`, Place order | `… should be one of "GBP", "EUR", "USD", but got "gbp".` |
 | 7 | Order again, `Spare · Bad transaction ID`, Place order | `… should match the pattern …, but got "12345".` |
 | 8 | Reload thank-you | no new Console group |
 | 9 | Switch scenario on any page | no new Console group, and the URL changes |
