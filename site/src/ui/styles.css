@@ -343,3 +343,188 @@ button:focus-visible,
     flex: 1;
   }
 }
+
+/* Visitor banner and menu (WP06) */
+
+.visitor-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--brand-deep);
+  color: var(--paper);
+}
+
+.visitor-banner__text {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.visitor-banner__reset {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--brand-deep);
+}
+
+.visitor-banner__reset:hover {
+  background: var(--wash);
+  border-color: var(--wash);
+}
+
+.visitor-menu__toggle {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  min-width: 44px;
+  min-height: 44px;
+  z-index: 10;
+}
+
+.visitor-menu {
+  position: fixed;
+  right: 1rem;
+  bottom: 5rem;
+  width: min(24rem, 100vw - 2rem);
+  max-height: calc(100dvh - 6rem);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  z-index: 10;
+  padding: 1rem;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(34, 36, 43, 0.25);
+}
+
+.visitor-menu[hidden] {
+  display: none;
+}
+
+.visitor-menu__title {
+  margin: 0 0 0.75rem;
+}
+
+.visitor-menu__close {
+  margin-bottom: 0.75rem;
+}
+
+.visitor-menu__status {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.visitor-menu__group {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.visitor-menu__group h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.visitor-menu__path {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+}
+
+.visitor-menu__message,
+.visitor-menu__note {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+.visitor-menu__hint {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.visitor-menu__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.visitor-menu__form label {
+  font-weight: 600;
+}
+
+.visitor-menu__form input {
+  width: 100%;
+  min-height: 44px;
+  font: inherit;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.visitor-menu__form input:disabled {
+  background: var(--wash);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.visitor-menu__save {
+  align-self: flex-start;
+  min-height: 44px;
+}
+
+.visitor-menu__instructions {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.visitor-menu__visitor-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+}
+
+.visitor-menu__in-use {
+  margin: 0;
+  font-weight: 600;
+}
+
+.visitor-menu__reset {
+  min-height: 44px;
+}
+
+.playground__list {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.playground__button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  text-align: left;
+}
+
+input:focus-visible,
+.visitor-menu__title:focus,
+.visitor-menu__title:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Keep the fixed menu toggle clear of the footer's last line (FR-021). */
+.site-footer {
+  padding-bottom: 5rem;
+}

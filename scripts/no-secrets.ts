@@ -1,48 +1,7 @@
 import { readFileSync } from 'node:fs';
 import * as git from './lib/git.ts';
-import { finding, finish, mask } from './lib/report.ts';
-
-const GTM_ALLOWLIST = 'GTM-XXXXXXX';
-
-interface Pattern {
-  name: string;
-  regex: RegExp;
-  requireKeyword?: RegExp;
-}
-
-const patterns: Pattern[] = [
-  { name: 'gtm-container-id', regex: /\bGTM-[A-Z0-9]{4,10}\b/g },
-  { name: 'private-key', regex: /-----BEGIN (?:[A-Z0-9]+ )*PRIVATE KEY-----/g },
-  { name: 'aws-access-key-id', regex: /\b(?:AKIA|ASIA)[A-Z0-9]{16}\b/g },
-  {
-    name: 'cloudflare-token-like',
-    regex: /\b[A-Za-z0-9_-]{40}\b/g,
-    requireKeyword: /\b(?:token|key|secret)s?\b/i,
-  },
-  {
-    name: 'generic-assignment',
-    regex: /(?:api[_-]?key|secret|token|password)\s*[:=]\s*['"][^'"]{12,}['"]/gi,
-  },
-];
-
-function scanText(location: string, text: string): void {
-  const lines = text.split(/\r?\n/);
-  lines.forEach((line, index) => {
-    const lineNumber = index + 1;
-    for (const pattern of patterns) {
-      if (pattern.requireKeyword !== undefined && !pattern.requireKeyword.test(line)) {
-        continue;
-      }
-      for (const match of line.matchAll(pattern.regex)) {
-        const matched = match[0];
-        if (pattern.name === 'gtm-container-id' && matched === GTM_ALLOWLIST) {
-          continue;
-        }
-        finding('no-secrets', `${location}:${lineNumber} ${pattern.name} (${mask(matched)})`);
-      }
-    }
-  });
-}
+import { finding, finish } from './lib/report.ts';
+import { scanText } from './lib/secret-scan.ts';
 
 function main(): void {
   const history = process.argv.includes('--history');
@@ -57,7 +16,9 @@ function main(): void {
     if (git.isBinary(buffer)) {
       continue;
     }
-    scanText(path, buffer.toString('utf8'));
+    for (const text of scanText(path, buffer.toString('utf8'))) {
+      finding('no-secrets', text);
+    }
   }
 
   for (const range of git.readRangesFromEnv()) {
@@ -67,7 +28,9 @@ function main(): void {
         continue;
       }
       const location = `${entry.blob.slice(0, 7)}:${entry.path}`;
-      scanText(location, buffer.toString('utf8'));
+      for (const text of scanText(location, buffer.toString('utf8'))) {
+        finding('no-secrets', text);
+      }
     }
   }
 
@@ -78,7 +41,9 @@ function main(): void {
         continue;
       }
       const location = `${entry.blob.slice(0, 7)}:${entry.path}`;
-      scanText(location, buffer.toString('utf8'));
+      for (const text of scanText(location, buffer.toString('utf8'))) {
+        finding('no-secrets', text);
+      }
     }
   }
 

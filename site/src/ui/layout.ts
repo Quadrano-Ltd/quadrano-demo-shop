@@ -1,5 +1,7 @@
 import { itemCount } from '../shop/basket-store.ts';
 import { SHOP_NAME } from '../shop/catalogue.ts';
+import { createVisitorBanner, readContainerState } from '../menu/banner.ts';
+import { mountVisitorMenu } from '../menu/visitor-menu.ts';
 import { currentScenario, withScenario } from '../switcher/scenario-url.ts';
 import { mountScenarioSwitcher, syncScenarioLinks } from '../switcher/switcher.ts';
 
@@ -117,7 +119,10 @@ export function renderLayout(page: PageId, heading: string): HTMLElement {
   live.setAttribute('role', 'status');
   liveRegion = live;
 
-  app.replaceChildren(header, main, footer, live);
+  const banner = createVisitorBanner(readContainerState());
+  app.replaceChildren(...(banner === null ? [] : [banner]), header, main, footer, live);
+
+  mountVisitorMenu(announce);
 
   syncScenarioLinks(document);
 
