@@ -13,5 +13,7 @@
   "purpose_tldr": "Let talk attendees and the presenter run Quadrano Local on the demo shop, using either the shop's pre-built GTM container or their own.",
   "slug": "byo-gtm-container-01M64PAZ",
   "target_branch": "feat/byo-gtm-container",
-  "topology": "coord"
+  "topology": "coord",
+  "vcs": "git",
+  "vcs_locked_at": "2026-10-29T22:49:12.259613+00:00"
 }
