@@ -30,7 +30,8 @@
       "last_transition_at": "2026-10-29T22:59:07.158605+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
-        "Ready for review"
+        "Ready for review",
+        "Review passed: Charter 1.1.0 amendment is correct - charter.md and charter.yaml agree for QDR-002/QDR-004, version 1.1.0 with date and amendment log row present, four verbatim headings unchanged, WP01 commit touches only the two charter files, pnpm gates exits 0 (all 4 passed)."
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
