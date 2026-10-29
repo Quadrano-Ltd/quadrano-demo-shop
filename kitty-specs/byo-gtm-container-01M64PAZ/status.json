@@ -295,7 +295,8 @@
       "last_transition_at": "2026-10-29T23:51:46.934300+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
-        "Ready for review"
+        "Ready for review",
+        "Review passed: menu+playground specs verify all FRs; 12 Playwright tests pass, lint/build exit 0, diff limited to owned files"
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
