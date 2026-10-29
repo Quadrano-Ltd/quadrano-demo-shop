@@ -222,7 +222,8 @@
       "last_transition_at": "2026-10-29T23:31:51.827639+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
-        "Ready for review"
+        "Ready for review",
+        "Review passed: gates green (lint/build/no-secrets/provenance), no-secrets 0 findings, verify:container all ok, lockfile adds only the 5 expected packages, no ID-shaped literal beyond GTM-XXXXXXX, e2e config/spec load via playwright --list"
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
