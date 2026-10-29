@@ -81,7 +81,7 @@ flowchart LR
 | T039 | `e2e/menu.spec.ts`: save, reload, banner on every page | WP09 | |
 | T040 | Malformed IDs (≥10) refused, nothing saved | WP09 | |
 | T041 | Path 1 and reset; menu actions push nothing | WP09 | |
-| T042 | `e2e/playground.spec.ts`: 7 shapes, one push each; scenario links | WP09 | [P] |
+| T042 | `e2e/playground.spec.ts`: 7 shapes, one push each; scenario links; ≤2 interactions to each push (NFR-005) | WP09 | [P] |
 | T043 | `e2e/a11y.spec.ts`: axe matrix (5 pages × menu × banner) | WP10 | |
 | T044 | Keyboard flows: open, Escape, focus return, Tab reach | WP10 | |
 | T045 | `e2e/layout.spec.ts`: 0 px overflow at 360 px | WP10 | [P] |
@@ -270,7 +270,7 @@ T038 `e2e/address.spec.ts`: crafted links never change the container (WP08)
 
 ### WP09 – e2e: menu and playground (Priority: P1)
 
-**Goal**: Prove FR-005 to FR-010, FR-015, FR-017, SC-003, SC-005 and SC-006 end to end.
+**Goal**: Prove FR-005 to FR-010, FR-015, FR-017, NFR-005, SC-003, SC-005 and SC-006 end to end.
 **Independent Test**: `pnpm test:e2e e2e/menu.spec.ts e2e/playground.spec.ts` passes.
 **Prompt**: `tasks/WP09-e2e-menu-and-playground.md`
 **Estimated prompt size**: ~360 lines
@@ -279,7 +279,7 @@ T038 `e2e/address.spec.ts`: crafted links never change the container (WP08)
 T039 `e2e/menu.spec.ts`: save, reload, banner on every page (WP09)
 T040 Malformed IDs (≥10) refused, nothing saved (WP09)
 T041 Path 1 and reset; menu actions push nothing (WP09)
-T042 `e2e/playground.spec.ts`: 7 shapes, one push each; scenario links (WP09)
+T042 `e2e/playground.spec.ts`: 7 shapes, one push each; scenario links; ≤2 interactions to each push (NFR-005) (WP09)
 
 **Parallel opportunities**: T042 alongside T039 to T041.
 **Dependencies**: WP06, WP07.
@@ -371,6 +371,15 @@ T051 Production rehearsal check, both paths (NFR-006, SC-007) (WP11)
 | NFR-004 | WP11 |
 | NFR-005 | WP05, WP09 |
 | NFR-006 | WP11 |
+| C-001 | WP03, WP04 |
+| C-002 | WP01, WP07 |
+| C-003 | WP05 |
+| C-004 | — (out of scope) |
+| C-005 | WP03, WP08 |
+| C-006 | WP11 |
+| C-007 | WP11 |
+| C-008 | WP01, WP02 |
+| C-009 | — (out of scope) |
 
 ---
 

@@ -7,7 +7,7 @@ Planning decisions: `DM-01M64TAJ14KYVH94V2RCQPC8AY` (test tooling: Playwright an
 
 ## Summary
 
-Each page loads exactly one GTM container, chosen by a small inline script in `<head>` before any page module runs. The script picks the visitor's container if a well-formed ID under 24 hours old is saved in `localStorage`; otherwise it picks the shop's own container (ID baked in at build time from the hosting environment, as today); otherwise it loads none. The choice rules live in one file with no imports, which the build inlines and the menu imports. A floating visitor menu, mounted by the shared layout on all 5 pages, offers path 1 (the shop's container), path 2 (enter an ID) and an event playground. Its 7 buttons call the existing `push.ts` functions, so push shapes are unchanged by construction. A banner shows the visitor's container and offers a reset. Charter 1.1.0 amends QDR-002 for the one-container rule and adds Playwright and axe as dev-only tooling. A non-gate `pnpm test:e2e` proves the NFRs without ever requesting a real container.
+Each page loads exactly one GTM container, chosen by a small inline script in `<head>` before any page module runs. The script picks the visitor's container if a well-formed ID under 24 hours old is saved in `localStorage`; otherwise it picks the shop's own container (ID baked in at build time from the hosting environment, as today); otherwise it loads none. The choice rules live in one file with no imports, which the build inlines and the menu imports. A floating visitor menu, mounted by the shared layout on all 5 pages, offers path 1 (the shop's container), path 2 (enter an ID) and an event playground. Its 7 buttons call the existing `push.ts` functions, so push shapes are unchanged by construction. A banner shows the visitor's container and offers a reset. Charter 1.1.0 amends QDR-002 for the one-container rule and adds Playwright and axe as dev-only tooling. A non-gate `pnpm test:e2e` proves the automatable NFRs (NFR-001 to NFR-003 and NFR-005) without ever requesting a real container; NFR-004 (Lighthouse mobile LCP) and NFR-006 (production rehearsal) stay manual.
 
 ```mermaid
 sequenceDiagram
@@ -144,7 +144,7 @@ docs/spike/preview-spike.md       # run 2 (Product Owner)
 - **Purpose**: A floating, accessible menu on every page with path 1 and path 2, the refusal message, the storage-unavailable note and the path 2 instructions; plus the banner with reset.
 - **Relevant requirements**: FR-005 to FR-010, FR-012, FR-017, FR-020, FR-021, FR-022, FR-024; NFR-002, NFR-003, NFR-005
 - **Affected surfaces**: `site/src/menu/visitor-menu.ts`, `site/src/menu/banner.ts`, `site/src/ui/layout.ts`, `site/src/ui/styles.css`
-- **Sequencing/depends-on**: IC-02
+- **Sequencing/depends-on**: IC-02 (choice rules), IC-04 (playground module)
 - **Risks**: lint forbids verdict wording, so the copy must avoid "valid", "invalid", "pass" and "fail" (see [contracts/visitor-menu.md](contracts/visitor-menu.md)). Focus handling and the 360 px layout are where accessibility regressions hide. The path 2 copy may change after spike run 2.
 
 ### IC-04 — Event playground
@@ -152,7 +152,7 @@ docs/spike/preview-spike.md       # run 2 (Product Owner)
 - **Purpose**: 7 buttons, each making exactly one existing push (after the ecommerce clear) through `push.ts`.
 - **Relevant requirements**: FR-014, FR-015, FR-016, FR-017, FR-018, FR-026, C-003; NFR-005, NFR-006
 - **Affected surfaces**: `site/src/menu/playground.ts`, `kitty-specs/demo-shop-01M5QW5Y/contracts/datalayer-pushes.md`
-- **Sequencing/depends-on**: IC-03 (it lives in the menu panel)
+- **Sequencing/depends-on**: none (the module is self-contained; IC-03 imports it)
 - **Risks**: an accidental double push from duplicate listeners if the menu mounts twice; the playground must not write the scenario to the address or touch the order store.
 
 ### IC-05 — Verification
