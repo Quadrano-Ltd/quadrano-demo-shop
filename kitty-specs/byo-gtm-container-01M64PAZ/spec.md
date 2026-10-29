@@ -2,7 +2,7 @@
 
 **Mission Branch**: `feat/byo-gtm-container`
 **Created**: 2026-10-29
-**Status**: Draft (intent confirmed by the Product Owner, 2026-10-29; awaiting spec approval)
+**Status**: Approved (Product Owner, 2026-10-29)
 **Input**: GitHub issue Quadrano-Ltd/quadrano-demo-shop#4, "Bring your own GTM container: a visitor menu with two demo paths and an event playground". Discovery decisions: `DM-01M64QQXR4F4SVZFMYSAVBWASB` (playground events), `DM-01M64RAA19WKDR4DQ969WWGG9A` (Charter amendment), `DM-01M64RE3AGCJS35SK4A5WW0H21` (Preview spike), `DM-01M64RG96F8V6JBVY0AM5SA009` (Console panel).
 
 ## Purpose
@@ -189,7 +189,7 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 
 - **Preview spike (FR-023) runs in two parts.** Run 1 (Product Owner, 2026-10-29, `docs/spike/preview-spike.md`): GTM allows Preview on a never-published container immediately after creating it, and the Tag Assistant session on the demo shop survives page navigations. The test container was reported "not found" on the page, as expected, because the shop can't load a visitor's container yet. Run 2 checks that the never-published container actually runs once the shop loads it; it can only happen on the built feature, and it gates path 2's instructions, not the rest of implementation. The spec assumes run 2 passes, as the usual install-then-Preview-then-publish GTM workflow relies on this. If it fails, path 2 tells the visitor to publish their container (FR-024), and nothing else in this spec changes. The Product Owner runs both parts, since they need a real GTM account and the Tag Assistant interface.
 - **Sign-in cookie exposure: accepted by the Product Owner, not pursued now.** Issue #4 asks whether script on `demo.quadrano.com` can read or set quadrano.com's sign-in cookies. A read-only check found only a host-only `NEXT_LOCALE` cookie on quadrano.com's public pages; signed-in cookies were not checked. On 2026-10-29 the Product Owner judged the risk too fringe to act on at this stage. FR-011 (24-hour expiry), FR-009 (banner) and FR-013 (address can't set a container) limit exposure regardless.
-- **Product Owner step, not for the agents:** publish a Quadrano Local tag with the Demo Shop Specification in the shop's own container, needed for path 1 (User Story 2, scenario 3).
+- **Product Owner step, done:** a Quadrano Local tag with the Demo Shop Specification is published in the shop's own container (confirmed 2026-10-29), as path 1 needs (User Story 2, scenario 3).
 - **Depends on** Charter 1.0.1 (✓/✗ wording), which reaches `main` through PR #5 before this mission's PR.
 - **Saved-ID expiry of 24 hours** is the Product Owner-confirmed default; it covers a full rehearsal or talk day.
 - **The presenter demos through path 2** with a fresh container; path 1 would print duplicate verdicts if the presenter's own snippet were also present.
