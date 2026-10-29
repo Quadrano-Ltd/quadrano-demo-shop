@@ -129,7 +129,8 @@
         "- 2026-10-29T23:17:14Z – copilot – shell_pid=28404 – T013/T014: transformWithOxc confirmed (function) in Vite 8.3.4; buildRulesScript strips type-only exports and the export keyword on const/function declarations. Import guard proven by real build failure with message 'active-container.ts must stay self-contained (no import/export after inlining)' after a scratch side-effect import (reverted). Closing-script and address regexes verified against representative strings. Note: Vite 8.3.4 transformWithOxc already escapes closing script text to a backslash form in output, so that guard is defense-in-depth over the transformed output.",
         "- 2026-10-29T23:17:28Z – copilot – shell_pid=28404 – T015 edge cases simulated against the emitted loader (node harness): storage throw -> shop's or none with data-storage=unavailable and nothing removed; expired/malformed saved -> removed then shop's; no shop + no saved -> source=none and no request; visitor saved -> visitor, one request. Exactly one gtm.js request in every ID-bearing state.",
         "- 2026-10-29T23:17:45Z – copilot – shell_pid=28404 – T017: pnpm build exits 0 with and without VITE_GTM_CONTAINER_ID; loader present right after the dataLayer initialiser on all five pages; noscript iframe only when the shop ID is set; pnpm dev serves the loader; pnpm gates passes (lint, build, no-secrets, provenance).",
-        "Ready for review"
+        "Ready for review",
+        "Review passed: vite.config.ts-only diff; self-contained inline head loader replaces gtm:head; shop-only noscript body; one gtm.js per page; lint+build (with/without VITE_GTM_CONTAINER_ID) exit 0; dev server serves pages."
       ],
       "provider": "__resolved_provider_absent__",
       "review_result": {
