@@ -35,3 +35,6 @@
 .kittify/workspaces/
 .worktrees/
 kitty-ops/ops-index.jsonl
+
+# Spec Kitty upgrade backups (local only)
+.kittify/.migration-backup/
