@@ -1,6 +1,6 @@
 # quadrano-demo-shop Charter
 
-**Version 1.1.0** · adopted 2026-10-24, amended 2026-10-29 · ratified when merged to `main` · see the [amendment log](#amendment-log)
+**Version 1.1.1** · adopted 2026-10-24, amended 2026-10-30 · ratified when merged to `main` · see the [amendment log](#amendment-log)
 
 This Charter is the rulebook for all work in `quadrano-demo-shop`. Where the Charter and anyone's habits disagree, the Charter wins.
 
@@ -68,7 +68,7 @@ The exact linter, build tooling and commands are fixed at specification time and
 
 The shop's own GTM container ID and any keys go in Cloudflare Pages environment and secret values, never in code, config files or commits. The no-secrets gate fails a push that introduces one.
 
-Tests and docs use only the placeholder `GTM-XXXXXXX`, or IDs built while the tests run; a visitor's container ID is never written to the repository.
+Tests and docs use only the placeholder `GTM-XXXXXXX`, or IDs built while the tests run; a visitor's container ID is never written to the repository. The no-secrets gate treats any all-X ID (`GTM-` followed by 4 to 10 X's) as a placeholder, since no real container has that shape; `GTM-XXXXXXX` is still the one to write. It also skips a 40-character commit SHA recorded by Spec Kitty as a `"lane_head"` value. The gate never skips a file by its path.
 
 ## Published-artefact contract dependency (QDR-005)
 
@@ -170,3 +170,4 @@ Written rules alone don't reliably change agent behaviour, so wherever possible 
 | 1.0.0 | 2026-10-24 | — | Initial Charter: roles, provenance, approved stack, minimal gates, no secrets, published-artefact contract dependency, escalation, Terminology Canon, verification, enforcement mechanisms and amendment process |
 | 1.0.1 | 2026-10-24 | Patch | Verification, Code Review Checklist item 6 and Regression Vigilance now use the ✓/✗ symbols and exact wording of Console output format v1 (frozen under QDR-005) instead of ✅/❌ and the build plan's paraphrase. Clarification only; `charter.yaml` holds no such wording, and no enforcing mechanism changes. |
 | 1.1.0 | 2026-10-29 | Minor | One GTM container per page, the shop's or the visitor's, never from the address; Playwright and axe as dev-only tooling; demo-shop NFR-004 and C-011 scoped to the shop's own container. Mechanism: no gate changes; the gate set and order are unchanged (QDR-003); the no-secrets gate is unchanged in behaviour (its scanner is made importable in WP07 and a check proves it still fires); existing lint rules are unchanged, with one new lint override forbidding reading the address in `site/src/container/**`; `pnpm test:e2e` and `pnpm verify:container` are added as non-gate evidence. |
+| 1.1.1 | 2026-10-30 | Patch | QDR-004 clarified: the no-secrets gate accepts any all-X container ID as a placeholder (`GTM-XXXXXXX` stays the one to write) and skips commit SHAs recorded as Spec Kitty `"lane_head"` values; it never skips a file by path. Clears false positives in this repository's history without rewriting it, and replaces a post-merge exemption that skipped Spec Kitty status files for every pattern. Mechanism: `scripts/lib/secret-scan.ts`, with `pnpm verify:container` checks that a real-looking ID, a near-placeholder and a token-shaped `lane_head` value are still reported, and that `no-secrets.ts` skips no file by path. |

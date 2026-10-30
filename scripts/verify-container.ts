@@ -11,7 +11,7 @@ import {
   parseSavedContainer,
   serialiseSavedContainer,
 } from '../site/src/container/active-container.ts';
-import { GTM_ALLOWLIST, scanText } from './lib/secret-scan.ts';
+import { GTM_ALLOWLIST, isGtmPlaceholder, scanText } from './lib/secret-scan.ts';
 import { mask } from './lib/report.ts';
 
 /**
@@ -55,7 +55,7 @@ function containerId(length = 7): string {
   let id: string;
   do {
     id = ['GTM', suffix(length)].join('-');
-  } while (id === GTM_ALLOWLIST);
+  } while (isGtmPlaceholder(id));
   return id;
 }
 
@@ -208,6 +208,56 @@ const checks: ReadonlyArray<readonly [string, () => void]> = [
     'scanner accepts the placeholder',
     () => {
       assert.deepStrictEqual(scanText('fixture', GTM_ALLOWLIST), []);
+      // Charter 1.1.1: every all-X form is a placeholder.
+      for (let length = 4; length <= 10; length += 1) {
+        assert.deepStrictEqual(scanText('fixture', ['GTM', 'X'.repeat(length)].join('-')), []);
+      }
+      // One non-X character makes it real-looking again.
+      const nearPlaceholder = ['GTM', 'X'.repeat(6) + '1'].join('-');
+      assert.strictEqual(scanText('fixture', nearPlaceholder).length, 1);
+    },
+  ],
+  [
+    'scanner skips only lane_head commit SHAs',
+    () => {
+      const sha = suffixFrom('0123456789abcdef', 40);
+      const token = suffixFrom(ALNUM + LOWER, 40);
+      // A commit SHA recorded by Spec Kitty, on a line that also says "token".
+      assert.deepStrictEqual(
+        scanText('fixture', `{"lane_head": "${sha}", "note": "no token"}`),
+        [],
+      );
+      // The same SHA under any other key is still reported.
+      assert.strictEqual(scanText('fixture', `{"head": "${sha}", "note": "token"}`).length, 1);
+      // A token-shaped value under lane_head is still reported.
+      assert.strictEqual(
+        scanText('fixture', `{"lane_head": "${token}", "note": "token"}`).length,
+        1,
+      );
+      // A container ID inside a coordination log line is still reported.
+      assert.strictEqual(
+        scanText('fixture', `{"delta": {"note": "fixed ${containerId()}"}}`).length,
+        1,
+      );
+    },
+  ],
+  [
+    'no-secrets skips no tracked file by path',
+    () => {
+      // The gate may skip a file only when it can't be read or is binary
+      // (C-002: the gate is never narrowed by path).
+      const source = readFileSync(resolve(import.meta.dirname, 'no-secrets.ts'), 'utf8');
+      const lines = source.split(/\r?\n/);
+      lines.forEach((line, index) => {
+        if (line.trim() === 'continue;') {
+          const before = lines[index - 1] ?? '';
+          assert.ok(
+            /isBinary\(|catch\b/.test(before),
+            `no-secrets.ts:${index + 1} skips a file for a reason other than unreadable or binary`,
+          );
+        }
+      });
+      assert.ok(!source.includes('kitty-specs'), 'no-secrets.ts must not name paths to skip');
     },
   ],
   [

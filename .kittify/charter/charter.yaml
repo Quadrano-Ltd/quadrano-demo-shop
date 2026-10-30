@@ -69,6 +69,10 @@ directives:
     description: >-
       The shop's own GTM container ID and any keys live in Cloudflare Pages
       environment and secret values, never in code, config files or commits.
+      Tests and docs use only the placeholder GTM-XXXXXXX, or IDs built while
+      the tests run. The no-secrets gate treats any all-X ID (GTM- followed by
+      4 to 10 X's) as a placeholder and skips commit SHAs recorded as Spec
+      Kitty "lane_head" values; it never skips a file by its path (1.1.1).
     severity: error
   - id: QDR-005
     title: "Published-artefact contract"
