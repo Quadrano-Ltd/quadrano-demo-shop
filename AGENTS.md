@@ -20,8 +20,10 @@ Dev dependencies (from `pnpm-lock.yaml`):
 | `@eslint/js` | 10.0.1 |
 | `typescript-eslint` | 8.71.2 |
 | `@types/node` | 24.19.2 |
+| `@playwright/test` | 1.64.1 |
+| `@axe-core/playwright` | 4.14.0 |
 
-There are no runtime dependencies. Anything new needs a Charter amendment (QDR-002/QDR-007). Decisions: `DM-01M5QXTQXTG6ASW9E96GQM6ARX` (supporting dev dependencies) and `DM-01M5QYJ3YM1435E0GJEG301ZF4` (`@types/node` as a type-only dev dependency).
+There are no runtime dependencies. Anything new needs a Charter amendment (QDR-002/QDR-007). Decisions: `DM-01M5QXTQXTG6ASW9E96GQM6ARX` (supporting dev dependencies) and `DM-01M5QYJ3YM1435E0GJEG301ZF4` (`@types/node` as a type-only dev dependency). Playwright and axe are approved as dev-only, non-gate tooling by Charter 1.1.0 (`DM-01M64TAJ14KYVH94V2RCQPC8AY`).
 
 ## Commands
 
@@ -34,6 +36,8 @@ There are no runtime dependencies. Anything new needs a Charter amendment (QDR-0
 | `pnpm gates --pre-push` | as above, and the no-secrets/provenance scan also covers the ranges git passes on stdin | same |
 | `pnpm gates --ci` | as above, using the GitHub event ranges, plus a full-history no-secrets scan | same |
 | `pnpm verify:scenarios` | FR-012 invariants (not a gate) | non-zero on any violation |
+| `pnpm verify:container` | choice rules, malformed IDs, expiry and tamper, scanner still fires (not a gate) | non-zero on any violation |
+| `pnpm test:e2e` | Playwright + axe; googletagmanager.com stubbed; builds to `.e2e-dist/` (not a gate) | non-zero on any failure |
 | `pnpm preview` | serves `dist/` locally (FR-022) | — |
 
 ## Gates
@@ -42,7 +46,7 @@ Order: lint → build → no-secrets → provenance, stopping at the first failu
 
 ## Secrets and IDs
 
-The GTM container ID exists only as the Cloudflare Pages build variable `VITE_GTM_CONTAINER_ID`. For local runs, use a gitignored `.env.local`. The only container-ID-shaped string allowed in the repo is the documentation placeholder `GTM-XXXXXXX`.
+The GTM container ID exists only as the Cloudflare Pages build variable `VITE_GTM_CONTAINER_ID`. For local runs, use a gitignored `.env.local`. The only container-ID-shaped string allowed in the repo is the documentation placeholder `GTM-XXXXXXX`. Tests build container IDs at run time; the only ID-shaped literal in the repo is `GTM-XXXXXXX`.
 
 ## Provenance denylist
 
@@ -50,7 +54,7 @@ Location: `QUADRANO_DENYLIST_PATH`, else `~/.quadrano/provenance-denylist.txt`. 
 
 ## Supply chain
 
-`minimumReleaseAge: 10080` (7 days) and `onlyBuiltDependencies: []` in `pnpm-workspace.yaml`. The lockfile is committed and CI installs with `--frozen-lockfile`. GitHub Actions are pinned by SHA. `typescript` is pinned to `^5.9.3` (not 7.x) because `typescript-eslint` 8.71.2 supports TypeScript `<6.1.0`.
+`minimumReleaseAge: 10080` (7 days) and `onlyBuiltDependencies: []` in `pnpm-workspace.yaml`. The lockfile is committed and CI installs with `--frozen-lockfile`. GitHub Actions are pinned by SHA. `typescript` is pinned to `^5.9.3` (not 7.x) because `typescript-eslint` 8.71.2 supports TypeScript `<6.1.0`. The five supply-chain controls were re-checked at install on 2026-10-29: all packages resolve from `registry.npmjs.org`, `pnpm audit` reports no known vulnerabilities, and the GitHub Advisory Database lists no advisories for these versions. Browser binaries are fetched only by an explicit `pnpm exec playwright install chromium`, run by hand once per machine; it downloads from Playwright's CDN, outside the lockfile, and is never run by `install`, CI or the gates.
 
 ## Deploy
 
