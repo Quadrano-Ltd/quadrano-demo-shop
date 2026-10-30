@@ -228,10 +228,10 @@
       "criterion_id": "FR-023",
       "description": "Verify FR-023 is satisfied",
       "proof_type": "automated_test",
-      "evidence": null,
+      "evidence": "run 1 recorded; run 2 (spike on built feature) is Product-Owner gated and not yet run",
       "pass_fail": "pending",
-      "verified_by": null,
-      "verified_at": null,
+      "verified_by": "copilot",
+      "verified_at": "2026-10-30T00:19:12.909321+00:00",
       "notes": "TODO: replace with a real acceptance criterion"
     },
     {
