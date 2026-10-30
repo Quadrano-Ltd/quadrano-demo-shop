@@ -79,6 +79,10 @@ go-ahead), so there is no preview deployment to run against. The result and
 redacted `docs/spike/run2-*.png` screenshots will be added here once the
 Product Owner runs the six steps.
 
+**Deadline:** before rehearsals finish on Thu 19 Nov 2026 (C-006). Path 2's
+copy can't be final until then (FR-024), so the acceptance matrix records
+FR-023 and FR-024 as pending.
+
 ### Result (run 2)
 
 | Check | Result |

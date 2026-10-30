@@ -236,6 +236,14 @@ event log and the planning spec), so they are recorded here, not fixed. If CI's
 allowlist decision; that is a Product Owner / mission decision, not a WP11 code
 change.
 
+**Update 2026-10-30 (after the mission review):** the Product Owner approved
+Charter 1.1.1. The scanner now treats any all-X container ID as a placeholder
+and skips commit SHAs recorded as Spec Kitty `"lane_head"` values. It skips no
+file by path: the post-merge status-file exemption was reverted. Re-run on
+commit `dcd0072`: `node scripts/no-secrets.ts --history` gives
+`no-secrets: 0 findings` (exit 0), and `pnpm gates --ci` gives
+`gates: all 4 passed` (exit 0).
+
 **CI run — not yet available (recorded, not fabricated).** `gh run list --branch
 feat/byo-gtm-container --limit 1` returns nothing because `feat/byo-gtm-container`
 and the mission branch are still local only; `origin` has `main`, `feat/demo-shop`,
