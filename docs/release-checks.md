@@ -223,9 +223,10 @@ positive, and none is in the current tree:
   a line that also mentions `token`/`key`/`secret`, and those lines say
   "no-secrets 0 findings" in the review reason. The matches are commit SHAs,
   not Cloudflare tokens.
-- 9 × `gtm-container-id` — three earlier `spec.md` revisions used the placeholder
-  `GTM-XXXX` (four Xs), which is outside the scanner's allowlist
-  (`GTM-XXXXXXX`). The current `spec.md` uses the allowlisted `GTM-XXXXXXX`.
+- 9 × `gtm-container-id` — three earlier `spec.md` revisions used a four-X
+  placeholder shorter than the allowlisted seven-X form, which is outside the
+  scanner's allowlist (`GTM-XXXXXXX`). The current `spec.md` uses the
+  allowlisted `GTM-XXXXXXX`.
 
 The working-tree scan inside `pnpm gates` is `no-secrets: 0 findings`, and no
 secret is present in the current tree. The `--history` findings are pre-existing

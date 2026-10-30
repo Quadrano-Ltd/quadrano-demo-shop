@@ -10,7 +10,7 @@ wp_id: WP11
 
 **Issue 1 (blocking): `pnpm gates` fails — WP11's own deliverable trips the no-secrets gate.**
 
-`docs/release-checks.md` line 227 contains the literal string `GTM-XXXX` when explaining the historical false positives. The scanner's `gtm-container-id` pattern (`\bGTM-[A-Z0-9]{4,10}\b`) matches it, and it is not the allowlisted `GTM-XXXXXXX`, so the working-tree scan reports:
+`docs/release-checks.md` line 227 contains a literal four-X placeholder (shorter than the allowlisted seven-X form) when explaining the historical false positives. The scanner's `gtm-container-id` pattern (`\bGTM-[A-Z0-9]{4,10}\b`) matches it, and it is not the allowlisted `GTM-XXXXXXX`, so the working-tree scan reports:
 
 ```
 no-secrets: docs/release-checks.md:227 gtm-container-id (GTM-****)
