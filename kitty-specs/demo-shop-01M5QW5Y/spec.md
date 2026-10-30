@@ -55,7 +55,7 @@ The presenter picks a deliberately broken scenario and places an order. The Cons
 | 1 | Missing value | `ecommerce.value` absent | `✗ purchase · 1 error` / `ecommerce.value is required, but is missing.` |
 | 2 | Value as text | `ecommerce.value` is the string `"12.99"` | `✗ purchase · 1 error` / `ecommerce.value should be a number, but got "12.99".` |
 | 3 | Wrong-case key | `ecommerce.transaction_ID` instead of `ecommerce.transaction_id` | `✗ purchase · 1 error, 1 warning` / `ecommerce.transaction_id is required, but is missing.` / `ecommerce.transaction_ID isn't in the Event Definition. Did you mean transaction_id?` |
-| 4 | Lower-case currency | `ecommerce.currency` is `"gbp"` | `✗ purchase · 1 error` / `ecommerce.currency should be one of GBP, EUR, USD, but got "gbp".` |
+| 4 | Lower-case currency | `ecommerce.currency` is `"gbp"` | `✗ purchase · 1 error` / `ecommerce.currency should be one of "GBP", "EUR", "USD", but got "gbp".` |
 | 5 | Bad transaction ID *(spare, not in the talk script)* | `ecommerce.transaction_id` does not match the agreed pattern | `✗ purchase · 1 error` / `ecommerce.transaction_id should match the pattern {pattern}, but got "{value}".` with the agreed pattern and the pushed value filled in |
 
 1. **Given** the snippet is installed and a broken scenario is selected, **When** the presenter places an order, **Then** the Console shows exactly the group in that scenario's row.

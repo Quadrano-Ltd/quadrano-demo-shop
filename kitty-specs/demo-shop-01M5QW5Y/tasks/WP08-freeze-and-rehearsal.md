@@ -127,7 +127,7 @@ If any is missing, **do not improvise**. Do not hand-build a stand-in Specificat
   3. Order again → `1 · Missing value` → Place order → `✗ purchase · 1 error` / `ecommerce.value is required, but is missing.`
   4. Order again → `2 · Value as text` → Place order → `✗ purchase · 1 error` / `ecommerce.value should be a number, but got "12.99".`
   5. Order again → `3 · Wrong-case key` → Place order → `✗ purchase · 1 error, 1 warning` / `ecommerce.transaction_id is required, but is missing.` / `ecommerce.transaction_ID isn't in the Event Definition. Did you mean transaction_id?`
-  6. Order again → `4 · Lower-case currency` → Place order → `✗ purchase · 1 error` / `ecommerce.currency should be one of GBP, EUR, USD, but got "gbp".`
+  6. Order again → `4 · Lower-case currency` → Place order → `✗ purchase · 1 error` / `ecommerce.currency should be one of "GBP", "EUR", "USD", but got "gbp".`
   7. Order again → `Spare · Bad transaction ID` → Place order → `✗ purchase · 1 error` / `ecommerce.transaction_id should match the pattern <pattern as held>, but got "12345".`
   8. Reload thank-you → **no** new Console group
   9. Switch scenario on any page → **no** new Console group; the URL changes
