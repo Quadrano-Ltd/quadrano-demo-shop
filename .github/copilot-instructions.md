@@ -1,5 +1,5 @@
 <!-- spec-kitty:orientation -->
-**Spec Kitty v3.2.7** — project: quadrano-demo-shop (healthy)
+**Spec Kitty v4.0.0rc7** — project: quadrano-demo-shop (healthy)
 
 Two usage patterns:
 - **Full mission** (spec → plan → tasks → implement → review → merge):

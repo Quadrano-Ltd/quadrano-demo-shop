@@ -17,5 +17,11 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["site/src/**/*.ts", "scripts/**/*.ts", "vite.config.ts"]
+  "include": [
+    "site/src/**/*.ts",
+    "scripts/**/*.ts",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "e2e/**/*.ts"
+  ]
 }
