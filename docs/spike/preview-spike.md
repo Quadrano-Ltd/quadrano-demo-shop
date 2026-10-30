@@ -53,7 +53,7 @@ was being previewed, and marked "not found" because the page doesn't load it.
   work.
 - **Path 2's visitor instructions (FR-024)** stay provisional until run 2.
 
-## Run 2: with the feature built (pending the Product Owner)
+## Run 2: with the feature built (2026-10-30)
 
 The six steps below were checked against the built UI on 2026-10-29 (commit
 `87d1c61`) and still match: the toggle and panel are labelled "Demo menu", the
@@ -72,38 +72,68 @@ On a preview deployment of the mission branch:
 6. Add a Quadrano Local snippet in a Custom HTML tag, refresh Preview, and use
    the playground: check that the Console shows a ✓ group and a ✗ group (SC-007).
 
-**Status: not yet run.** Run 2 needs the Product Owner's real GTM account, the
-Tag Assistant interface and the Pages preview of `feat/byo-gtm-container`. The
-mission branch has not been pushed yet (the push needs the Product Owner's
-go-ahead), so there is no preview deployment to run against. The result and
-redacted `docs/spike/run2-*.png` screenshots will be added here once the
-Product Owner runs the six steps.
+**Checked by:** the Product Owner, on 2026-10-30, using Chrome 156.
 
-**Deadline:** before rehearsals finish on Thu 19 Nov 2026 (C-006). Path 2's
-copy can't be final until then (FR-024), so the acceptance matrix records
-FR-023 and FR-024 as pending.
+**Set-up:**
+- A new, empty container named "Spike run 2 (FR-023)" in the Product Owner's own
+  GTM account. It was never published.
+- The Pages preview of `feat/byo-gtm-container` at commit `5c9b429`
+  (`feat-byo-gtm-container.quadrano-demo-shop.pages.dev`).
+
+The container ID was entered through the Demo menu's path 2.
 
 ### Result (run 2)
 
-| Check | Result |
-|---|---|
-| Run 2 executed | **Not yet.** Pending the Product Owner and a Pages preview. |
+| Step | Check | Result |
+|---|---|---|
+| 4 | Tag Assistant finds the test container, and not the shop's own (FR-001) | **Pass.** "1 Google tag found": the test container, with Container Version "Preview" and Source "On-page gtm.js snippet". The shop's container is not listed. |
+| 5 | The test container stays found across pages | **Pass.** It was found on Shop, Product, Basket and Checkout, with `add_to_cart` recorded on the way. |
+| 6 | The Quadrano Local snippet runs from the unpublished container, and the playground produces Console groups | **Pass, with one finding.** The snippet ran unpublished: the Console header reads "Quadrano · Specification … · Version local · Console format v1 · watching dataLayer", and the playground pushes produced ✗ groups. The ✓ check was not met; see below. |
+
+Screenshots, with the container IDs redacted:
+
+![Tag Assistant finds the test container](run2-found.png)
+
+![The test container stays found across pages](run2-navigation.png)
+
+![Quadrano Local's Console output for purchase · correct](run2-console.png)
+
+**Finding (step 6): `purchase · correct` gave ✗, not ✓.** The Console reports
+"4 errors, 1 warning":
+- currency, items, transaction_id and value are each "required, but is
+  missing".
+- "ecommerce isn't in the Event Definition."
+
+The pushed object in the same screenshot matches the agreed contract: the four
+fields sit under `ecommerce`, with currency GBP, value 12.99, one item and a
+`T-` transaction ID. The broken scenarios' expected messages use the
+`ecommerce.` paths too (`ecommerce.value is required, but is missing.`). So the
+shop's push is correct, and the Specification used for the run expects these
+fields at the top level of the event instead of under `ecommerce`. This is
+outside this repository. It is either a defect in how quadrano.com/local
+builds a GA4 `purchase` Specification, or the Specification needs its fields
+defined under `ecommerce`. The Product Owner considers it a /local defect.
 
 ### Conclusion (run 2)
 
-**Pending.** Whether a never-published container runs in Preview once the shop
-loads it is still open. The spec assumes run 2 passes (the usual
-install-then-Preview-then-publish GTM workflow); if it does not, path 2's step 5
-changes and nothing else.
+**FR-023: settled.** A never-published container runs in GTM Preview once the
+shop loads it:
+- Tag Assistant finds it.
+- It stays found across navigations.
+- Its Custom HTML tag runs.
+
+Visitors don't need to publish.
+
+**SC-007 is still open.** It needs a ✓ and a ✗ group, and only ✗ was seen,
+because of the Specification finding above. A Specification that validates the
+`ecommerce` fields must be available before the production rehearsal (NFR-006,
+SC-007). That rehearsal is due before rehearsals finish on Thu 19 Nov 2026
+(C-006).
 
 ### Path 2 copy (FR-024)
 
-Run 2 has not produced a result, so the path 2 copy stays as shipped
-(provisional, matching the spec's assumption that run 2 passes). Final copy of
-step 5:
+Run 2 passed, so the shipped copy for step 5 is final:
 
 > Start Preview on this shop. You don't need to publish.
 
-If run 2 shows the container does not run unpublished, step 5 becomes exactly
-"Submit and publish your container, then reload this page." (contract), as a
-one-constant change to `PREVIEW_STEP` in `site/src/menu/visitor-menu.ts`.
+No code change is needed.

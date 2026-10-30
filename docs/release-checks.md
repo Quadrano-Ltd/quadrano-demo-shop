@@ -251,21 +251,55 @@ and the mission branch are still local only; `origin` has `main`, `feat/demo-sho
 approved the first push. The only existing `gates` workflow runs are on `main`
 (PR #5) and are green.
 
+**Update 2026-10-30:** the Product Owner pushed `feat/byo-gtm-container` at
+`5c9b429` and draft PR #7 was opened into `main`. The `gates` workflow passed on
+the push (run 41112813642) and on the PR (run 41113006644). Cloudflare Pages
+built the preview with Node 24.15.0 and pnpm 10.34.7, with no missing-ID
+warning.
+
 ### T048 — Lighthouse LCP on the Pages preview (NFR-004)
 
-**Not yet run.** This step needs the Cloudflare Pages preview URL for
-`feat/byo-gtm-container` (`<hash>.quadrano-demo-shop.pages.dev` or the branch
-alias), which does not exist until the mission branch is pushed; pushing needs
-the Product Owner's go-ahead. For context, the local `pnpm preview` Lighthouse
-audit in T037 already recorded all five pages under the 2 s target (950, 951,
-942, 1024, 943 ms). The Pages-preview run required by NFR-004 will be recorded
-here once the preview exists.
+**Result: pass (2026-10-30).** Every page's LCP is at most 2.0 s on the Pages
+preview, and is in line with the pre-mission baseline.
 
-**Remaining steps:** (1) PO approves pushing `feat/byo-gtm-container`; (2) get
-the Pages preview URL; (3) Chrome DevTools → Lighthouse → Mobile, Performance
-only, default Slow 4G, on `/`, `/product/?id=SKU-1001`, `/basket/`,
-`/checkout/`, `/thank-you/`, no saved ID, menu closed; (4) record each LCP and
-score — pass when every LCP ≤ 2.0 s.
+**How:** Lighthouse 12.8.2 CLI, headless Chrome 156, mode Navigation, device
+Mobile, Performance only, default simulated throttling (Slow 4G). Each run used
+a fresh profile with no extensions and no saved ID, and the Demo menu closed.
+
+- **Preview:** branch alias `feat-byo-gtm-container.quadrano-demo-shop.pages.dev`,
+  deployment `1f59b529`, commit `5c9b429`. It loads the shop's own container.
+- **Baseline:** preview `e72b0bd5`, commit `a3c4f96`, from before this mission,
+  loading the same container.
+
+Where a page was run more than once, the values are listed in run order.
+
+| Page | Preview LCP (score) | Baseline LCP (score) |
+|---|---|---|
+| `/` | 861, 1311, 882 ms (100, 100, 100) | 2751, 892 ms (96, 99) |
+| `/product/?id=SKU-1001` | 846 ms (100) | 1354 ms (100) |
+| `/basket/` | 1389 ms (100) | 1344 ms (100) |
+| `/checkout/` | 855 ms (100) | 1342 ms (100) |
+| `/thank-you/` | 1397, 878 ms (100, 100) | 1345 ms (100) |
+
+**Other metrics:**
+- CLS is 0.000 on every run.
+- TBT is between 41 and 139 ms.
+- The LCP element is shop text: the wordmark, the product blurb or the footer
+  line.
+- Load delay and load time are 0 ms on every run. LCP is made up of server
+  response time (about 450–690 ms) plus render delay.
+- The shop's container (`gtm.js`, 162 kB transferred) loads on every page in
+  both builds, and does not delay LCP.
+- Run-to-run spread is about 0.85–1.4 s. The one baseline value of 2751 ms is
+  an outlier that did not repeat.
+
+**Product Owner's DevTools run:** the Product Owner ran Lighthouse from Chrome
+DevTools in their everyday browser. It gave an LCP of 2.5 s on `/`, product,
+basket and thank-you, 0.9 s on checkout, and a thank-you score of 86. The four
+identical values and the low thank-you score point to the browser
+environment, most likely extensions such as Tag Assistant, rather than the
+site. The Product Owner accepted the clean-Chrome CLI runs above as the NFR-004
+evidence.
 
 ### T051 — Production rehearsal check (NFR-006, SC-007)
 
@@ -289,7 +323,7 @@ deployed, with the Product Owner present (a real GTM account and Tag Assistant).
 | Check | Status | PO initials |
 |---|---|---|
 | T047 — gates and checks on the merged tree | ✅ local green (full-history scan caveat above) | |
-| T048 — Lighthouse LCP on the Pages preview | ⏳ not yet run; awaiting preview URL | |
+| T048 — Lighthouse LCP on the Pages preview | ✅ pass 2026-10-30; every LCP ≤ 1.4 s (clean-Chrome CLI runs) | |
 | T051 — production rehearsal (NFR-006, SC-007) | ⏳ not yet run; awaiting production deploy | |
 
 ---
