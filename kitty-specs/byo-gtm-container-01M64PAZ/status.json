@@ -361,7 +361,8 @@
       "model": "__resolved_model_absent__",
       "notes": [
         "Ready for review",
-        "Ready for review (cycle 2: fixed GTM-XXXX literal)"
+        "Ready for review (cycle 2: fixed GTM-XXXX literal)",
+        "Review passed: cycle-2 fix removes the four-X placeholder (only allowlisted GTM-XXXXXXX remains); T048/T049/T051 honestly pending; path 2 copy unchanged; pnpm gates/lint/build all exit 0"
       ],
       "provider": "__resolved_provider_absent__",
       "review": null,
