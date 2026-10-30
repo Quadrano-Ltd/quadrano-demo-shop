@@ -5,7 +5,7 @@
   "friendly_name": "Bring your own GTM container",
   "mid8": "01M64PAZ",
   "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
-  "mission_number": null,
+  "mission_number": 1,
   "mission_slug": "byo-gtm-container-01M64PAZ",
   "mission_type": "software-dev",
   "pr_bound": true,
