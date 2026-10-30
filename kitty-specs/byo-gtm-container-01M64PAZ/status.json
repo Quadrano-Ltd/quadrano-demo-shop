@@ -2,10 +2,9 @@
   "event_count": 82,
   "last_event_id": "01M653D6PA3NYK5KK76DEZ6VPH",
   "materialized_at": "2026-10-30T00:29:56.810798+00:00",
-  "mission_number": "1",
+  "mission_number": "",
   "mission_slug": "byo-gtm-container-01M64PAZ",
-  "mission_type": "software-dev",
-  "schema_version": 2,
+  "mission_type": "",
   "summary": {
     "approved": 0,
     "blocked": 0,
@@ -21,367 +20,189 @@
     "WP01": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653CS3Q60FGYR557X6A4ZGH",
       "last_transition_at": "2026-10-30T00:29:42.903767+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: Charter 1.1.0 amendment is correct - charter.md and charter.yaml agree for QDR-002/QDR-004, version 1.1.0 with date and amendment log row present, four verbatim headings unchanged, WP01 commit touches only the two charter files, pnpm gates exits 0 (all 4 passed)."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP01-charter-amendment\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP01-charter-amendment/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 27252,
-      "shell_pid_created_at": "1793314565.6055653",
-      "subtasks": {
-        "T001": "done",
-        "T002": "done",
-        "T003": "done",
-        "T004": "done"
-      }
+      "shell_pid": 6124,
+      "shell_pid_created_at": "1793314142.4650588"
     },
     "WP02": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653CX79GTZ06PVZNGGA4JB7",
       "last_transition_at": "2026-10-30T00:29:47.113006+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: commit 6aab444 touches only spec.md and datalayer-pushes.md; FR-003/NFR-004/C-011 carry Scoped-by-Charter-1.1.0 annotations; Event playground note inserted verbatim under Sequence per action; no banned terminology; pnpm gates all 4 passed."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP02-demo-shop-doc-notes\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP02-demo-shop-doc-notes/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 22432,
-      "shell_pid_created_at": "1793315405.9088876",
-      "subtasks": {
-        "T005": "done",
-        "T006": "done",
-        "T007": "done"
-      }
+      "shell_pid": 25608,
+      "shell_pid_created_at": "1793314773.2397127"
     },
     "WP03": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653CVXMT1N969F0MNEQXM1B",
       "last_transition_at": "2026-10-30T00:29:45.780492+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: active-container.ts self-contained with exact contract surface; chooseContainer matches contracts/container-choice.md (all 4 paths + parse edge cases verified via node); visitor-storage probe/save/clear guarded (no in-memory fallback, no address reads); ESLint override forbids address reads and repeats dataLayer restrictions; pnpm lint and pnpm build exit 0."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP03-container-rules-and-storage\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP03-container-rules-and-storage/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 27372,
-      "shell_pid_created_at": "1793315263.0046575",
-      "subtasks": {
-        "T008": "done",
-        "T009": "done",
-        "T010": "done",
-        "T011": "done",
-        "T012": "done"
-      }
+      "shell_pid": 26752,
+      "shell_pid_created_at": "1793314837.296839"
     },
     "WP04": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653CYGB4WHAEFX230FZJR8R",
       "last_transition_at": "2026-10-30T00:29:48.427071+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "- 2026-10-29T23:17:14Z – copilot – shell_pid=28404 – T013/T014: transformWithOxc confirmed (function) in Vite 8.3.4; buildRulesScript strips type-only exports and the export keyword on const/function declarations. Import guard proven by real build failure with message 'active-container.ts must stay self-contained (no import/export after inlining)' after a scratch side-effect import (reverted). Closing-script and address regexes verified against representative strings. Note: Vite 8.3.4 transformWithOxc already escapes closing script text to a backslash form in output, so that guard is defense-in-depth over the transformed output.",
-        "- 2026-10-29T23:17:28Z – copilot – shell_pid=28404 – T015 edge cases simulated against the emitted loader (node harness): storage throw -> shop's or none with data-storage=unavailable and nothing removed; expired/malformed saved -> removed then shop's; no shop + no saved -> source=none and no request; visitor saved -> visitor, one request. Exactly one gtm.js request in every ID-bearing state.",
-        "- 2026-10-29T23:17:45Z – copilot – shell_pid=28404 – T017: pnpm build exits 0 with and without VITE_GTM_CONTAINER_ID; loader present right after the dataLayer initialiser on all five pages; noscript iframe only when the shop ID is set; pnpm dev serves the loader; pnpm gates passes (lint, build, no-secrets, provenance).",
-        "Ready for review",
-        "Review passed: vite.config.ts-only diff; self-contained inline head loader replaces gtm:head; shop-only noscript body; one gtm.js per page; lint+build (with/without VITE_GTM_CONTAINER_ID) exit 0; dev server serves pages."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP04-inline-head-loader\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP04-inline-head-loader/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 2832,
-      "shell_pid_created_at": "1793316005.149384",
-      "subtasks": {
-        "T013": "done",
-        "T014": "done",
-        "T015": "done",
-        "T016": "done",
-        "T017": "done"
-      }
+      "shell_pid": 28404,
+      "shell_pid_created_at": "1793315405.923804"
     },
     "WP05": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653CTGCHX1TWVJN57JV0XK0",
       "last_transition_at": "2026-10-30T00:29:44.332250+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: playground.ts renders 7 contract buttons (add_to_cart + SCENARIOS) via push.ts; announce injected; double-mount guard; no dataLayer/Console/network/ui-layout imports; lint, tsc, build, gates all exit 0."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP05-event-playground\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP05-event-playground/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 20800,
-      "shell_pid_created_at": "1793314591.3588676",
-      "subtasks": {
-        "T018": "done",
-        "T019": "done",
-        "T020": "done",
-        "T021": "done"
-      }
+      "shell_pid": 26788,
+      "shell_pid_created_at": "1793314208.8190072"
     },
     "WP06": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653D16Y8C4CEY6X4P6CQN8Y",
       "last_transition_at": "2026-10-30T00:29:51.198650+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: scope limited to 4 owned files; banner, path 1/2, storage note, playground mount, idempotent mount, Escape focus return, no verdict wording and 360px styles verified; lint and build exit 0"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP06-visitor-menu-and-banner\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP06-visitor-menu-and-banner/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 27248,
-      "shell_pid_created_at": "1793316737.6668112",
-      "subtasks": {
-        "T022": "done",
-        "T023": "done",
-        "T024": "done",
-        "T025": "done",
-        "T026": "done",
-        "T027": "done",
-        "T028": "done"
-      }
+      "shell_pid": 9892,
+      "shell_pid_created_at": "1793316275.339107"
     },
     "WP07": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653CZT2EA2P329XF40TBZEY",
       "last_transition_at": "2026-10-30T00:29:49.762659+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: gates green (lint/build/no-secrets/provenance), no-secrets 0 findings, verify:container all ok, lockfile adds only the 5 expected packages, no ID-shaped literal beyond GTM-XXXXXXX, e2e config/spec load via playwright --list"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP07-verification-tooling\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP07-verification-tooling/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 21532,
-      "shell_pid_created_at": "1793316503.715552",
-      "subtasks": {
-        "T029": "done",
-        "T030": "done",
-        "T031": "done",
-        "T032": "done",
-        "T033": "done",
-        "T034": "done"
-      }
+      "shell_pid": 27740,
+      "shell_pid_created_at": "1793315405.8596778"
     },
     "WP08": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653D2NRXBJA5CGTR4MH4GVV",
       "last_transition_at": "2026-10-30T00:29:52.696353+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: WP08 e2e specs assert exactly one container request across both states and all 5 pages, cover expired/tampered/future-dated/throwing storage and reset, and prove crafted address links never change the container; 123 e2e tests, lint, and build all pass."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP08-e2e-container-and-address\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP08-e2e-container-and-address/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 5048,
-      "shell_pid_created_at": "1793317509.6793578",
-      "subtasks": {
-        "T035": "done",
-        "T036": "done",
-        "T037": "done",
-        "T038": "done"
-      }
+      "shell_pid": 7032,
+      "shell_pid_created_at": "1793316906.768961"
     },
     "WP09": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653D411H65PKEZ7GQRYYGZD",
       "last_transition_at": "2026-10-30T00:29:54.081114+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: menu+playground specs verify all FRs; 12 Playwright tests pass, lint/build exit 0, diff limited to owned files"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP09-e2e-menu-and-playground\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP09-e2e-menu-and-playground/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 13012,
-      "shell_pid_created_at": "1793317684.922628",
-      "subtasks": {
-        "T039": "done",
-        "T040": "done",
-        "T041": "done",
-        "T042": "done"
-      }
+      "shell_pid": 14016,
+      "shell_pid_created_at": "1793316906.7739203"
     },
     "WP10": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653D5C0YY4WNF97A2NVJS09",
       "last_transition_at": "2026-10-30T00:29:55.456437+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "- 2026-10-29T23:46:12Z – copilot – shell_pid=27436 – T046 evidence: pnpm test:e2e green 4x consecutively (57 tests each; durations 34.1s, 31.2s, 29.8s, 30.6s). axe best-practice (non-failing): 0 violations and 0 incomplete on all 5 pages. gtm.external stayed empty. pnpm lint=0 and pnpm build=0.",
-        "Ready for review",
-        "Review passed: diff touches only e2e/a11y.spec.ts and e2e/layout.spec.ts; 20 axe scans + 2 variants 0 violations (no disabled/excluded rules); keyboard flows verified (open, Escape, focus return, Tab reach); 0px horizontal overflow at 360px; pnpm test:e2e 57/57, lint, build all green"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP10-e2e-a11y-and-layout\\review-cycle-1.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP10-e2e-a11y-and-layout/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 29056,
-      "shell_pid_created_at": "1793317684.9457977",
-      "subtasks": {
-        "T043": "done",
-        "T044": "done",
-        "T045": "done",
-        "T046": "done"
-      }
+      "shell_pid": 27436,
+      "shell_pid_created_at": "1793316906.812486"
     },
     "WP11": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 1,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M653D6PA3NYK5KK76DEZ6VPH",
       "last_transition_at": "2026-10-30T00:29:56.810798+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Ready for review (cycle 2: fixed GTM-XXXX literal)",
-        "Review passed: cycle-2 fix removes the four-X placeholder (only allowlisted GTM-XXXXXXX remains); T048/T049/T051 honestly pending; path 2 copy unchanged; pnpm gates/lint/build all exit 0"
-      ],
-      "provider": "__resolved_provider_absent__",
-      "review": null,
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\byo-gtm-container-01M64PAZ-coord\\kitty-specs\\byo-gtm-container-01M64PAZ\\tasks\\WP11-release-evidence-and-spike\\review-cycle-2.md",
         "reference": "review-cycle://byo-gtm-container-01M64PAZ/WP11-release-evidence-and-spike/review-cycle-2.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 11976,
-      "shell_pid_created_at": "1793318981.8933332",
-      "subtasks": {
-        "T047": "done",
-        "T048": "done",
-        "T049": "done",
-        "T050": "done",
-        "T051": "done"
-      }
+      "shell_pid": 5032,
+      "shell_pid_created_at": "1793318699.6509128"
     }
   }
 }
