@@ -227,11 +227,11 @@
     {
       "criterion_id": "FR-023",
       "description": "Verify FR-023 is satisfied",
-      "proof_type": "automated_test",
-      "evidence": "run 1 recorded; run 2 (spike on built feature) is Product-Owner gated and not yet run",
-      "pass_fail": "pending",
-      "verified_by": "copilot",
-      "verified_at": "2026-10-30T00:19:12.909321+00:00",
+      "proof_type": "manual_check",
+      "evidence": "docs/spike/preview-spike.md run 2 (2026-10-30, PO, Chrome 156, preview 5c9b429): unpublished container found by Tag Assistant, stays found across 4 pages, its Custom HTML tag runs; screenshots docs/spike/run2-*.png",
+      "pass_fail": "pass",
+      "verified_by": "claude",
+      "verified_at": "2026-10-30T20:15:42.739288+00:00",
       "notes": "TODO: replace with a real acceptance criterion"
     },
     {
