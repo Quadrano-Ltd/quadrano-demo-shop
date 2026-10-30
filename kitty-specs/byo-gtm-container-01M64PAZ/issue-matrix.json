@@ -1,0 +1,17 @@
+{
+  "rows": {
+    "#4": {
+      "evidence_ref": "Built by WP01-WP11, merged to feat/byo-gtm-container at d44aa1f; reaches main by PR. Manual Product Owner checks (spike run 2, NFR-004, NFR-006/SC-007) tracked in docs/release-checks.md.",
+      "fr": null,
+      "nfr": null,
+      "repo": null,
+      "sc": null,
+      "scope": null,
+      "source_file": null,
+      "title": null,
+      "verdict": "fixed",
+      "wp": null
+    }
+  },
+  "schema_version": 1
+}
