@@ -1,7 +1,7 @@
 {
   "mission_slug": "byo-gtm-container-01M64PAZ",
-  "mission_number": "",
-  "mission_type": "",
+  "mission_number": "1",
+  "mission_type": "software-dev",
   "overall_verdict": "pending",
   "criteria": [
     {
@@ -237,11 +237,11 @@
     {
       "criterion_id": "FR-024",
       "description": "Verify FR-024 is satisfied",
-      "proof_type": "automated_test",
-      "evidence": "implemented in its WP; pnpm gates (lint/build/no-secrets/provenance) and e2e checks pass",
-      "pass_fail": "pass",
-      "verified_by": "copilot",
-      "verified_at": "2026-10-30T00:19:23.041654+00:00",
+      "proof_type": "manual_check",
+      "evidence": "Path 2 copy is provisional until spike run 2 (FR-023) is recorded in docs/spike/preview-spike.md; the spec requires run 2 before the copy is final.",
+      "pass_fail": "pending",
+      "verified_by": "claude",
+      "verified_at": "2026-10-30T05:54:27.561569+00:00",
       "notes": "TODO: replace with a real acceptance criterion"
     },
     {
