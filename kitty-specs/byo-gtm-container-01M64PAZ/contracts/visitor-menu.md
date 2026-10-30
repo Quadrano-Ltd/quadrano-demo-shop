@@ -32,7 +32,8 @@ The visible label "Demo menu" may be renamed by the Product Owner. It must stay 
 | Toggle pressed while closed | Panel shown, `aria-expanded="true"`, focus to the heading |
 | Toggle pressed while open, the Close button, or Escape anywhere in the panel or on the toggle | Panel hidden, `aria-expanded="false"`, focus to the toggle |
 | Path 1 while the source is `visitor` | `clear()`, then reload (same as reset, FR-010) |
-| Path 1 otherwise | Message: "You're using the shop's pre-built container." No reload |
+| Path 1 while the source is `shop` | Message: "You're using the shop's pre-built container." No reload |
+| Path 1 while the source is `none` (a build without the shop's ID) | Message: "This build of the shop has no pre-built container." No reload |
 | Path 2 Save with a well-formed ID | `save(id)`, then reload (FR-006) |
 | Path 2 Save with a malformed ID | Refusal message in an `aria-live="polite"` area tied to the input with `aria-describedby`; `aria-invalid="true"` on the input; nothing saved (FR-007) |
 | Storage unavailable (`data-storage="unavailable"` or `probe()` false) | Path 2 input and Save disabled; note shown (FR-012) |

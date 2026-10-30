@@ -22,6 +22,7 @@ const STORAGE_UNAVAILABLE_COPY =
   "Bringing your own container isn't available in this browser, because it blocks site storage. You can still use the pre-built container and the event playground.";
 
 const PATH_1_SHOP_COPY = "You're using the shop's pre-built container.";
+const PATH_1_NONE_COPY = 'This build of the shop has no pre-built container.';
 const PATH_1_HINT = 'Open the browser Console to see the output.';
 
 // docs/spike/preview-spike.md run 2 assumes an unpublished container still runs
@@ -235,7 +236,7 @@ export function mountVisitorMenu(announce: (message: string) => void): void {
       path1Message.textContent = RESET_UNAVAILABLE_COPY;
       return;
     }
-    path1Message.textContent = PATH_1_SHOP_COPY;
+    path1Message.textContent = state.source === 'none' ? PATH_1_NONE_COPY : PATH_1_SHOP_COPY;
   });
 
   // Visitor state: a note above the form plus a menu reset (FR-010).
