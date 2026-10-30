@@ -1,7 +1,7 @@
 {
-  "event_count": 66,
-  "last_event_id": "01M651YSPNH372H4VHVYZ5N0EV",
-  "materialized_at": "2026-10-30T00:04:36.181000+00:00",
+  "event_count": 68,
+  "last_event_id": "01M651ZY6EXAHVVQ7M43HBPBFB",
+  "materialized_at": "2026-10-30T00:05:13.395463+00:00",
   "mission_number": "",
   "mission_slug": "byo-gtm-container-01M64PAZ",
   "mission_type": "",
@@ -13,9 +13,9 @@
     "claimed": 0,
     "done": 0,
     "for_review": 0,
-    "in_progress": 0,
+    "in_progress": 1,
     "in_review": 0,
-    "planned": 1
+    "planned": 0
   },
   "work_packages": {
     "WP01": {
@@ -351,13 +351,13 @@
     "WP11": {
       "actor": "copilot",
       "agent": null,
-      "agent_profile": "reviewer-renata",
+      "agent_profile": "implementer-ivan",
       "agent_profile_version": "1.0",
       "force_count": 1,
       "implementer_of_record": "copilot",
-      "lane": "planned",
-      "last_event_id": "01M651YSPNH372H4VHVYZ5N0EV",
-      "last_transition_at": "2026-10-30T00:04:36.181000+00:00",
+      "lane": "in_progress",
+      "last_event_id": "01M651ZY6EXAHVVQ7M43HBPBFB",
+      "last_transition_at": "2026-10-30T00:05:13.395463+00:00",
       "model": "__resolved_model_absent__",
       "notes": [
         "Ready for review"
@@ -370,7 +370,7 @@
         "reviewer": "copilot",
         "verdict": "changes_requested"
       },
-      "role": "reviewer",
+      "role": "implementer",
       "shell_pid": null,
       "shell_pid_created_at": null,
       "subtasks": {
