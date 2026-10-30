@@ -74,11 +74,15 @@ if (choice.id) {
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',choice.id);
 }`;
 
+  // Built once per production build. The dev server re-reads the rules on every
+  // page request, so the inlined copy never lags behind the menu's imported one.
   let rules: Promise<string> | undefined;
+  let cacheRules = true;
 
   return {
     name: 'quadrano-gtm',
     configResolved(config) {
+      cacheRules = config.command === 'build';
       if (shopId === null) {
         config.logger.warn(
           'VITE_GTM_CONTAINER_ID is not set or not a container ID; pages load no container unless a visitor brings their own.',
@@ -88,8 +92,7 @@ if (choice.id) {
     transformIndexHtml: {
       order: 'pre',
       async handler(html, ctx) {
-        rules ??= buildRulesScript();
-        const rulesCode = await rules;
+        const rulesCode = await (cacheRules ? (rules ??= buildRulesScript()) : buildRulesScript());
         const headScript = `<script>(function(){${rulesCode}\n${glue}\n})();</script>`;
         const withHead = replaceMarker(html, HEAD_MARKER, headScript, ctx.filename);
         return replaceMarker(withHead, BODY_MARKER, bodySnippet, ctx.filename);
