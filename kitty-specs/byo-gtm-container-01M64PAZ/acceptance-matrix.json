@@ -2,7 +2,7 @@
   "mission_slug": "byo-gtm-container-01M64PAZ",
   "mission_number": "1",
   "mission_type": "software-dev",
-  "overall_verdict": "pending",
+  "overall_verdict": "pass",
   "criteria": [
     {
       "criterion_id": "FR-001",
@@ -238,10 +238,10 @@
       "criterion_id": "FR-024",
       "description": "Verify FR-024 is satisfied",
       "proof_type": "manual_check",
-      "evidence": "Path 2 copy is provisional until spike run 2 (FR-023) is recorded in docs/spike/preview-spike.md; the spec requires run 2 before the copy is final.",
-      "pass_fail": "pending",
+      "evidence": "Run 2 passed, so path 2 step 5 copy 'Start Preview on this shop. You don't need to publish.' is final (docs/spike/preview-spike.md, Path 2 copy)",
+      "pass_fail": "pass",
       "verified_by": "claude",
-      "verified_at": "2026-10-30T05:54:27.561569+00:00",
+      "verified_at": "2026-10-30T20:15:55.864529+00:00",
       "notes": "TODO: replace with a real acceptance criterion"
     },
     {
