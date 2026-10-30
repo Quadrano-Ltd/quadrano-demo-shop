@@ -131,7 +131,7 @@ Terms local to this repo, which are not domain terms:
 |----|-------|------------|----------|--------|
 | FR-001 | Shop pages | As the presenter, I want five thin static pages (product listing, product page, basket, checkout, thank-you) selling fictional products, so that the shop looks real in GTM Preview. | High | Open |
 | FR-002 | Data layer first | As the presenter, I want every page to create `window.dataLayer` before GTM loads, so that Quadrano finds the data layer and replays early pushes. | High | Open |
-| FR-003 | GTM on every page | As the presenter, I want every page to load the shop's own GTM container, with its ID supplied by the hosting environment and never stored in the repository, so that the snippet runs on every page. | High | Open |
+| FR-003 | GTM on every page | As the presenter, I want every page to load the shop's own GTM container, with its ID supplied by the hosting environment and never stored in the repository, so that the snippet runs on every page. *Scoped by Charter 1.1.0: superseded by byo-gtm-container-01M64PAZ#FR-001 (exactly one container per page, the shop's own or the visitor's).* | High | Open |
 | FR-004 | Correct add_to_cart | As the presenter, I want adding a product to the basket to push one `add_to_cart` with `ecommerce.currency` (GBP), `ecommerce.value` (a number) and `ecommerce.items[]` (`item_id`, `item_name`, `price` as a number, `quantity` as a whole number), so that the Console shows `✓ add_to_cart`. | High | Open |
 | FR-005 | Correct purchase | As the presenter, I want placing an order to push one `purchase` with everything in FR-004 for the basket's items plus `ecommerce.transaction_id` matching the agreed pattern, so that the Console shows `✓ purchase`. | High | Open |
 | FR-006 | Ecommerce clear | As the presenter, I want each ecommerce push to be preceded by `{ecommerce: null}`, as GA4 practice expects, so that values from one event never leak into the next in GTM. | Medium | Open |
@@ -161,7 +161,7 @@ Terms local to this repo, which are not domain terms:
 | NFR-001 | Page speed | Each page's Largest Contentful Paint is at most 2 seconds, measured by Lighthouse in mobile mode with its default simulated throttling (Slow 4G). | Performance | Medium | Open |
 | NFR-002 | Fast staging | From any page, the presenter reaches any scenario on any page in at most 2 interactions. | Usability | High | Open |
 | NFR-003 | Repeatable verdicts | In a pre-rehearsal check, each of the 7 scenario outcomes (2 correct events, 5 broken scenarios) produces its expected Console group in 10 out of 10 runs; then 3 consecutive clean rehearsals by Thu 19 Nov 2026. | Reliability | High | Open |
-| NFR-004 | No extra network | The shop's pages make no network requests other than for their own assets and for loading GTM: 0 requests to any other origin across a full talk-script run, excluding what GTM itself loads. | Privacy | High | Open |
+| NFR-004 | No extra network | The shop's pages make no network requests other than for their own assets and for loading GTM: 0 requests to any other origin across a full talk-script run, excluding what GTM itself loads. *Scoped by Charter 1.1.0: covers only the shop's own container; what a visitor's own container loads is the visitor's choice.* | Privacy | High | Open |
 | NFR-005 | Keyboard operable | 100% of shop and switcher controls can be operated with the keyboard alone, with a visible focus indicator. | Accessibility | Medium | Open |
 
 ### Constraints
@@ -178,7 +178,7 @@ Terms local to this repo, which are not domain terms:
 | C-008 | Dates | Demoable end to end by Sun 8 Nov 2026; three consecutive clean rehearsals by Thu 19 Nov 2026. | Business | High | Open |
 | C-009 | Tooling | Fixed at specification time (Charter QDR-002/QDR-003), confirmed by the Product Owner: pnpm, a Vite multi-page static build, TypeScript, ESLint. Anything else needs a Charter amendment. | Technical | High | Open |
 | C-010 | Fictional brand | The shop's brand and products are fictional; no real brands, trademarks or product photography. | Legal | Medium | Open |
-| C-011 | No consent banner | The shop's GTM container holds only the Quadrano Custom HTML tag and nothing that sets cookies or sends data, so no consent banner is built. Adding any such tag reopens this constraint. | Regulatory | Medium | Open |
+| C-011 | No consent banner | The shop's GTM container holds only the Quadrano Custom HTML tag and nothing that sets cookies or sends data, so no consent banner is built. Adding any such tag reopens this constraint. *Scoped by Charter 1.1.0: covers only the shop's own container.* | Regulatory | Medium | Open |
 
 ### Key Entities
 

@@ -1,3 +1,10 @@
+# Enforce LF for spec-kitty planning/coordination artifacts. Hash-based
+# freshness guards (analysis report input_artifacts) and lane merges operate
+# on canonical LF content; core.autocrlf=true would otherwise check CRLF into
+# the working tree and make those hashes mismatch on Windows.
+kitty-specs/** text eol=lf
+.kittify/charter/** text eol=lf
+
 kitty-specs/**/status.events.jsonl merge=spec-kitty-event-log
 kitty-specs/**/decisions.events.jsonl merge=spec-kitty-event-log
 kitty-specs/**/meta.json merge=spec-kitty-meta
@@ -25,3 +32,4 @@ kitty-specs/**/canary-evidence/** linguist-generated=true
 
 # Git hooks must keep LF endings or sh fails on Windows checkouts
 .githooks/* text eol=lf
+kitty-specs/**/decisions/index.json merge=spec-kitty-decision-index

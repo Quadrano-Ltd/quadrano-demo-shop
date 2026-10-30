@@ -1,0 +1,173 @@
+schema_version: 1
+mission_id: 01M64PAZQB6Q2VRYWRQN3R6V59
+mission_slug: byo-gtm-container-01M64PAZ
+mission_number: 1
+friendly_name: Bring your own GTM container
+mission_type: software-dev
+target_branch: feat/byo-gtm-container
+created_at: '2026-10-30T00:31:15.228108+00:00'
+created_by:
+  kind: runtime
+  id: spec-kitty-generator
+  display: Spec Kitty Generator
+provenance:
+  kind: runtime_post_completion
+  invoked_at: '2026-10-30T00:31:15.228108+00:00'
+  policy_resolved_from:
+    enabled: <default>
+    timing: <default>
+    failure_policy: <default>
+    write_record: <default>
+    generate_proposals: <default>
+    apply_proposals: <default>
+    permissions.write_record: <default>
+    permissions.inspect_mission_artifacts: <default>
+    permissions.propose_glossary_changes: <default>
+    permissions.propose_drg_changes: <default>
+    permissions.propose_doctrine_changes: <default>
+    permissions.apply_low_risk_changes: <default>
+    permissions.apply_structural_changes: <default>
+    precedence: <default>
+    generator: <default>
+policy_source:
+  enabled: <default>
+  timing: <default>
+  failure_policy: <default>
+  write_record: <default>
+  generate_proposals: <default>
+  apply_proposals: <default>
+  permissions.write_record: <default>
+  permissions.inspect_mission_artifacts: <default>
+  permissions.propose_glossary_changes: <default>
+  permissions.propose_drg_changes: <default>
+  permissions.propose_doctrine_changes: <default>
+  permissions.apply_low_risk_changes: <default>
+  permissions.apply_structural_changes: <default>
+  precedence: <default>
+  generator: <default>
+findings_status: has_findings
+helped:
+- id: h-011
+  category: doc
+  summary: analysis-report.md present with no recorded findings
+  evidence_refs:
+  - e-018
+  details: An analysis-report.md artifact is present and its frontmatter records zero findings with a resolved verdict —
+    the analysis raised nothing.
+- id: h-001
+  category: implementation
+  summary: WP01 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-002
+  category: implementation
+  summary: WP02 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-003
+  category: implementation
+  summary: WP03 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-004
+  category: implementation
+  summary: WP04 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-005
+  category: implementation
+  summary: WP05 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-006
+  category: implementation
+  summary: WP06 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-007
+  category: implementation
+  summary: WP07 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-008
+  category: implementation
+  summary: WP08 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-009
+  category: implementation
+  summary: WP09 completed without rejection cycles
+  evidence_refs:
+  - e-016
+- id: h-010
+  category: implementation
+  summary: WP10 completed without rejection cycles
+  evidence_refs:
+  - e-016
+not_helpful:
+- id: n-001
+  category: review_loop
+  summary: WP11 required 1 rejection cycle(s) before approval
+  evidence_refs:
+  - e-017
+  details: WP WP11 was sent back to an earlier lane with documented review feedback 1 time(s).
+gaps: []
+proposals: []
+evidence_refs:
+- id: e-001
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/meta.json
+- id: e-002
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/spec.md
+- id: e-003
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/plan.md
+- id: e-004
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks.md
+- id: e-005
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP01-charter-amendment.md
+- id: e-006
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP02-demo-shop-doc-notes.md
+- id: e-007
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP03-container-rules-and-storage.md
+- id: e-008
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP04-inline-head-loader.md
+- id: e-009
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP05-event-playground.md
+- id: e-010
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP06-visitor-menu-and-banner.md
+- id: e-011
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP07-verification-tooling.md
+- id: e-012
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP08-e2e-container-and-address.md
+- id: e-013
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP09-e2e-menu-and-playground.md
+- id: e-014
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP10-e2e-a11y-and-layout.md
+- id: e-015
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/tasks/WP11-release-evidence-and-spike.md
+- id: e-016
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/status.events.jsonl
+- id: e-017
+  kind: event_range
+  path: kitty-specs/byo-gtm-container-01M64PAZ/status.events.jsonl
+  range: 01M651YSPNH372H4VHVYZ5N0EV
+- id: e-018
+  kind: file
+  path: kitty-specs/byo-gtm-container-01M64PAZ/analysis-report.md
+generator_version: '1.0'
+provenance_history: []

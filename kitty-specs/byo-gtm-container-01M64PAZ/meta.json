@@ -1,0 +1,21 @@
+{
+  "baseline_merge_commit": "a3c4f9628b19face37e841d522a414a0dfb7a735",
+  "created_at": "2026-10-29T20:41:32.844807+00:00",
+  "flattened": true,
+  "friendly_name": "Bring your own GTM container",
+  "merged_at": "2026-10-30T00:30:01.704761+00:00",
+  "merged_commit": "d44aa1f50644204262c7f4ee8756d130e7d3b9e1",
+  "mid8": "01M64PAZ",
+  "mission_id": "01M64PAZQB6Q2VRYWRQN3R6V59",
+  "mission_number": 1,
+  "mission_slug": "byo-gtm-container-01M64PAZ",
+  "mission_type": "software-dev",
+  "pr_bound": true,
+  "purpose_context": "For the talk, attendees need to create, deploy and inspect a Quadrano Local snippet on the demo shop themselves, but they can't edit the shop's own GTM container. A visitor menu offers two paths: watch validation with the shop's pre-built container, or bring your own empty container and add the snippet. It also includes an event playground that pushes valid and broken events on demand. Source: GitHub issue Quadrano-Ltd/quadrano-demo-shop#4.",
+  "purpose_tldr": "Let talk attendees and the presenter run Quadrano Local on the demo shop, using either the shop's pre-built GTM container or their own.",
+  "slug": "byo-gtm-container-01M64PAZ",
+  "status_phase": "1",
+  "target_branch": "feat/byo-gtm-container",
+  "vcs": "git",
+  "vcs_locked_at": "2026-10-29T22:49:12.259613+00:00"
+}

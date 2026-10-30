@@ -43,3 +43,10 @@ dist/
 .env
 .env.*
 *.log
+.e2e-dist/
+test-results/
+playwright-report/
+blob-report/
+
+# Spec Kitty upgrade backups (local only)
+.kittify/.migration-backup/

@@ -16,6 +16,8 @@ Every action makes two `window.dataLayer.push` calls, in this order:
 
 Switching scenario, navigating, and "Order again" push nothing.
 
+> **Event playground** (visitor menu, mission `byo-gtm-container-01M64PAZ`): one button per push in this file — `add_to_cart` and `purchase` in every scenario — makes the same two calls with the same shapes, using the hero product and a fresh transaction id. It pushes nothing else.
+
 ## `add_to_cart` (all scenarios)
 
 ```js
