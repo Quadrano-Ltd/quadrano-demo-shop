@@ -130,6 +130,11 @@ because of the Specification finding above. A Specification that validates the
 SC-007). That rehearsal is due before rehearsals finish on Thu 19 Nov 2026
 (C-006).
 
+**Update 2026-11-02: SC-007 passed.** In a production rehearsal through path 2,
+the Console showed both ✓ and ✗ groups for all 7 playground pushes. The
+Specification validated the `ecommerce` fields, and the container ran in
+Preview without being published. See `docs/release-checks.md`, T051.
+
 ### Path 2 copy (FR-024)
 
 Run 2 passed, so the shipped copy for step 5 is final:
