@@ -33,7 +33,7 @@ const INSTRUCTION_STEPS: readonly string[] = [
   'Create an empty container in your own GTM account.',
   'Enter its ID here and save.',
   'On quadrano.com/local, build a Specification and copy its snippet.',
-  'In your container, add a Custom HTML tag with the snippet, triggered on All Pages.',
+  'In your container, add a Custom HTML tag with the snippet, triggered on Initialization – All Pages.',
   PREVIEW_STEP,
   'Open the browser Console and use the event playground.',
 ];

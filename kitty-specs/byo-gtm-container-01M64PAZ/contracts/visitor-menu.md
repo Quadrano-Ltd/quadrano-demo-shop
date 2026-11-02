@@ -52,7 +52,7 @@ Copy must not contain ✓ ✗ ⚠ ✅ ❌ or the words pass(ed/es), fail(ed/s/ur
   1. Create an empty container in your own GTM account.
   2. Enter its ID here and save.
   3. On quadrano.com/local, build a Specification and copy its snippet.
-  4. In your container, add a Custom HTML tag with the snippet, triggered on All Pages.
+  4. In your container, add a Custom HTML tag with the snippet, triggered on Initialization – All Pages.
   5. Start Preview on this shop. You don't need to publish.
   6. Open the browser Console and use the event playground.
 - **If spike run 2 shows it doesn't run**, step 5 becomes: "Submit and publish your container, then reload this page." Only this copy changes.

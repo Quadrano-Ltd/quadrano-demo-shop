@@ -264,3 +264,5 @@ The Product Owner asked for every fixable finding to be fixed in one pass, and a
 | RISK-2: same implementer and reviewer identity | **Not fixable after the fact.** Use an independent reviewer on future missions. | — |
 
 **Verdict after remediation: PASS WITH NOTES.** No blocking finding remains. The open notes are spike run 2, NFR-004 and NFR-006 / SC-007 (Product Owner, before Thu 19 Nov 2026) and RISK-2 (process).
+
+**Update 2026-11-02:** Spike run 2 and NFR-004 were closed on 2026-10-30. NFR-006 and SC-007 passed in the production rehearsal (path 1 on 2026-10-30; path 2 on 2026-11-02; each push 10/10 on both paths). The evidence is in `docs/release-checks.md`, T051. The only note still open is RISK-2.

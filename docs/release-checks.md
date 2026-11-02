@@ -303,20 +303,76 @@ evidence.
 
 ### T051 — Production rehearsal check (NFR-006, SC-007)
 
-**Not yet run.** This step needs the mission's PR merged to `main` and production
-deployed, with the Product Owner present (a real GTM account and Tag Assistant).
+**Result: pass.** SC-007 passed on 2026-11-02, and NFR-006 passed on both
+paths: 10 out of 10 for each of the 7 pushes.
 
-**Remaining steps:**
-1. Path 1: fresh browser profile on production, no saved ID; press each of the 7
-   playground buttons 10 times; each press must produce its expected Console
-   group (see `contracts/datalayer-pushes.md`). Tally per button (n/10).
-2. Path 2: fresh, empty container plus a Quadrano Local snippet (in Preview,
-   unpublished, or published if T050 switched the copy); enter its ID; repeat
-   the 70 presses; tally.
-3. SC-007: confirm at least one ✓ group and one ✗ group appear via path 2.
-4. Reset to the shop's container; confirm the banner is gone.
-5. Record both tally tables with date, browser version and who pressed. Any
-   count below 10/10 is recorded and raised with the Product Owner (QDR-006).
+**Path 1 (the shop's container), 2026-10-30.**
+- **Who and how:** Claude ran a Playwright 1.64.0 script against
+  `https://demo.quadrano.com/`, using Playwright's bundled headless Chromium.
+- **Runs:** 10 runs, each on a fresh page with no saved ID. Each run opened
+  **Demo menu** and pressed the 7 playground buttons in order.
+- **Container:** the shop's own container, published with
+  Specification `cn27e6ffpqls`.
+- **Result:** for every button, all 10 runs gave the same Console output, and
+  it matched `contracts/datalayer-pushes.md`.
+
+**Path 2 (bring your own container), 2026-11-02.**
+- **Who and how:** the Product Owner, in desktop Chrome.
+- **Container:** a new, empty Web container (not the shop's), with one
+  Custom HTML tag holding a Quadrano Local snippet. The tag was triggered on
+  Initialization – All Pages. The container was entered through **Let me bring
+  my own GTM container** and run in GTM Preview, never published.
+- **Specification:** a local Demo Shop Specification (`phxnw3hcaewi`): the
+  catalogue's `add_to_cart` and `purchase` (GA4), with
+  `ecommerce.transaction_id` set to match `^T-[0-9]{6}$`.
+- **Saved log:** the Console log was saved outside the repo. It starts with the
+  banner line
+  `Quadrano · Specification phxnw3hcaewi · Version local · Console format v1 · watching dataLayer`.
+
+**SC-007:** the first press of each button was expanded in the saved log. All 7
+Console groups match the expected header and message lines:
+
+| Button | Console group |
+|---|---|
+| `add_to_cart` | `✓ add_to_cart` |
+| `purchase · Correct` | `✓ purchase` |
+| `purchase · 1 · Missing value` | `✗ purchase · 1 error`: `ecommerce.value is required, but is missing.` |
+| `purchase · 2 · Value as text` | `✗ purchase · 1 error`: `ecommerce.value should be a number, but got "12.99".` |
+| `purchase · 3 · Wrong-case key` | `✗ purchase · 1 error, 1 warning`: `ecommerce.transaction_id is required, but is missing.` and `ecommerce.transaction_ID isn't in the Event Definition. Did you mean transaction_id?` |
+| `purchase · 4 · Lower-case currency` | `✗ purchase · 1 error`: `ecommerce.currency should be one of "GBP", "EUR", "USD", but got "gbp".` |
+| `purchase · Spare · Bad transaction ID` | `✗ purchase · 1 error`: `ecommerce.transaction_id should match the pattern ^T-[0-9]{6}$, but got "12345".` |
+
+**NFR-006 tally:**
+
+| Button | Path 1 | Path 2 |
+|---|---|---|
+| `add_to_cart` | 10/10 | 10/10 |
+| `purchase · Correct` | 10/10 | 10/10 |
+| `purchase · 1 · Missing value` | 10/10 | 10/10 |
+| `purchase · 2 · Value as text` | 10/10 | 10/10 |
+| `purchase · 3 · Wrong-case key` | 10/10 | 10/10 |
+| `purchase · 4 · Lower-case currency` | 10/10 | 10/10 |
+| `purchase · Spare · Bad transaction ID` | 10/10 | 10/10 |
+
+**What the path 2 count rests on.**
+- The Product Owner pressed each button 10 times, in button order.
+- In the saved log, those 70 groups are collapsed, so the file shows only their
+  headers. The headers come in the expected order and number:
+  - 10 `✓ add_to_cart`;
+  - 10 `✓ purchase`;
+  - 20 `✗ purchase · 1 error` (buttons 1 and 2);
+  - 10 `✗ purchase · 1 error, 1 warning` (button 3);
+  - 20 `✗ purchase · 1 error` (button 4 and Spare).
+- There are no other verdict lines.
+- Buttons 1 and 2 have the same header, and so do button 4 and Spare. Only
+  their message lines tell them apart, and those were seen only for the first
+  press of each button, when the groups were expanded.
+- So for those four buttons, the 10/10 rests on the header count together
+  with the Product Owner watching the run ("All results appear to be as
+  expected").
+
+**Reset:** the run instructions ended with **Reset to the shop's container**
+and left the container unpublished. Neither step is shown in the saved log.
 
 **Awaiting Product Owner sign-off.**
 
@@ -324,7 +380,7 @@ deployed, with the Product Owner present (a real GTM account and Tag Assistant).
 |---|---|---|
 | T047 — gates and checks on the merged tree | ✅ local green (full-history scan caveat above) | |
 | T048 — Lighthouse LCP on the Pages preview | ✅ pass 2026-10-30; every LCP ≤ 1.4 s (clean-Chrome CLI runs) | |
-| T051 — production rehearsal (NFR-006, SC-007) | ⏳ not yet run; awaiting production deploy | |
+| T051 — production rehearsal (NFR-006, SC-007) | ✅ pass; path 1 2026-10-30 and path 2 2026-11-02, each 7 × 10/10; SC-007 ✓ and ✗ seen via path 2 | |
 
 ---
 
