@@ -517,7 +517,54 @@ button:focus-visible,
   text-align: left;
 }
 
+/* Offline mode panel (FR-021): visible only in the offline build. */
+.offline-mode {
+  margin: 1rem 1.25rem 0;
+  padding: 1rem;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.offline-mode__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.offline-mode label {
+  font-weight: 600;
+}
+
+.offline-mode__textarea {
+  width: 100%;
+  min-height: 8rem;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+}
+
+.offline-mode__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.offline-mode__status {
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
 input:focus-visible,
+textarea:focus-visible,
 .visitor-menu__title:focus,
 .visitor-menu__title:focus-visible {
   outline: 3px solid var(--focus);

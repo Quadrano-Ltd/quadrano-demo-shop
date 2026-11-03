@@ -29,6 +29,28 @@ const PAGES = {
 const HEAD_MARKER = '<!-- gtm:head -->';
 const BODY_MARKER = '<!-- gtm:body -->';
 
+/**
+ * The offline boot step (FR-021, contract demo-shop-offline-mode.md).
+ *
+ * Injected at `<!-- gtm:head -->` before the GTM loader only when the build
+ * mode is `offline`. It reads the snippet the paste panel stored, extracts the
+ * `<script>` body and appends it as an inline script, unchanged, so it runs
+ * before the page's first `dataLayer.push`. ES5 by construction (it runs
+ * inline before anything else). The marker comment is what
+ * `scripts/verify-offline.ts` greps the production `dist/` for.
+ */
+const OFFLINE_BOOT_SCRIPT = String.raw`<script>/* quadrano-demo-shop:offline-mode */
+(function () {
+  var KEY = 'quadrano-demo-shop.offline-snippet';
+  var text; try { text = sessionStorage.getItem(KEY); } catch (e) { return; }
+  if (!text) return;
+  var match = /<script[^>]*>([\s\S]*?)<\/script>/i.exec(text);
+  if (!match) return;
+  var s = document.createElement('script');
+  s.text = match[1];
+  document.head.appendChild(s);
+})();</script>`;
+
 async function buildRulesScript(): Promise<string> {
   const source = await readFile(RULES_FILE, 'utf8');
   const { code } = await transformWithOxc(source, RULES_FILE, { lang: 'ts', sourcemap: false });
@@ -52,7 +74,7 @@ async function buildRulesScript(): Promise<string> {
   return stripped;
 }
 
-function gtm(id: string | undefined): Plugin {
+function gtm(id: string | undefined, offline: boolean): Plugin {
   const trimmed = typeof id === 'string' ? id.trim() : '';
   const shopId = isContainerId(trimmed) ? trimmed : null;
 
@@ -94,7 +116,11 @@ if (choice.id) {
       async handler(html, ctx) {
         const rulesCode = await (cacheRules ? (rules ??= buildRulesScript()) : buildRulesScript());
         const headScript = `<script>(function(){${rulesCode}\n${glue}\n})();</script>`;
-        const withHead = replaceMarker(html, HEAD_MARKER, headScript, ctx.filename);
+        // The offline boot step runs before the GTM loader (and before any
+        // module script), so the stored snippet's runtime is installed before
+        // the first `dataLayer.push`.
+        const prefix = offline ? OFFLINE_BOOT_SCRIPT : '';
+        const withHead = replaceMarker(html, HEAD_MARKER, prefix + headScript, ctx.filename);
         return replaceMarker(withHead, BODY_MARKER, bodySnippet, ctx.filename);
       },
     },
@@ -116,11 +142,14 @@ function replaceMarker(
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, import.meta.dirname, 'VITE_');
+  const offline = mode === 'offline';
   return {
     root: SITE,
     publicDir: resolve(import.meta.dirname, 'public'),
     build: {
-      outDir: resolve(import.meta.dirname, 'dist'),
+      // `vite build --mode offline` writes to `dist-offline/` (FR-021); the
+      // production build keeps `dist/`.
+      outDir: resolve(import.meta.dirname, offline ? 'dist-offline' : 'dist'),
       emptyOutDir: true,
       rollupOptions: {
         input: Object.fromEntries(
@@ -128,6 +157,6 @@ export default defineConfig(({ mode }) => {
         ),
       },
     },
-    plugins: [gtm(env.VITE_GTM_CONTAINER_ID ?? process.env.VITE_GTM_CONTAINER_ID)],
+    plugins: [gtm(env.VITE_GTM_CONTAINER_ID ?? process.env.VITE_GTM_CONTAINER_ID, offline)],
   };
 });

@@ -39,11 +39,13 @@ kitty-ops/ops-index.jsonl
 # Demo shop
 node_modules/
 dist/
+dist-offline/
 .vite/
 .env
 .env.*
 *.log
 .e2e-dist/
+.e2e-dist-offline/
 test-results/
 playwright-report/
 blob-report/

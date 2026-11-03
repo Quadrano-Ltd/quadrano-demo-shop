@@ -1,6 +1,7 @@
 import { itemCount } from '../shop/basket-store.ts';
 import { SHOP_NAME } from '../shop/catalogue.ts';
 import { createVisitorBanner, readContainerState } from '../menu/banner.ts';
+import { mountOfflinePanel } from '../menu/offline-mode.ts';
 import { mountVisitorMenu } from '../menu/visitor-menu.ts';
 import { currentScenario, withScenario } from '../switcher/scenario-url.ts';
 import { mountScenarioSwitcher, syncScenarioLinks } from '../switcher/switcher.ts';
@@ -121,6 +122,12 @@ export function renderLayout(page: PageId, heading: string): HTMLElement {
 
   const banner = createVisitorBanner(readContainerState());
   app.replaceChildren(...(banner === null ? [] : [banner]), header, main, footer, live);
+
+  // The offline paste panel exists only in the offline build (FR-021). The
+  // guard is a compile-time constant, so a production build drops the import.
+  if (import.meta.env.MODE === 'offline') {
+    main.before(mountOfflinePanel());
+  }
 
   mountVisitorMenu(announce);
 
