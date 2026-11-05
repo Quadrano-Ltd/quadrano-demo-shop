@@ -63,13 +63,22 @@ The exact, character-for-character text is in [`kitty-specs/demo-shop-01M5QW5Y/c
 
 Chrome, with DevTools Console open and **"Preserve log" off**, Tag Assistant connected, and the "Demo Shop" Specification's tag installed in the shop's GTM container.
 
-## If the venue network fails
+## If the venue network fails (offline mode, FR-021)
+
+Build the shop in offline mode, which adds an **Offline mode** panel where you paste the snippet from `/local`. The shop runs it directly with no GTM, so the Event playground logs the same Console lines as production (including step 8's coupon line).
 
 ```bash
-pnpm build && pnpm preview   # serves dist/ on localhost
+pnpm build --mode offline                          # writes dist-offline/
+pnpm preview --mode offline                        # serves dist-offline/ on http://localhost:4173
 ```
 
-Pages, the basket, scenarios and `dataLayer` pushes all work offline. GTM and Quadrano only load if the network can reach them, so on-stage verdicts need network (or a locally served GTM).
+`pnpm preview --mode offline` reads the build mode from `vite.config.ts` and serves `dist-offline/`; do not pass `--outDir`, because Vite resolves a relative `--outDir` against the Vite root (`site/`) and would look in `site/dist-offline`.
+
+Open <http://localhost:4173>, paste the snippet from **Get snippet** into the **Offline mode** panel, press **Use this snippet**, reload the page, then use the Event playground. The stored snippet lives in `sessionStorage` (per-tab, gone when the browser closes); **Clear** removes it. With no snippet loaded the playground logs nothing — the shop pushes and never judges.
+
+The offline build keeps the GTM loader, so if the network comes back and GTM also loads, both may run and the Console can show the second-Specification warning; the runbook documents that. The production build (`pnpm build` → `dist/`) contains no offline code — `pnpm verify:offline` proves it.
+
+Without offline mode, `pnpm build && pnpm preview` serves `dist/` on localhost:4173; pages, the basket, scenarios and `dataLayer` pushes all work, and GTM/Quadrano only load if the network can reach them.
 
 ## Deploy
 

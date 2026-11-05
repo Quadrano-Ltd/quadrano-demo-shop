@@ -69,6 +69,8 @@ export default tseslint.config(
       'kitty-ops/**',
       '.vite/**',
       '.e2e-dist/**',
+      '.e2e-dist-offline/**',
+      'dist-offline/**',
       'test-results/**',
       'playwright-report/**',
       'blob-report/**',

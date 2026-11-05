@@ -14,6 +14,7 @@
     "gates": "node scripts/gates.ts",
     "verify:scenarios": "node scripts/verify-scenarios.ts",
     "verify:container": "node scripts/verify-container.ts",
+    "verify:offline": "node scripts/verify-offline.ts",
     "test:e2e": "playwright test",
     "prepare": "git config core.hooksPath .githooks"
   },

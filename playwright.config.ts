@@ -5,6 +5,7 @@ import { SHOP_CONTAINER_ID } from './e2e/fixtures.ts';
 // Vite resolves --outDir relative to the Vite root (site/), so use an absolute
 // path and quote it in the shell command. Forward slashes keep it cmd-safe.
 const e2eDist = resolve(import.meta.dirname, '.e2e-dist').replace(/\\/g, '/');
+const e2eDistOffline = resolve(import.meta.dirname, '.e2e-dist-offline').replace(/\\/g, '/');
 
 export default defineConfig({
   testDir: 'e2e',
@@ -20,7 +21,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /container\.spec\.ts/,
+      testIgnore: /container\.spec\.ts|offline-mode\.spec\.ts/,
     },
     {
       name: 'container-x10',
@@ -28,14 +29,30 @@ export default defineConfig({
       testMatch: /container\.spec\.ts/,
       repeatEach: 10,
     },
+    {
+      name: 'offline',
+      use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4174' },
+      testMatch: /offline-mode\.spec\.ts/,
+    },
   ],
-  webServer: {
-    command:
-      `pnpm exec vite build --outDir "${e2eDist}" && ` +
-      `pnpm exec vite preview --outDir "${e2eDist}" --host 127.0.0.1 --port 4173 --strictPort`,
-    url: 'http://127.0.0.1:4173',
-    reuseExistingServer: false,
-    timeout: 120_000,
-    env: { VITE_GTM_CONTAINER_ID: SHOP_CONTAINER_ID },
-  },
+  webServer: [
+    {
+      command:
+        `pnpm exec vite build --outDir "${e2eDist}" && ` +
+        `pnpm exec vite preview --outDir "${e2eDist}" --host 127.0.0.1 --port 4173 --strictPort`,
+      url: 'http://127.0.0.1:4173',
+      reuseExistingServer: false,
+      timeout: 120_000,
+      env: { VITE_GTM_CONTAINER_ID: SHOP_CONTAINER_ID },
+    },
+    {
+      command:
+        `pnpm exec vite build --mode offline --outDir "${e2eDistOffline}" && ` +
+        `pnpm exec vite preview --outDir "${e2eDistOffline}" --host 127.0.0.1 --port 4174 --strictPort`,
+      url: 'http://127.0.0.1:4174',
+      reuseExistingServer: false,
+      timeout: 120_000,
+      env: { VITE_GTM_CONTAINER_ID: SHOP_CONTAINER_ID },
+    },
+  ],
 });
