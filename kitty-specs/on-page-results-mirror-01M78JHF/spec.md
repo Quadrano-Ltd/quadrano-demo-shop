@@ -2,7 +2,7 @@
 
 **Mission Branch**: `feat/on-page-results-mirror`
 **Created**: 2026-11-12
-**Status**: Draft
+**Status**: Approved (Product Owner, 2026-11-12)
 **Input**: GitHub issue Quadrano-Ltd/quadrano-demo-shop#10, "Show Quadrano's results on the page for attendees on phones (Console mirror in the Demo menu)". Discovery decision: `DM-01M78JJY73TNTBSZYYJD0Z50PZ` (ship before the talk, conditional on real-device checks). Intent Summary confirmed by the Product Owner on 2026-11-12.
 
 ## Purpose
