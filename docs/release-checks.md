@@ -391,9 +391,8 @@ Dated evidence for the Phase 5 release checks of the on-page Results mirror
 WP01–WP07 tree (SC-008), the Lighthouse page-speed check with the view off
 (NFR-004), the real-device check that FR-017 and SC-006 need, and the C-004
 merge-timing decision that follows. The real-device check and the
-Pages-preview Lighthouse run depend on the Product Owner and are recorded here
-as **not yet run** with their exact remaining steps until they happen; nothing
-is claimed before it happens.
+Pages-preview Lighthouse run were added on 2026-11-13, after the branch was
+pushed and pull request #11 opened; nothing was claimed before it happened.
 
 ### T045 — gates and checks on the merged tree
 
@@ -434,18 +433,18 @@ site/src/menu/playground.ts
 
 The probe was reverted and `git status --short` is clean.
 
-**CI run — not yet available (recorded, not fabricated).** `gh run list --branch
-feat/on-page-results-mirror --limit 1` returns nothing: `feat/on-page-results-mirror`
-and the mission branch are still local only, and the Product Owner has not yet
-approved the first push. The `gates` workflow run will be recorded here once the
-branch is pushed and a run exists.
+**CI run (2026-11-13).** The branch was pushed and pull request #11 opened on
+2026-11-13 with the Product Owner's approval. Both `gates` workflow runs on
+commit `116644d` passed (runs 43425264544 and 43425304336), and the Cloudflare
+Pages check passed. The pre-push hook also ran the four gates locally before the
+push: `gates: all 4 passed`.
 
 ### T046 — Lighthouse with the view off (NFR-004)
 
-**Result: pass locally (2026-11-13); Pages-preview run not yet run.** With the
-view off, every page's LCP is at most 2.0 s on a local production preview. The
-Pages-preview run is **not yet run** because the mission branch is not pushed,
-so no Cloudflare Pages deployment exists yet.
+**Result: pass locally (2026-11-13); on the Pages preview (2026-11-13) `/` and
+`/product/` pass, and `/basket/`, `/checkout/` and `/thank-you/` pass in 9 of 12
+runs.** The slow runs are not caused by this mission: production, which doesn't
+have it, shows the same pattern. See "Pages-preview run" below.
 
 **How:** Lighthouse 12.8.2 CLI, headless Chrome (system Chrome), mode
 Navigation, device Mobile, Performance only, default simulated throttling
@@ -456,10 +455,8 @@ the Demo menu closed, and **no `results` parameter and no stored setting**.
   `dist/`, built with `pnpm build`). The local build sets no
   `VITE_GTM_CONTAINER_ID`, so **no container loads** on any page; the numbers
   are the shop-only baseline and are lighter than the Pages preview, where
-  `gtm.js` loads. The Pages-preview run will be recorded here once the branch
-  is pushed and the deployment exists
-  (`feat-on-page-results-mirror.quadrano-demo-shop.pages.dev`; deployment ID
-  and commit to be recorded then).
+  `gtm.js` loads. The Pages-preview run is recorded under "Pages-preview run"
+  below.
 
 | Page | LCP (score) |
 |---|---|
@@ -474,6 +471,36 @@ previous mission's Pages-preview table in this file had every LCP at most
 1.4 s; the local numbers here are in the same band and lower only because no
 container loads locally.
 
+#### Pages-preview run (2026-11-13)
+
+**Target:** `https://feat-on-page-results-mirror.quadrano-demo-shop.pages.dev`,
+deployment `bd469a4d`, commit `116644d`. The shop's container loads here (one
+`gtm.js` request per page). Same Lighthouse 12.8.2 settings as above, view off.
+
+| Page | LCP, first pass | LCP, three more runs |
+|---|---|---|
+| `/` | 1360, 1337, 993 ms | — |
+| `/product/?id=SKU-1001` | 1043 ms | — |
+| `/basket/` | **2799 ms** | 1289, 1366, 1412 ms |
+| `/checkout/` | **2877 ms** | 1323, 1406, 1506 ms |
+| `/thank-you/` | **2662 ms** | 1403, 1308, 1401 ms |
+
+**Comparison with production** (`https://demo.quadrano.com`, built from `main`,
+without this mission), three runs per page on the same day:
+
+| Page | LCP |
+|---|---|
+| `/basket/` | **2811**, 1404, **3675** ms |
+| `/checkout/` | 1409, **3658**, 1390 ms |
+| `/thank-you/` | **3709**, 921, 1456 ms |
+
+**Reading:** on these three pages LCP falls into two bands, about 1.3 to 1.5 s
+or about 2.7 to 3.7 s, while First Contentful Paint stays under 1.6 s. Production
+shows the slow band in 4 of 9 runs without this mission, so the mission is not
+the cause. The 2.0 s limit (NFR-004 here, demo-shop NFR-001) is missed
+intermittently on these pages on `main` today. The cause is not yet found;
+this is an open item for the Product Owner, separate from this mission.
+
 **For information only (not a requirement):** one run of `/?results=on` gave
 LCP 1099 ms (score 100). The view being on is not covered by NFR-004.
 
@@ -485,15 +512,15 @@ request.
 
 ### T047/T048 — Real-device check (FR-017, SC-006)
 
-**Not yet run (written 2026-11-13).** The Product Owner runs this check on real
-phones; the table below stays empty until they report results.
+**Run by the Product Owner on 2026-11-13: pass on both phones**, against the
+Pages preview of pull request #11. The results are in the record table below.
 
 **Address to open.** FR-017 allows production or a preview; before the talk
 only the preview is possible without merging, and C-004 needs the record before
 the merge, so the preview is the one to use:
 
 - Preview: `https://feat-on-page-results-mirror.quadrano-demo-shop.pages.dev/?results=on`
-  (expected alias; to be confirmed against the Pages deployment once the branch is pushed)
+  (confirmed: deployment `bd469a4d`, commit `116644d`)
 - Or production, after merge: `https://demo.quadrano.com/?results=on`
 
 **Getting it onto a phone:** point any QR generator at the address and scan it,
@@ -516,8 +543,8 @@ opening the link.
 
 | Device | OS version | Browser | Date | Address used | Result within 2 interactions? | Row text readable, no sideways scroll? | Notes |
 |---|---|---|---|---|---|---|---|
-| iPhone (model) | | Safari | | | | | |
-| Android phone (model) | | Chrome | | | | | |
+| iPhone 16 | iOS 26.2.1 | Safari | 2026-11-13 | Pages preview, `?results=on` | Yes | Yes | Reported by the Product Owner: all steps pass |
+| Motorola Razr Ultra 50 | Android 16 | Firefox 160 | 2026-11-13 | Pages preview, `?results=on` | Yes | Yes | Reported by the Product Owner: all steps pass. Firefox, not Chrome; FR-017 names the phone, not the browser |
 
 **If "Quadrano hasn't loaded in this browser" shows:** note it in the table
 with any content blocker in use, then try once with the blocker off. That
@@ -526,24 +553,25 @@ message appearing when GTM is blocked is the view working as specified
 
 ### C-004 — may this reach main before the talk?
 
-**Not yet.** FR-017 is not recorded. Under C-004 the mission stays unmerged
-until it is, or until after the talk on Thu 19 Nov 2026.
+**Yes, once the Product Owner signs off below.** FR-017 was recorded on
+2026-11-13, so C-004's condition is met. The Product Owner alone merges to
+`main`.
 
 **Sign-off for this section:**
 
 | Check | Status | PO initials |
 |---|---|---|
-| T045 — gates and checks on the merged tree | ✅ local green (all four gates, verifies, e2e 282 passed, full-history no-secrets 0 findings; CI not yet available — branch not pushed) | |
-| T046 — Lighthouse LCP with the view off (NFR-004) | ✅ pass locally 2026-11-13; every LCP ≤ 1.1 s; Pages-preview run not yet run | |
-| T048 — real-device check, iPhone and Android (FR-017, SC-006) | ⏳ not yet run (Product Owner) | |
-| C-004 — merge before the talk | ⏳ not yet — FR-017 not recorded; mission stays unmerged until recorded or after the talk | |
+| T045 — gates and checks on the merged tree | ✅ local green (all four gates, verifies, e2e 282 passed, full-history no-secrets 0 findings); CI `gates` green on pull request #11 | |
+| T046 — Lighthouse LCP with the view off (NFR-004) | ⚠ pass locally; on the Pages preview `/` and `/product/` pass, the other three pages pass in 9 of 12 runs; the same slow runs occur on production without this mission (open item) | |
+| T048 — real-device check, iPhone and Android (FR-017, SC-006) | ✅ pass on iPhone 16 (Safari) and Motorola Razr Ultra 50 (Firefox), 2026-11-13 | |
+| C-004 — merge before the talk | ✅ condition met — FR-017 recorded 2026-11-13; awaiting Product Owner sign-off and merge | |
 
 #### Text for the pull request description
 
 ```markdown
 ## C-004 — merge timing
 
-FR-017 is not recorded. Under C-004 the mission stays unmerged until it is, or until after the talk on Thu 19 Nov 2026.
+FR-017 was recorded on 2026-11-13 (iPhone 16 and Motorola Razr Ultra 50, against the Pages preview), so C-004's condition is met. The Product Owner alone merges to `main`.
 
 Evidence: docs/release-checks.md, section "on-page-results-mirror-01M78JHF — gates, device check and page speed (WP08)".
 ```
