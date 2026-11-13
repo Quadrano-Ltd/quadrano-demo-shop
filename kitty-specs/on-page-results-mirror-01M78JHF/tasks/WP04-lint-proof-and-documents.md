@@ -3,6 +3,7 @@ work_package_id: WP04
 title: Lint proof and documents
 dependencies:
 - WP02
+- WP03
 requirement_refs:
 - FR-014
 - FR-015
@@ -80,7 +81,7 @@ Two things that keep the Console exception from spreading and keep the documents
 **Done when**:
 
 - `pnpm verify:results` exits 0 on the tree and prints one `ok` line per check.
-- It exits non-zero in each of the four probes in T021 and T022 (run once each, then reverted).
+- It exits non-zero in each of the five probes in T020, T021 and T022 (run once each, then reverted).
 - `AGENTS.md` and `README.md` read as T024 and T025 say.
 - `pnpm gates` passes.
 
@@ -92,7 +93,7 @@ Two things that keep the Console exception from spreading and keep the documents
 - **A check that can never fail is removed** (Charter, Verification). Each check here has a probe that makes it fail; run the probes.
 - **No fixture on disk under `site/`**: a file there that breaks the Console rule would fail `pnpm lint` itself. Lint text in memory (R-08).
 - **Scripts may use the Console**: `eslint.config.js` already turns `no-console` off for `scripts/**/*.ts`.
-- **The capture file** is `site/src/results/console-mirror.ts` (WP02). `site/src/results/results-setting.ts` comes from WP03, which may not have merged when you start; T022 handles that.
+- **The capture file** is `site/src/results/console-mirror.ts` (WP02). `site/src/results/results-setting.ts` comes from WP03. This WP depends on WP03, so the file is in your base. If it is missing, stop and report it; don't write a check that passes without it.
 
 ## Branch Strategy
 
@@ -201,7 +202,7 @@ spec-kitty agent action implement WP04 --agent <name> --mission on-page-results-
 
 **Validation**:
 - [ ] All checks print `ok`.
-- [ ] Probe: widen the override to `['site/src/results/**/*.ts']`. Once WP03's `results-setting.ts` exists, `only the capture file may use the Console` prints `not ok` naming that file; before it exists, the text check in step 3 fails. Revert.
+- [ ] Probe: widen the override to `['site/src/results/**/*.ts']`. `only the capture file may use the Console` prints `not ok` naming `results-setting.ts`, and the text check in step 3 fails too. Revert.
 - [ ] Probe: add `'no-restricted-syntax': 'off'` to the override; `verdict wording is still caught` prints `not ok`. Revert.
 
 ### Subtask T022 – The capture file is self-contained; its key matches
@@ -233,15 +234,16 @@ spec-kitty agent action implement WP04 --agent <name> --mission on-page-results-
 
    | Name | Asserts |
    |---|---|
-   | `the setting key is the same in both files` | `console-mirror.ts` contains `'demo-shop:results-view'`; if `site/src/results/results-setting.ts` exists, it contains the same literal |
+   | `the setting key is the same in both files` | `console-mirror.ts` and `site/src/results/results-setting.ts` both exist and both contain the literal `'demo-shop:results-view'` |
 
-   If `results-setting.ts` doesn't exist yet (WP03 not merged into your base), print `ok the setting key is the same in both files (results-setting.ts not present yet)`. The check tightens by itself once the file lands. Say so in the Activity Log so the reviewer of WP08 re-runs it on the merged tree.
+   A missing file is a failure: print `not ok the setting key is the same in both files: <file> not found`. Never print `ok` for a comparison that wasn't made (Charter: a check that can never fail is removed).
 
 **Files**: `scripts/verify-results.ts`
 
 **Validation**:
 - [ ] All checks print `ok`.
 - [ ] Probe: add `import './x.ts';` as the first line of the capture file; `capture file has no import or export` prints `not ok`. Revert.
+- [ ] Probe: change one character of the key in `results-setting.ts` (for example `demo-shop:results-vieW`); `the setting key is the same in both files` prints `not ok`. Revert.
 - [ ] The script as a whole passes `pnpm lint` (it is under `scripts/`, type-checked).
 
 ### Subtask T023 – `package.json`: the `verify:results` script
@@ -278,7 +280,7 @@ spec-kitty agent action implement WP04 --agent <name> --mission on-page-results-
    with this, word for word from `contracts/charter-amendment.md`:
 
    ```markdown
-   - No verdict wording in `site/`, and no Console use except in `site/src/results/console-mirror.ts`, which repeats the runtime's output (FR-017, Charter 1.1.2, enforced by lint).
+   - No verdict wording in `site/`, and no Console use except in `site/src/results/console-mirror.ts`, which repeats the runtime's output (FR-017, Charter 1.2.0, enforced by lint).
    ```
 
 2. In the `## Commands` table, add a row after `pnpm verify:container`:
@@ -337,7 +339,7 @@ spec-kitty agent action implement WP04 --agent <name> --mission on-page-results-
 ## Definition of Done
 
 - [ ] `pnpm verify:results` passes; its output is in the Activity Log.
-- [ ] Four probes run and reverted, each with its `not ok` line recorded: override widened to all of `site/src`; override widened to `site/src/results/**`; verdict rule turned off in the override; an import added to the capture file.
+- [ ] Five probes run and reverted, each with its `not ok` line recorded: override widened to all of `site/src`; override widened to `site/src/results/**`; verdict rule turned off in the override; an import added to the capture file; the key changed in `results-setting.ts`.
 - [ ] `package.json` gained one script line; lockfile untouched.
 - [ ] `AGENTS.md` and `README.md` updated as specified.
 - [ ] Not added to the gates.
@@ -348,16 +350,16 @@ spec-kitty agent action implement WP04 --agent <name> --mission on-page-results-
 
 | Risk | Mitigation |
 |---|---|
-| A check that can't fail | Four probes, each recorded |
+| A check that can't fail | Five probes, each recorded |
 | In-memory typed linting refuses replaced text | Fallback in T020; record the route taken |
 | A probe left in the tree | `git status` and `git diff` before committing |
 | The script becomes a gate by accident | It isn't referenced from `scripts/gates.ts`, the hook or CI |
 | Empty file walk passes | "at least 20 files" guard |
-| Key drift between the two files | T022's key check, tightening once WP03 lands |
+| Key drift between the two files | T022's key check, which fails if either file is missing or the literals differ |
 
 ## Review Guidance
 
-- Run `pnpm verify:results` yourself, then repeat at least two of the four probes.
+- Run `pnpm verify:results` yourself, then repeat at least two of the five probes.
 - Read the script for any check that asserts on something it set up itself.
 - Compare the `AGENTS.md` code rule with `contracts/charter-amendment.md`.
 - Confirm `pnpm-lock.yaml` is unchanged and `scripts/gates.ts` is untouched.

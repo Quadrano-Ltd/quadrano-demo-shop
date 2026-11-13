@@ -10,6 +10,7 @@ requirement_refs:
 - FR-003
 - FR-007
 - FR-008
+- FR-009
 - FR-010
 planning_base_branch: feat/on-page-results-mirror
 merge_target_branch: feat/on-page-results-mirror
@@ -79,6 +80,7 @@ Prove, on the shop's container path and against the **real** snippet fixture, th
 | Check | Proves |
 |---|---|
 | Each of the 7 playground presses adds exactly 1 row at the top, whose text equals the Console group's arguments from the same run | SC-001, NFR-003, FR-002, FR-003 |
+| With a visitor's own container saved (path 2), one press adds 1 row equal to its Console group, and the one `gtm.js` request carries the visitor's ID | FR-009 |
 | Both empty states, checked against each other on one page | FR-010 |
 | A group written by another script doesn't appear; the runtime's does | FR-008 with its control |
 | A plain branded line shows as a plain row | research R-07 |
@@ -315,12 +317,51 @@ spec-kitty agent action implement WP05 --agent <name> --mission on-page-results-
 
 3. Third test, a push with no problems: after `add_to_cart`, the row has 0 `p.results__line` elements and a `pre.results__pushed` (spec, Edge Cases).
 
-4. **Fixture-drift probe** (scratch, not committed): copy the fixture to a temp file, change one character in the banner or group format string (for example `%c %s` to `%c  %s`), point `serveSnippetAsGtm` at it for one run, and confirm the first test fails or times out. Record the outcome in the Activity Log, then discard the copy. This is the evidence that "the test fails if the runtime's format changes" (NFR-003).
+4. Fourth test, a visitor's own container (FR-009, path 2). The offline build is covered in WP07; this is the third path. Name it `a visitor's own container: one press adds one row equal to its Console group`.
+
+   ```ts
+   test("a visitor's own container: one press adds one row equal to its Console group", async ({ page, gtm }) => {
+     const visitorId = visitorContainerId();
+     await seedSaved(page, gtm, savedValue(visitorId, Date.now()));
+     await serveSnippetAsGtm(page);
+
+     const gtmIds: string[] = [];
+     page.on('request', (request) => {
+       const url = request.url();
+       if (url.startsWith('https://www.googletagmanager.com/gtm.js?')) {
+         gtmIds.push(new URL(url).searchParams.get('id') ?? '');
+       }
+     });
+
+     await openWithResults(page);
+     await waitForBanner(page);
+     await openMenu(page);
+
+     const calls = await recordConsole(page, async () => {
+       await page.getByRole('button', { name: PLAYGROUND_LABELS[2], exact: true }).click();
+       await expect(page.locator('li.results__row')).toHaveCount(1);
+     });
+     const expected = expectedResults(calls);
+     expect(expected).toHaveLength(1);
+     expect(await readRow(page, 0)).toEqual(expected[0]);
+
+     expect(gtmIds).toEqual([visitorId]);
+   });
+   ```
+
+   - Order matters: `seedSaved` first (it opens `/` and saves the container), then `serveSnippetAsGtm`, then the `request` listener, then `openWithResults`. The listener is added after seeding so it sees only the second page load.
+   - `expect(gtmIds).toEqual([visitorId])` is the control. It shows the page really loaded the visitor's container and not the shop's. Without it the test would pass on path 1 and prove nothing about path 2.
+   - Don't use `gtm.ids` for that assertion. `serveSnippetAsGtm` adds a page route, which answers the request before the `gtm` fixture's context route can record it, so `gtm.ids` stays empty here.
+   - `visitorContainerId`, `savedValue` and `seedSaved` come from `e2e/fixtures.ts`. Import them; don't edit that file. Type no container ID (QDR-004).
+   - `PLAYGROUND_LABELS[2]` is `purchase · 1 · Missing value`, a press with at least one problem line.
+
+5. **Fixture-drift probe** (scratch, not committed): copy the fixture to a temp file, change one character in the banner or group format string (for example `%c %s` to `%c  %s`), point `serveSnippetAsGtm` at it for one run, and confirm the first test fails or times out. Record the outcome in the Activity Log, then discard the copy. This is the evidence that "the test fails if the runtime's format changes" (NFR-003).
 
 **Files**: `e2e/results.spec.ts` (new)
 
 **Validation**:
 - [ ] 7 of 7 presses pass.
+- [ ] The visitor's-container test passes, and fails if the saved container is removed (the `gtmIds` assertion then sees the shop's ID). Think it through or try it once; don't commit the probe.
 - [ ] The probe fails as described.
 - [ ] No expected header, line or pushed text is typed in the file.
 

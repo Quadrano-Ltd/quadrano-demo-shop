@@ -16,8 +16,7 @@
       ],
       "predicted_surfaces": [
         "api",
-        "artifact-rendering",
-        "legacy-cleanup"
+        "artifact-rendering"
       ],
       "depends_on_lanes": [],
       "parallel_group": 0
@@ -85,9 +84,10 @@
         "tracker-integration"
       ],
       "depends_on_lanes": [
-        "lane-b"
+        "lane-b",
+        "lane-c"
       ],
-      "parallel_group": 2
+      "parallel_group": 3
     },
     {
       "lane_id": "lane-e",
@@ -170,8 +170,8 @@
       "parallel_group": 5
     }
   ],
-  "computed_at": "2026-11-13T05:50:56.888364+00:00",
+  "computed_at": "2026-11-13T06:03:20.789256+00:00",
   "computed_from": "dependency_graph+ownership",
   "planning_artifact_wps": [],
-  "planning_commit_sha": "3e75df9294b59a863879adb5fbe9dbb44b4441a7"
+  "planning_commit_sha": "ab2ce2b425878eddff6fec3a6c7642ed8f78040f"
 }

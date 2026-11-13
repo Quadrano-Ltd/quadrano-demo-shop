@@ -101,7 +101,7 @@ Build the inline head script that makes the Results view possible, and wire it i
 - **Contract untouched (C-001, QDR-005)**: don't read `window._quadrano` or anything else the runtime exposes. The only thing the shop relies on is the shape of the runtime's Console calls.
 - **The address never sets a container (C-002)**: this file reads `location.search` for one thing only, `results=on`. It never reads or writes `demo-shop:visitor-container`, and shares no code with `site/src/container/**`.
 - **It never pushes**: no reference to `dataLayer`. No request. No Console line of its own.
-- **Charter 1.1.2** (WP01) is what allows Console use in this one file. Don't use the Console anywhere else.
+- **Charter 1.2.0** (WP01) is what allows Console use in this one file. Don't use the Console anywhere else.
 
 ### What the runtime writes (from `e2e/fixtures/offline-snippet-before-step8.txt`)
 
@@ -449,7 +449,7 @@ window.__demoShopResults.entries;
 
    ```js
    {
-     // Charter 1.1.2: the Results view repeats the runtime's Console output.
+     // Charter 1.2.0: the Results view repeats the runtime's Console output.
      // This is the only file in site/ that may use the Console. The
      // verdict-wording, network and dataLayer rules stay on here.
      files: ['site/src/results/console-mirror.ts'],

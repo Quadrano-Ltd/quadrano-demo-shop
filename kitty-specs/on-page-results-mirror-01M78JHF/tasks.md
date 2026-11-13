@@ -23,19 +23,23 @@ These were settled while breaking the plan down. None changes the spec, the plan
 | Decision | Why |
 |---|---|
 | The lint override (`eslint.config.js`) ships in WP02 with the capture file, not with the verify script. | The capture file can't pass the lint gate without it, and every WP must pass `pnpm gates` on its own. The Charter amendment (WP01) goes first, so the exception is never ahead of the rulebook. |
-| The shop-container e2e cases are split across two files: `e2e/results.spec.ts` (rows and capture) and `e2e/results-setting.spec.ts` (off state, switch, link, no pushes). The plan names one file. | Two files of about 6 cases each can be built in parallel with no shared ownership. |
+| The shop-container e2e cases are split across two files: `e2e/results.spec.ts` (rows and capture) and `e2e/results-setting.spec.ts` (off state, switch, link, no pushes). The plan's file list was updated on 2026-11-13 to match. | Two files of about 6 cases each can be built in parallel with no shared ownership. |
 | Shared e2e helpers live in a new file, `e2e/results-helpers.ts`, owned by WP05. | WP06 and WP07 import them, so neither edits `e2e/fixtures.ts`. |
 | The Results section uses fixed class names and IDs (listed in WP03). | The e2e work packages can be written against them without reading WP03's code. |
 | Entries that arrived before the menu module mounted are shown at once, and only the newest is announced. | The contract says results kept before mount are handed over (R-10) but doesn't say how many announcements that makes. One avoids a burst at page load. |
-| "ES5-safe" in the capture file is met with `var`, `function` and `arguments`, using file-level lint disables for `no-var` and `prefer-rest-params` only. | The config override stays exactly as the plan and Charter 1.1.2 describe it: `no-console` off for one file. |
+| "ES5-safe" in the capture file is met with `var`, `function` and `arguments`, using file-level lint disables for `no-var` and `prefer-rest-params` only. | The config override stays exactly as the plan and Charter 1.2.0 describe it: `no-console` off for one file. |
+| WP04 depends on WP03 as well as WP02 (changed 2026-11-13 after `/spec-kitty.analyze`). | The verify script compares the storage key in the capture file with the one in `results-setting.ts`, which WP03 creates. Without the dependency the check passed without comparing. WP04 now runs beside WP05; the path to WP08 is no longer. |
+| The Charter amendment is minor 1.2.0, not patch 1.1.2 (changed 2026-11-13 after `/spec-kitty.analyze`). | The Charter didn't state the "never judges" rule before, so the amendment adds it (QDR-007). The amendment's text is unchanged. |
+| Rows on a visitor's own container are checked in WP05 (T028, added 2026-11-13 after `/spec-kitty.analyze`). | FR-009 names three paths; only two had a row check. |
 
 ## Dependency graph
 
 ```mermaid
 flowchart LR
-  WP01[WP01 Charter 1.1.2] --> WP02[WP02 Capture script and head wiring]
+  WP01[WP01 Charter 1.2.0] --> WP02[WP02 Capture script and head wiring]
   WP02 --> WP03[WP03 Results section in the Demo menu]
   WP02 --> WP04[WP04 Lint proof and documents]
+  WP03 --> WP04
   WP03 --> WP05[WP05 e2e: rows and capture]
   WP05 --> WP06[WP06 e2e: off state, switch and link]
   WP05 --> WP07[WP07 e2e: offline, accessibility and layout]
@@ -48,7 +52,7 @@ flowchart LR
 
 | ID | Description | WP | Parallel |
 |----|-------------|----|----------|
-| T001 | Charter header: version 1.1.2 and amended date | WP01 | |
+| T001 | Charter header: version 1.2.0 and amended date | WP01 | |
 | T002 | New last bullet in "Verification that proves something" | WP01 | |
 | T003 | New row in "How the Charter is enforced" and new amendment-log row | WP01 | |
 | T004 | `charter.yaml` agreement check, gates, commit message with the reasoning | WP01 | |
@@ -75,7 +79,7 @@ flowchart LR
 | T025 | `README.md`: operator notes for the Results view and the phone link | WP04 | [P] |
 | T026 | `snippets.ts` script-body helper; `results-helpers.ts`: serve the snippet as `gtm.js`, turn the view on, wait for the banner | WP05 | |
 | T027 | Helpers: Console capture with raw arguments, and expected text built from them | WP05 | |
-| T028 | 7 presses: one row each, text equal to the Console group, newest first | WP05 | |
+| T028 | 7 presses: one row each, text equal to the Console group, newest first; one press on a visitor's own container | WP05 | |
 | T029 | The two empty states, checked against each other | WP05 | [P] |
 | T030 | Other scripts' output stays out; plain-line rows; markup shown as text | WP05 | [P] |
 | T031 | Console records equal with the view on and off; limit of 50 | WP05 | [P] |
@@ -96,22 +100,22 @@ flowchart LR
 | T046 | Lighthouse mobile LCP with the view off (NFR-004) | WP08 | |
 | T047 | Device-check pack: preview address, QR link, steps and record table | WP08 | |
 | T048 | Record the Product Owner's iPhone and Android results (FR-017, SC-006) | WP08 | |
-| T049 | C-004 merge-timing record and sign-off table | WP08 | |
+| T049 | C-004 merge-timing record, pull request text and sign-off table | WP08 | |
 
 ---
 
 ## Phase 1 – Rulebook
 
-### WP01 – Charter 1.1.2 (Priority: P0)
+### WP01 – Charter 1.2.0 (Priority: P0)
 
-**Goal**: Amend the Charter (patch) to say the shop may repeat the runtime's Console output on the page, word for word, and still never judges a push. Apply `contracts/charter-amendment.md` as written.
-**Independent Test**: `charter.md` reads version 1.1.2 with today's amended date; the new bullet, enforcement row and amendment-log row match the contract word for word; the Policy Summary, Terminology Canon, Code Review Checklist and Regression Vigilance headings are unchanged; `charter.yaml` agrees; `pnpm gates` passes.
-**Prompt**: `tasks/WP01-charter-1-1-2.md`
+**Goal**: Amend the Charter (minor) to say the shop may repeat the runtime's Console output on the page, word for word, and still never judges a push. Apply `contracts/charter-amendment.md` as written.
+**Independent Test**: `charter.md` reads version 1.2.0 with today's amended date; the new bullet, enforcement row and amendment-log row match the contract word for word; the Policy Summary, Terminology Canon, Code Review Checklist and Regression Vigilance headings are unchanged; `charter.yaml` agrees; `pnpm gates` passes.
+**Prompt**: `tasks/WP01-charter-1-2-0.md`
 **Estimated prompt size**: ~220 lines
 **Requirements**: FR-015, FR-014, C-003
 
 **Included subtasks**:
-T001 Charter header: version 1.1.2 and amended date (WP01)
+T001 Charter header: version 1.2.0 and amended date (WP01)
 T002 New last bullet in "Verification that proves something" (WP01)
 T003 New row in "How the Charter is enforced" and new amendment-log row (WP01)
 T004 `charter.yaml` agreement check, gates, commit message with the reasoning (WP01)
@@ -119,7 +123,7 @@ T004 `charter.yaml` agreement check, gates, commit message with the reasoning (W
 **Implementation sketch**: Four small edits to `charter.md` in one pass, then confirm `charter.yaml` needs no wording change and records no version. Commit with the reasoning the contract gives.
 **Parallel opportunities**: None; short and sequential.
 **Dependencies**: None. Goes first.
-**Risks**: Rewording the contract's text; renaming a heading Spec Kitty reads; a commit message without the reasoning (QDR-007).
+**Risks**: Rewording the contract's text; renaming a heading Spec Kitty reads; a commit message without the reasoning (QDR-007); writing the old version 1.1.2 or the type Patch by habit.
 
 ---
 
@@ -179,7 +183,7 @@ T019 Styles: wrapping at 360 px and 44 px targets (WP03)
 ### WP04 – Lint proof and documents (Priority: P1)
 
 **Goal**: Prove the Console rule still fires everywhere except the capture file (`pnpm verify:results`), and bring `AGENTS.md` and `README.md` in line with the Results view.
-**Independent Test**: `pnpm verify:results` exits 0 on the tree; it exits non-zero when the override in `eslint.config.js` is widened to `site/src/results/**` or when an `import` is added to the capture file (both probed and reverted). `AGENTS.md` carries the new code rule and command; `README.md` explains the phone link.
+**Independent Test**: `pnpm verify:results` exits 0 on the tree; it exits non-zero when the override in `eslint.config.js` is widened to `site/src/results/**`, when an `import` is added to the capture file, or when the storage key in `results-setting.ts` differs from the capture file's (all probed and reverted). `AGENTS.md` carries the new code rule and command; `README.md` explains the phone link.
 **Prompt**: `tasks/WP04-lint-proof-and-documents.md`
 **Estimated prompt size**: ~380 lines
 **Requirements**: FR-014, FR-015, FR-016, SC-008, C-005
@@ -194,7 +198,7 @@ T025 `README.md`: operator notes for the Results view and the phone link (WP04)
 
 **Implementation sketch**: Follow `scripts/verify-container.ts` (a list of named checks, `ok` / `not ok` lines). Use ESLint's Node API to lint text in memory under two paths. Then the two documents.
 **Parallel opportunities**: T024 and T025 are independent of the script.
-**Dependencies**: WP02 (the capture file and the override exist).
+**Dependencies**: WP02 (the capture file and the override exist), WP03 (`results-setting.ts` exists, so the key check compares two real files).
 **Risks**: A check that can't fail; a fixture on disk under `site/` that breaks `pnpm lint`; in-memory typed linting not accepting replaced text (fallback in research R-08).
 
 ---
@@ -203,16 +207,16 @@ T025 `README.md`: operator notes for the Results view and the phone link (WP04)
 
 ### WP05 – e2e: rows and capture (Priority: P1)
 
-**Goal**: Prove, against the real snippet fixture served on the shop's container path, that each push gives one row whose text equals the Console group, that both empty states work, that other scripts' output stays out, and that the Console receives the same calls with the view on and off.
+**Goal**: Prove, against the real snippet fixture served on the shop's container path, that each push gives one row whose text equals the Console group, that the same holds with a visitor's own container (FR-009), that both empty states work, that other scripts' output stays out, and that the Console receives the same calls with the view on and off.
 **Independent Test**: `pnpm exec playwright test e2e/results.spec.ts --project=chromium` passes 3 times running; changing one character of a format string in a scratch copy of the fixture makes the verbatim test fail.
 **Prompt**: `tasks/WP05-e2e-rows-and-capture.md`
 **Estimated prompt size**: ~460 lines
-**Requirements**: NFR-003, SC-001, FR-002, FR-003, FR-007, FR-008, FR-010
+**Requirements**: NFR-003, SC-001, FR-002, FR-003, FR-007, FR-008, FR-009, FR-010
 
 **Included subtasks**:
 T026 `snippets.ts` script-body helper; `results-helpers.ts`: serve the snippet as `gtm.js`, turn the view on, wait for the banner (WP05)
 T027 Helpers: Console capture with raw arguments, and expected text built from them (WP05)
-T028 7 presses: one row each, text equal to the Console group, newest first (WP05)
+T028 7 presses: one row each, text equal to the Console group, newest first; one press on a visitor's own container (WP05)
 T029 The two empty states, checked against each other (WP05)
 T030 Other scripts' output stays out; plain-line rows; markup shown as text (WP05)
 T031 Console records equal with the view on and off; limit of 50 (WP05)
@@ -286,7 +290,7 @@ T045 Gates and checks on the merged tree; record in `docs/release-checks.md` (WP
 T046 Lighthouse mobile LCP with the view off (NFR-004) (WP08)
 T047 Device-check pack: preview address, QR link, steps and record table (WP08)
 T048 Record the Product Owner's iPhone and Android results (FR-017, SC-006) (WP08)
-T049 C-004 merge-timing record and sign-off table (WP08)
+T049 C-004 merge-timing record, pull request text and sign-off table (WP08)
 
 **Implementation sketch**: Run and record what an agent can run. Prepare the device check so the Product Owner can do it in a few minutes. Record their results only as they report them.
 **Parallel opportunities**: None; one file.
@@ -303,7 +307,7 @@ T049 C-004 merge-timing record and sign-off table (WP08)
 | WP02 | FR-003, FR-005, FR-006, FR-007, FR-008, FR-009, FR-011, FR-014, C-001, C-002, C-006 |
 | WP03 | FR-001, FR-002, FR-004, FR-006, FR-010, FR-012, FR-013, FR-016, NFR-001, NFR-002 |
 | WP04 | FR-014, FR-015, FR-016, SC-008, C-005 |
-| WP05 | NFR-003, SC-001, FR-002, FR-003, FR-007, FR-008, FR-010 |
+| WP05 | NFR-003, SC-001, FR-002, FR-003, FR-007, FR-008, FR-009, FR-010 |
 | WP06 | SC-002, SC-003, SC-004, FR-004, FR-005, FR-006, FR-011, FR-012, C-002 |
 | WP07 | FR-009, FR-013, NFR-001, NFR-002, NFR-003, SC-005, SC-007 |
 | WP08 | FR-017, SC-006, SC-008, NFR-004, C-004 |

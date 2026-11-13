@@ -123,7 +123,7 @@ spec-kitty agent action implement WP08 --agent <name> --mission on-page-results-
    |---|---|---|
    | Dependencies | `pnpm install --frozen-lockfile` | exit code; "Lockfile is up to date"; package count unchanged from the previous mission (no new dependency, C-005) |
    | Gates | `pnpm gates` | the four stage lines and `gates: all 4 passed` |
-   | Results lint proof | `pnpm verify:results` | every `ok` line; in particular the key check must now name both files (WP03 has landed) |
+   | Results lint proof | `pnpm verify:results` | every `ok` line, including `the setting key is the same in both files` |
    | Container invariants | `pnpm verify:container` | still green |
    | Scenario invariants | `pnpm verify:scenarios` | still green |
    | Offline check | `pnpm build && pnpm verify:offline` | production `dist/` holds no offline-mode code |
@@ -131,7 +131,7 @@ spec-kitty agent action implement WP08 --agent <name> --mission on-page-results-
    | Full-history no-secrets | `node scripts/no-secrets.ts --history` | `0 findings` |
 
 3. **The failing fixture (SC-008's pair).** Repeat one probe from WP04 on the merged tree and record its output: add one line of Console use to `site/src/menu/playground.ts`, run `pnpm lint`, record the `no-console` error line, revert, and confirm `git status` is clean. This is the evidence that the gate itself, not only the verify script, still fails Console use outside the capture file.
-4. If `pnpm verify:results` printed "results-setting.ts not present yet", the tree isn't the merged one. Stop and find out why.
+4. If `pnpm verify:results` prints any `not ok` line, or a file it names is missing, the tree isn't the merged one or a WP is wrong. Stop, record the output, and report it against the owning WP.
 5. CI: if the branch is pushed, record the `gates` workflow run ID and result (`gh run list --branch feat/on-page-results-mirror --limit 1`). If not, write "CI run — not yet available" with the reason, as earlier sections do.
 
 **Files**: `docs/release-checks.md`
@@ -252,13 +252,25 @@ spec-kitty agent action implement WP08 --agent <name> --mission on-page-results-
 
    Fill in Status; leave the initials for the Product Owner.
 
-3. Don't edit the earlier sections or the final `## Sign-off` table, which belongs to the first mission.
-4. Run `pnpm gates` (no-secrets and provenance read this file). Search your additions for any container ID: there must be none.
+3. **Pull request text (C-004).** Under the C-004 subsection, add a heading `#### Text for the pull request description` and, in a fenced `markdown` block, the text below with the statement from step 1 copied in word for word. The Product Owner opens and merges the pull request to `main`; this puts the rule in front of them at that moment.
+
+   ```markdown
+   ## C-004 — merge timing
+
+   (the Yes or Not yet statement from docs/release-checks.md, word for word)
+
+   Evidence: docs/release-checks.md, section "on-page-results-mirror-01M78JHF — gates, device check and page speed (WP08)".
+   ```
+
+   Repeat the same statement in your hand-off message. Don't open the pull request yourself and don't push; both are the Product Owner's call.
+4. Don't edit the earlier sections or the final `## Sign-off` table, which belongs to the first mission.
+5. Run `pnpm gates` (no-secrets and provenance read this file). Search your additions for any container ID: there must be none.
 
 **Files**: `docs/release-checks.md`
 
 **Validation**:
 - [ ] The C-004 statement matches the device-check table.
+- [ ] The pull request text holds the same statement, word for word.
 - [ ] `pnpm gates` passes.
 
 ---
@@ -268,7 +280,7 @@ spec-kitty agent action implement WP08 --agent <name> --mission on-page-results-
 - [ ] New dated section with T045's results table and the lint probe.
 - [ ] Lighthouse table for 5 pages with the view off, with its target stated.
 - [ ] Device-check pack present; results filled in from the Product Owner, or "not yet run".
-- [ ] C-004 statement consistent with the evidence.
+- [ ] C-004 statement consistent with the evidence, and repeated in the pull request text and the hand-off message.
 - [ ] No container ID written; earlier sections untouched.
 - [ ] `pnpm gates` passes.
 - [ ] `spec-kitty agent tasks mark-status T045 T046 T047 T049 --status done --mission on-page-results-mirror-01M78JHF`, and `T048` only when the Product Owner's results are recorded.
@@ -282,7 +294,8 @@ spec-kitty agent action implement WP08 --agent <name> --mission on-page-results-
 | Lighthouse run with the view on by mistake | Fresh profile, no parameter, stated in the method |
 | Numbers not comparable with the last mission | Same tool, mode and throttling |
 | The production container ID written down | Redact as `GTM-*******`; no-secrets gate |
-| Checks run on a tree missing a WP | The `verify:results` key check names both files only on the merged tree |
+| Checks run on a tree missing a WP | The `verify:results` key check fails when either file is missing; the commit recorded in T045 is checked against the mission branch |
+| The C-004 rule not seen by whoever merges | T049 writes the pull request text and repeats it in the hand-off message |
 
 ## Review Guidance
 
