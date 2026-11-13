@@ -186,7 +186,7 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 
 ### Measurable Outcomes
 
-- **SC-001**: With the view on, each of the 7 playground pushes shows a row whose text equals the Console group for that push, character for character. — [build] · no-op passable: no
+- **SC-001**: With the view on, each of the 7 playground pushes shows a row whose text equals the Console group for that push, character for character, with the pushed object shown as FR-003 says. — [build] · no-op passable: no
 - **SC-002**: With the view off, 100% of page loads across the shop's pages have the browser's own Console methods and make the same requests as today, as FR-005 defines that. — [ratchet] · no-op passable: yes — paired with SC-001 on the same pages
 - **SC-003**: Opening, closing or switching the view, opening the link, and expanding or collapsing rows make 0 pushes. — [ratchet] · no-op passable: yes — paired with SC-001, where each press makes exactly 1
 - **SC-004**: 0 of at least 3 crafted links carrying the results parameter together with a container ID change the container. — [ratchet] · no-op passable: yes — paired with the same links turning the view on
