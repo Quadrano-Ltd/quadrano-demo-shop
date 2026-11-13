@@ -66,6 +66,7 @@ Opening or closing the menu, using the switch, opening the link, and expanding o
 |---|---|
 | each of the 7 presses adds exactly 1 row at the top whose text equals the Console group's arguments from the same run | SC-001, NFR-003 |
 | the same, in the offline build | FR-009, NFR-003 |
+| with a visitor's own container saved and serving the snippet, one press adds 1 row equal to the Console group, and the one `gtm.js` request carries the visitor's ID | FR-009 (path 2) |
 | both empty states, checked against each other on one page | FR-010 |
 | the switch and the link each leave the view on after a reload and on the next page; off returns to native Console methods | FR-004, FR-006 |
 | switch, link, menu and rows add 0 entries to the data layer; a playground press adds its 2 | FR-012, SC-003 |

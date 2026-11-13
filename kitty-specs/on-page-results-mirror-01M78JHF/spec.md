@@ -2,7 +2,7 @@
 
 **Mission Branch**: `feat/on-page-results-mirror`
 **Created**: 2026-11-12
-**Status**: Approved (Product Owner, 2026-11-12)
+**Status**: Approved (Product Owner, 2026-11-12). Amended 2026-11-13 at the Product Owner's request to resolve the findings of `/spec-kitty.analyze`: FR-002, FR-003, FR-004, FR-005, FR-015, C-004, SC-002, Key Entities and Assumptions. Scope is unchanged.
 **Input**: GitHub issue Quadrano-Ltd/quadrano-demo-shop#10, "Show Quadrano's results on the page for attendees on phones (Console mirror in the Demo menu)". Discovery decision: `DM-01M78JJY73TNTBSZYYJD0Z50PZ` (ship before the talk, conditional on real-device checks). Intent Summary confirmed by the Product Owner on 2026-11-12.
 
 ## Purpose
@@ -127,10 +127,10 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 | ID | Title | User Story | Priority | Status | Delivery | No-op passable? |
 |----|-------|------------|----------|--------|----------|-----------------|
 | FR-001 | Results section in the Demo menu | As an attendee on a phone, I want a Results section directly under the Event playground that lists results newest first, so that I can see what Quadrano said without a Console. | High | Open | [build] | no |
-| FR-002 | One row per push | As an attendee, I want each push shown as one collapsible row holding the runtime's header line, its problem lines and the pushed object, so that each press maps to one result. | High | Open | [build] | no |
-| FR-003 | Text is the runtime's, verbatim | As the Product Owner, I want every character of a row's text to be what the runtime wrote to the Console for that push, so that every verdict seen is Quadrano's own. | High | Open | [build] | no — compared against the Console group for the same push |
-| FR-004 | Off by default, with a switch | As a visitor, I want a switch in the Demo menu that remembers my choice in my browser and reloads the page, with the view off until I choose otherwise, so that I decide whether to see results. | High | Open | [build] | no |
-| FR-005 | Off means unchanged | As the presenter, I want the page with the view off to have the browser's own Console methods and make the same requests as today, so that the stage path doesn't change. | High | Open | [ratchet] | yes — paired with FR-007 on the same page, where turning the view on must change what handles Console calls |
+| FR-002 | One row per push | As an attendee, I want each push shown as one collapsible row holding the runtime's header line, its problem lines and the pushed object, so that each press maps to one result. A single line the runtime writes outside a group (a plain line, for example when an event has no Event Definition) is shown as a row of its own with nothing to expand (decision `DM-01M78PK9GGHZSS6RFEYXKK4PXS`). Each of the 7 playground presses gives exactly one result and no plain line. | High | Open | [build] | no |
+| FR-003 | Text is the runtime's, verbatim | As the Product Owner, I want every character of a row's text to be what the runtime wrote to the Console for that push, so that every verdict seen is Quadrano's own. The header and problem lines are compared character for character. The Console shows the pushed object as a live object with no single text form, so the row shows the runtime's label followed by the object as indented JSON (2 spaces), taken when it was logged. | High | Open | [build] | no — compared against the Console group for the same push |
+| FR-004 | Off by default, with a switch | As a visitor, I want a switch in the Demo menu that remembers my choice for this browser tab (decision `DM-01M78NYDDTDCEGEP0S4BDQDNKM`; a new tab starts off) and reloads the page, with the view off until I choose otherwise, so that I decide whether to see results. | High | Open | [build] | no |
+| FR-005 | Off means unchanged | As the presenter, I want the page with the view off to have the browser's own Console methods and make the same requests as today, so that the stage path doesn't change. "The same requests as today" means this mission adds no request: with the view off, every request is same-origin or the one `gtm.js` request, and the request list is the same as with the view on. | High | Open | [ratchet] | yes — paired with FR-007 on the same page, where turning the view on must change what handles Console calls |
 | FR-006 | A link that turns it on | As the presenter, I want a link parameter that opens the shop with the view on, behaving as the switch does and never choosing or changing the container, so that a QR code takes attendees straight to results. | High | Open | [build] | no — paired with a link carrying a container ID, which must not change the container |
 | FR-007 | Console still gets everything | As a visitor with a Console, I want every Console call made while the view is on to reach the Console with the same arguments in the same order, so that turning the view on loses nothing. | High | Open | [build] | no |
 | FR-008 | Only Quadrano's lines, recognised by shape | As the Product Owner, I want the shop to recognise the runtime's lines by the shape of Console output format v1 and never by verdict wording, and to show nothing written by other scripts, so that shop code holds no verdict text and other output stays out. | High | Open | [build] | no — paired with a non-Quadrano Console group on the same page, which must not appear |
@@ -140,7 +140,7 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 | FR-012 | The view pushes nothing | As the presenter, I want opening or closing the menu, using the switch, opening the link, and expanding or collapsing a row to make no push (demo-shop-01M5QW5Y#FR-015), so that the Console shows only intended pushes. | High | Open | [ratchet] | yes — paired with a playground press on the same page, which must push once |
 | FR-013 | Announced without stealing focus | As a screen-reader user, I want each new result announced while focus stays where it is, so that I can follow results without losing my place. | Medium | Open | [build] | no |
 | FR-014 | Still no shop verdicts | As the Product Owner, I want shop code to keep containing no verdict wording, and the rule against Console use in the shop relaxed only for the mirror and nowhere else (demo-shop-01M5QW5Y#FR-017), so that the exception can't spread. | High | Open | [ratchet] | yes — paired with a fixture that uses the Console outside the mirror, which lint must still fail |
-| FR-015 | Charter patch amendment | As the Product Owner, I want the Charter amended (patch) in this mission to say the shop may repeat the runtime's Console output on the page verbatim and still never produces a verdict of its own, following QDR-007 with its enforcing mechanism changed in the same pull request, so that the rulebook matches the shop. | High | Open | [build] | no |
+| FR-015 | Charter minor amendment | As the Product Owner, I want the Charter amended (minor, 1.2.0) in this mission to say the shop may repeat the runtime's Console output on the page verbatim and still never produces a verdict of its own, following QDR-007 with its enforcing mechanism changed in the same pull request, so that the rulebook matches the shop. | High | Open | [build] | no |
 | FR-016 | Documents and guidance match | As an operator or attendee, I want the `AGENTS.md` code rules, the README's operator notes and the Demo menu's guidance to describe the Results view, including how to reach it on a phone, so that nobody is told only to open a Console. | Medium | Open | [build] | no |
 | FR-017 | Real-device check recorded | As the Product Owner, I want User Story 1 checked on one real iPhone and one real Android phone against production or a preview deployment, with the evidence recorded in the release checks, so that the view is known to work where it is needed. | High | Open | [build] | no |
 
@@ -160,21 +160,22 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 | C-001 | Contract unchanged | The published-artefact contract v1.0 and the runtime are untouched (QDR-005). The runtime gains no result event in this mission. | Business | High | Open |
 | C-002 | Address never sets a container | The link parameter only turns the view on. The page address still never sets, changes or clears the container (QDR-002, byo-gtm-container-01M64PAZ#FR-013). | Security | High | Open |
 | C-003 | Scope of the reversal | byo-gtm-container-01M64PAZ#C-009 is superseded for the on-page panel only. Setting the container from the page address, new event types and variants stay out of scope. | Business | High | Open |
-| C-004 | Date and device checks | The mission reaches `main` before the talk on Thu 19 Nov 2026 only if FR-017 is recorded first. Otherwise it stays unmerged until after the talk. | Business | High | Open |
+| C-004 | Date and device checks | The mission reaches `main` before the talk on Thu 19 Nov 2026 only if FR-017 is recorded first. Otherwise it stays unmerged until after the talk. Held by the C-004 statement in `docs/release-checks.md`, repeated in the pull request description, and by the Product Owner, who alone merges to `main`. | Business | High | Open |
 | C-005 | Gates, stack and terms | Every push passes lint, build, no-secrets and provenance (QDR-003). No new dependencies (QDR-002). QDR-001 and the Terminology Canon apply unchanged; no new domain terms. | Technical | High | Open |
 | C-006 | The shop never judges | The shop makes no check of a push and writes no verdict of its own, on the page or in the Console. | Business | High | Open |
 
 ### Key Entities
 
-- **Result**: the runtime's Console group for one push, as shown on the page: a header line, zero or more problem lines, and the pushed object. Exists only while the page is open.
-- **Results view setting**: whether the view is on for this visitor. Off unless the visitor used the switch or opened the link; remembered in the visitor's own browser.
+- **Result**: the runtime's Console group for one push, as shown on the page: a header line, zero or more problem lines, and the pushed object as indented JSON. Exists only while the page is open.
+- **Plain line**: a single line the runtime writes outside a group, shown as a row with its text and nothing to expand. It counts towards the limit on rows. The runtime's banner line is not shown as a row.
+- **Results view setting**: whether the view is on for this visitor. Off unless the visitor used the switch or opened the link; remembered for the current browser tab only, in the visitor's own browser.
 - **Runtime banner line**: the line the runtime writes when it loads. Its absence is how the shop knows Quadrano hasn't loaded.
 
 ## Assumptions and Dependencies
 
-- **The link behaves as the switch does.** Opening the link remembers the choice, so the view stays on as the attendee moves between pages, and the switch turns it off. The parameter's name is left to the plan.
+- **The link behaves as the switch does.** Opening the link remembers the choice for that tab, so the view stays on as the attendee moves between pages in it, and the switch turns it off. The parameter's name is left to the plan.
 - **Freeze exception accepted.** The feature freeze is Fri 13 Nov 2026. The Product Owner accepts this mission landing at or just after the freeze, subject to C-004.
-- **The Charter change is a patch.** It clarifies an existing rule (the shop never judges) and adds none. If review finds it adds a rule, it becomes a minor amendment under QDR-007 with no other change to this spec.
+- **The Charter change is minor (1.2.0).** It was first planned as a patch. Analysis on 2026-11-13 found that the Charter doesn't yet state the rule "the shop never judges", so the amendment adds it, and QDR-007 types a new rule as minor. The amendment's text is unchanged.
 - **Console attribution is an accepted cost of turning the view on.** With the view on, browser developer tools name the shop, not the snippet, as the source of each Console line. This is why the view is off by default.
 - **Console output format v1 is frozen** (QDR-005). The shop depends on its shape; NFR-003 catches drift.
 - **Follow-up, not this mission:** when the runtime later gains a result event, the view should use it and stop reading the Console.
@@ -186,7 +187,7 @@ The Terminology Canon applies unchanged. This mission adds no domain terms.
 ### Measurable Outcomes
 
 - **SC-001**: With the view on, each of the 7 playground pushes shows a row whose text equals the Console group for that push, character for character. — [build] · no-op passable: no
-- **SC-002**: With the view off, 100% of page loads across the shop's pages have the browser's own Console methods and make the same requests as today. — [ratchet] · no-op passable: yes — paired with SC-001 on the same pages
+- **SC-002**: With the view off, 100% of page loads across the shop's pages have the browser's own Console methods and make the same requests as today, as FR-005 defines that. — [ratchet] · no-op passable: yes — paired with SC-001 on the same pages
 - **SC-003**: Opening, closing or switching the view, opening the link, and expanding or collapsing rows make 0 pushes. — [ratchet] · no-op passable: yes — paired with SC-001, where each press makes exactly 1
 - **SC-004**: 0 of at least 3 crafted links carrying the results parameter together with a container ID change the container. — [ratchet] · no-op passable: yes — paired with the same links turning the view on
 - **SC-005**: At 360 px there is 0 px of horizontal overflow with the view on and at least 5 results showing. — [build] · no-op passable: no
