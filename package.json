@@ -15,6 +15,7 @@
     "verify:scenarios": "node scripts/verify-scenarios.ts",
     "verify:container": "node scripts/verify-container.ts",
     "verify:offline": "node scripts/verify-offline.ts",
+    "verify:results": "node scripts/verify-results.ts",
     "test:e2e": "playwright test",
     "prepare": "git config core.hooksPath .githooks"
   },

@@ -1,6 +1,6 @@
 # quadrano-demo-shop Charter
 
-**Version 1.1.1** · adopted 2026-10-24, amended 2026-10-30 · ratified when merged to `main` · see the [amendment log](#amendment-log)
+**Version 1.2.0** · adopted 2026-10-24, amended 2026-11-13 · ratified when merged to `main` · see the [amendment log](#amendment-log)
 
 This Charter is the rulebook for all work in `quadrano-demo-shop`. Where the Charter and anyone's habits disagree, the Charter wins.
 
@@ -114,6 +114,7 @@ These terms are used exactly, and with these meanings, in code, the data layer, 
 - Each deliberately-broken scenario is paired with the exact message it must produce: missing `value`; `value` as the string `"12.99"`; `transaction_ID` (wrong case → suggest `transaction_id`); `currency: "gbp"` (not in GBP/EUR/USD).
 - A check that can never fail is removed. The scenario switcher must be able to show every ✓ and ✗ in the talk script.
 - Reviewers re-run the gates themselves rather than trusting the implementer's report.
+- The shop never judges a push and writes no verdict of its own, on the page or in the Console. When a visitor turns on the Results view, the shop may repeat the runtime's Console output on the page, word for word; every verdict shown is still the runtime's (1.2.0).
 
 ## Code Review Checklist
 
@@ -146,6 +147,7 @@ Written rules alone don't reliably change agent behaviour, so wherever possible 
 | Minimal gates (QDR-003), provenance (QDR-001) | The gate runner (`pnpm gates`) and a git pre-push hook / CI, once the tooling is established at specification time. |
 | No secrets (QDR-004) | Cloudflare Pages environment/secret values; the no-secrets gate; review checklist item 4. |
 | One container per page (QDR-002, 1.1.0) | The head loader built from `site/src/container/active-container.ts`; a lint override forbidding `location`, `document.referrer` and `URLSearchParams` in `site/src/container/**`; the non-gate `pnpm test:e2e` (one `gtm.js` request per page load in both states); review checklist item 4. |
+| The shop never judges (demo-shop FR-017, 1.2.0) | Lint in `site/**`: no Console use and no verdict wording. The Console rule is off for `site/src/results/console-mirror.ts` only; the verdict-wording rule stays on there. `pnpm verify:results` proves the Console rule still fires elsewhere. |
 | Published-artefact contract (QDR-005) | The frozen contract v1.0; review checklist item 5; Product Owner sign-off for any change. |
 | Checklist, verification discipline, escalation | The *Code Review Checklist* and *Regression Vigilance* sections above, which Spec Kitty injects into implement and review prompts. |
 | Stack, directives, terminology | `charter.yaml` (project directives QDR-001 to QDR-007), the Policy Summary above, and the Spec Kitty glossary. |
@@ -171,3 +173,4 @@ Written rules alone don't reliably change agent behaviour, so wherever possible 
 | 1.0.1 | 2026-10-24 | Patch | Verification, Code Review Checklist item 6 and Regression Vigilance now use the ✓/✗ symbols and exact wording of Console output format v1 (frozen under QDR-005) instead of ✅/❌ and the build plan's paraphrase. Clarification only; `charter.yaml` holds no such wording, and no enforcing mechanism changes. |
 | 1.1.0 | 2026-10-29 | Minor | One GTM container per page, the shop's or the visitor's, never from the address; Playwright and axe as dev-only tooling; demo-shop NFR-004 and C-011 scoped to the shop's own container. Mechanism: no gate changes; the gate set and order are unchanged (QDR-003); the no-secrets gate is unchanged in behaviour (its scanner is made importable in WP07 and a check proves it still fires); existing lint rules are unchanged, with one new lint override forbidding reading the address in `site/src/container/**`; `pnpm test:e2e` and `pnpm verify:container` are added as non-gate evidence. |
 | 1.1.1 | 2026-10-30 | Patch | QDR-004 clarified: the no-secrets gate accepts any all-X container ID as a placeholder (`GTM-XXXXXXX` stays the one to write) and skips commit SHAs recorded as Spec Kitty `"lane_head"` values; it never skips a file by path. Clears false positives in this repository's history without rewriting it, and replaces a post-merge exemption that skipped Spec Kitty status files for every pattern. Mechanism: `scripts/lib/secret-scan.ts`, with `pnpm verify:container` checks that a real-looking ID, a near-placeholder and a token-shaped `lane_head` value are still reported, and that `no-secrets.ts` skips no file by path. |
+| 1.2.0 | 2026-11-13 | Minor | The shop may repeat the runtime's Console output on the page, word for word, when a visitor turns on the Results view; it still never judges a push. Supersedes byo-gtm-container C-009 for the on-page panel only. Mechanism: `no-console` is turned off for `site/src/results/console-mirror.ts` and nowhere else; the verdict-wording rule is unchanged; `pnpm verify:results` checks the rule still fires outside that file. Gate set and order unchanged. |

@@ -300,6 +300,7 @@ button:disabled {
 /* Focus ring (NFR-005): links, buttons and the scenario control */
 a:focus-visible,
 button:focus-visible,
+summary:focus-visible,
 #scenario-select:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
@@ -515,6 +516,70 @@ button:focus-visible,
   width: 100%;
   min-height: 44px;
   text-align: left;
+}
+
+/* Results section (WP03, FR-001, NFR-001, NFR-002) */
+.results__switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+#results-switch {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.results__note,
+.results__empty {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.results__list {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.results__row {
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--paper);
+}
+
+.results__header {
+  min-height: 44px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  padding: 0.5rem 0.75rem;
+}
+
+.results__line,
+.results__plain {
+  overflow-wrap: anywhere;
+  margin: 0.25rem 0.75rem 0;
+}
+
+.results__plain {
+  margin: 0.5rem 0.75rem;
+}
+
+.results__pushed {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+  max-width: 100%;
+  font-size: 0.85rem;
+  padding: 0 0.75rem 0.5rem;
 }
 
 /* Offline mode panel (FR-021): visible only in the offline build. */

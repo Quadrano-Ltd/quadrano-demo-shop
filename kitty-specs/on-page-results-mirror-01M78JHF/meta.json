@@ -1,0 +1,21 @@
+{
+  "baseline_merge_commit": "4e6babc304427da040a21bcd1d4e1a60f63a566a",
+  "created_at": "2026-11-12T19:07:50.534346+00:00",
+  "flattened": true,
+  "friendly_name": "On-page results mirror",
+  "merged_at": "2026-11-13T10:11:36.712640+00:00",
+  "merged_commit": "820d84149dfd1dd4f454da5df25a1a68181f77d4",
+  "mid8": "01M78JHF",
+  "mission_id": "01M78JHF4YQ0YCBB2PY5B6TAHS",
+  "mission_number": 2,
+  "mission_slug": "on-page-results-mirror-01M78JHF",
+  "mission_type": "software-dev",
+  "pr_bound": true,
+  "purpose_context": "Attendees following the talk on a phone have no browser Console, so they cannot see the results Quadrano writes for each data layer push. This mission adds an opt-in Results view to the Demo menu that repeats the runtime's Console output verbatim, off by default so the presenter's stage path is unchanged. The shop still never judges a push itself. It reopens the on-page panel ruled out of scope in issue 4 and carries the governance changes that reversal needs.",
+  "purpose_tldr": "Let attendees on phones see what Quadrano says about each push, on the page, by repeating the runtime's own Console output in the Demo menu.",
+  "slug": "on-page-results-mirror-01M78JHF",
+  "status_phase": "1",
+  "target_branch": "feat/on-page-results-mirror",
+  "vcs": "git",
+  "vcs_locked_at": "2026-11-13T06:56:04.342665+00:00"
+}

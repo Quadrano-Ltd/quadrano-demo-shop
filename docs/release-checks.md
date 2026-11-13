@@ -384,6 +384,200 @@ and left the container unpublished. Neither step is shown in the saved log.
 
 ---
 
+## on-page-results-mirror-01M78JHF — gates, device check and page speed (WP08)
+
+Dated evidence for the Phase 5 release checks of the on-page Results mirror
+(WP08). This section records the gate and verification runs on the merged
+WP01–WP07 tree (SC-008), the Lighthouse page-speed check with the view off
+(NFR-004), the real-device check that FR-017 and SC-006 need, and the C-004
+merge-timing decision that follows. The real-device check and the
+Pages-preview Lighthouse run were added on 2026-11-13, after the branch was
+pushed and pull request #11 opened; nothing was claimed before it happened.
+
+### T045 — gates and checks on the merged tree
+
+**Checked:** all four gates, the full-history no-secrets scan, the results,
+container and scenario invariants, the offline check and the e2e suite on the
+merged WP01–WP07 tree, plus the SC-008 pair: lint still fails a fixture that
+uses the Console outside the mirror.
+
+**How:** run in the WP08 lane worktree
+(`on-page-results-mirror-01M78JHF-lane-h`). The pinned pnpm 10.34.7 is on PATH,
+so the gates were run with `pnpm` directly.
+
+**Environment:** Windows 11 (NT 10.0.26300), Node v24.15.0, pnpm 10.34.7
+(pinned by `packageManager`), clean worktree at commit `b8329ed`.
+
+**Results:**
+
+| Check | Command | Result |
+|---|---|---|
+| Dependencies | `pnpm install --frozen-lockfile` | exit 0, 115 packages ("resolved 115, reused 115, downloaded 0"); no new dependency (C-005) |
+| Gates | `pnpm gates` | `[1/4] lint` … `[4/4] provenance`, `no-secrets: 0 findings`, `provenance: 0 findings`, `gates: all 4 passed` (exit 0) |
+| Results lint proof | `pnpm verify:results` | exit 0; 13/13 `ok`, including `the setting key is the same in both files` |
+| Container invariants | `pnpm verify:container` | exit 0; 12/12 `ok` |
+| Scenario invariants | `pnpm verify:scenarios` | exit 0; 8/8 `ok` |
+| Offline check | `pnpm build && pnpm verify:offline` | both exit 0; `verify:offline: dist/ holds no offline-mode marker or storage key` |
+| E2E | `pnpm test:e2e` | exit 0; 282 passed (1.4 m), of which 12 in the `offline` project |
+| Full-history no-secrets | `node scripts/no-secrets.ts --history` | `no-secrets: 0 findings` (exit 0) |
+
+**The failing fixture (SC-008's pair).** To prove the gate itself, not only the
+verify script, still fails Console use outside the capture file, one line was
+added to `site/src/menu/playground.ts` and lint was re-run:
+
+```
+site/src/menu/playground.ts
+  66:3  error  Unexpected console statement  no-console
+✖ 1 problem (1 error, 0 warnings)
+```
+
+The probe was reverted and `git status --short` is clean.
+
+**CI run (2026-11-13).** The branch was pushed and pull request #11 opened on
+2026-11-13 with the Product Owner's approval. Both `gates` workflow runs on
+commit `116644d` passed (runs 43425264544 and 43425304336), and the Cloudflare
+Pages check passed. The pre-push hook also ran the four gates locally before the
+push: `gates: all 4 passed`.
+
+### T046 — Lighthouse with the view off (NFR-004)
+
+**Result: pass locally (2026-11-13); on the Pages preview (2026-11-13) `/` and
+`/product/` pass, and `/basket/`, `/checkout/` and `/thank-you/` pass in 9 of 12
+runs.** The slow runs are not caused by this mission: production, which doesn't
+have it, shows the same pattern. See "Pages-preview run" below.
+
+**How:** Lighthouse 12.8.2 CLI, headless Chrome (system Chrome), mode
+Navigation, device Mobile, Performance only, default simulated throttling
+(Slow 4G). Each run used a fresh profile with no extensions and no stored ID,
+the Demo menu closed, and **no `results` parameter and no stored setting**.
+
+- **Target:** `pnpm preview` locally at `http://127.0.0.1:4175/` (production
+  `dist/`, built with `pnpm build`). The local build sets no
+  `VITE_GTM_CONTAINER_ID`, so **no container loads** on any page; the numbers
+  are the shop-only baseline and are lighter than the Pages preview, where
+  `gtm.js` loads. The Pages-preview run is recorded under "Pages-preview run"
+  below.
+
+| Page | LCP (score) |
+|---|---|
+| `/` | 1097, 1099, 1096 ms (100, 100, 100) |
+| `/product/?id=SKU-1001` | 1096 ms (100) |
+| `/basket/` | 1093 ms (100) |
+| `/checkout/` | 1098 ms (100) |
+| `/thank-you/` | 1100 ms (100) |
+
+**Result against the 2.0 s limit:** pass — every LCP is at most 1.1 s. The
+previous mission's Pages-preview table in this file had every LCP at most
+1.4 s; the local numbers here are in the same band and lower only because no
+container loads locally.
+
+#### Pages-preview run (2026-11-13)
+
+**Target:** `https://feat-on-page-results-mirror.quadrano-demo-shop.pages.dev`,
+deployment `bd469a4d`, commit `116644d`. The shop's container loads here (one
+`gtm.js` request per page). Same Lighthouse 12.8.2 settings as above, view off.
+
+| Page | LCP, first pass | LCP, three more runs |
+|---|---|---|
+| `/` | 1360, 1337, 993 ms | — |
+| `/product/?id=SKU-1001` | 1043 ms | — |
+| `/basket/` | **2799 ms** | 1289, 1366, 1412 ms |
+| `/checkout/` | **2877 ms** | 1323, 1406, 1506 ms |
+| `/thank-you/` | **2662 ms** | 1403, 1308, 1401 ms |
+
+**Comparison with production** (`https://demo.quadrano.com`, built from `main`,
+without this mission), three runs per page on the same day:
+
+| Page | LCP |
+|---|---|
+| `/basket/` | **2811**, 1404, **3675** ms |
+| `/checkout/` | 1409, **3658**, 1390 ms |
+| `/thank-you/` | **3709**, 921, 1456 ms |
+
+**Reading:** on these three pages LCP falls into two bands, about 1.3 to 1.5 s
+or about 2.7 to 3.7 s, while First Contentful Paint stays under 1.6 s. Production
+shows the slow band in 4 of 9 runs without this mission, so the mission is not
+the cause. The 2.0 s limit (NFR-004 here, demo-shop NFR-001) is missed
+intermittently on these pages on `main` today. The cause is not yet found;
+this is an open item for the Product Owner, separate from this mission.
+
+**For information only (not a requirement):** one run of `/?results=on` gave
+LCP 1099 ms (score 100). The view being on is not covered by NFR-004.
+
+**Document transferred size for `/` (view off):** 8.7 kB raw (≈ 3.4 kB gzipped,
+per the build output). The earlier missions' sections recorded JS/CSS
+transferred but not the document size, so no "before" document figure is
+available in this file. The capture script adds about 1 KB inline and no
+request.
+
+### T047/T048 — Real-device check (FR-017, SC-006)
+
+**Run by the Product Owner on 2026-11-13: pass on both phones**, against the
+Pages preview of pull request #11. The results are in the record table below.
+
+**Address to open.** FR-017 allows production or a preview; before the talk
+only the preview is possible without merging, and C-004 needs the record before
+the merge, so the preview is the one to use:
+
+- Preview: `https://feat-on-page-results-mirror.quadrano-demo-shop.pages.dev/?results=on`
+  (confirmed: deployment `bd469a4d`, commit `116644d`)
+- Or production, after merge: `https://demo.quadrano.com/?results=on`
+
+**Getting it onto a phone:** point any QR generator at the address and scan it,
+or type the address. No QR image is committed; this WP owns one file.
+
+**Steps** (from `quickstart.md`):
+
+1. Open the address on the phone (scan or type).
+2. Tap **Demo menu**.
+3. Tap a playground button, for example `purchase · 1 · Missing value`.
+4. Confirm a row appears at the top of **Results**.
+5. Tap the row. Read the problem lines and the pushed object.
+6. Tap `add_to_cart` and confirm a second row appears above the first.
+7. Scroll sideways: the page should not move.
+
+SC-006's measure is step 2 plus step 3: a result within 2 interactions of
+opening the link.
+
+**Record table:**
+
+| Device | OS version | Browser | Date | Address used | Result within 2 interactions? | Row text readable, no sideways scroll? | Notes |
+|---|---|---|---|---|---|---|---|
+| iPhone 16 | iOS 26.2.1 | Safari | 2026-11-13 | Pages preview, `?results=on` | Yes | Yes | Reported by the Product Owner: all steps pass |
+| Motorola Razr Ultra 50 | Android 16 | Firefox 160 | 2026-11-13 | Pages preview, `?results=on` | Yes | Yes | Reported by the Product Owner: all steps pass. Firefox, not Chrome; FR-017 names the phone, not the browser |
+
+**If "Quadrano hasn't loaded in this browser" shows:** note it in the table
+with any content blocker in use, then try once with the blocker off. That
+message appearing when GTM is blocked is the view working as specified
+(FR-010), but the check needs one run where Quadrano loads.
+
+### C-004 — may this reach main before the talk?
+
+**Yes, once the Product Owner signs off below.** FR-017 was recorded on
+2026-11-13, so C-004's condition is met. The Product Owner alone merges to
+`main`.
+
+**Sign-off for this section:**
+
+| Check | Status | PO initials |
+|---|---|---|
+| T045 — gates and checks on the merged tree | ✅ local green (all four gates, verifies, e2e 282 passed, full-history no-secrets 0 findings); CI `gates` green on pull request #11 | |
+| T046 — Lighthouse LCP with the view off (NFR-004) | ⚠ pass locally; on the Pages preview `/` and `/product/` pass, the other three pages pass in 9 of 12 runs; the same slow runs occur on production without this mission (open item) | |
+| T048 — real-device check, iPhone and Android (FR-017, SC-006) | ✅ pass on iPhone 16 (Safari) and Motorola Razr Ultra 50 (Firefox), 2026-11-13 | |
+| C-004 — merge before the talk | ✅ condition met — FR-017 recorded 2026-11-13; awaiting Product Owner sign-off and merge | |
+
+#### Text for the pull request description
+
+```markdown
+## C-004 — merge timing
+
+FR-017 was recorded on 2026-11-13 (iPhone 16 and Motorola Razr Ultra 50, against the Pages preview), so C-004's condition is met. The Product Owner alone merges to `main`.
+
+Evidence: docs/release-checks.md, section "on-page-results-mirror-01M78JHF — gates, device check and page speed (WP08)".
+```
+
+---
+
 ## Sign-off
 
 | Check | Status | PO initials |

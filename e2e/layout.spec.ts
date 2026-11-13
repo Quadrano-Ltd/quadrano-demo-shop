@@ -8,6 +8,13 @@ import {
   test,
   visitorContainerId,
 } from './fixtures.ts';
+import {
+  PLAYGROUND_LABELS,
+  openWithResults,
+  rowCount,
+  serveSnippetAsGtm,
+  waitForBanner,
+} from './results-helpers.ts';
 
 test.use({ viewport: { width: 360, height: 740 } });
 
@@ -94,4 +101,107 @@ test('toggle does not cover the Place order button on /checkout/ at 360px', asyn
   const toggle = await requireBox(page, '.visitor-menu__toggle');
   const place = await requireBox(page, '.checkout__place');
   expect(intersects(toggle, place)).toBe(false);
+});
+
+/** Load `path` with the view on and 5 results, then expand the first 2 rows. */
+async function withFiveResults(page: Page, path: string): Promise<void> {
+  await serveSnippetAsGtm(page);
+  await openWithResults(page, path);
+  await waitForBanner(page);
+  await openMenu(page);
+  for (const [index, label] of PLAYGROUND_LABELS.entries()) {
+    if (index >= 5) break;
+    await page.getByRole('button', { name: label, exact: true }).click();
+    await expect(page.locator('li.results__row')).toHaveCount(index + 1);
+  }
+  await page.locator('summary.results__header').nth(0).click();
+  await page.locator('summary.results__header').nth(1).click();
+  await expect(page.locator('details.results__result').nth(0)).toHaveAttribute(
+    'open',
+    '',
+  );
+  await expect(page.locator('details.results__result').nth(1)).toHaveAttribute(
+    'open',
+    '',
+  );
+  expect(await rowCount(page)).toBe(5);
+}
+
+async function horizontalOverflow(page: Page): Promise<number> {
+  return page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+}
+
+for (const path of PAGES) {
+  test(`no horizontal overflow ${path} with the Results view on and 5 results`, async ({
+    page,
+  }) => {
+    await withFiveResults(page, path);
+    expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  });
+}
+
+test('menu panel itself does not scroll sideways with the Results view on', async ({
+  page,
+}) => {
+  await withFiveResults(page, '/');
+  const widths = await page.evaluate(() => {
+    const panel = document.querySelector('#visitor-menu');
+    if (panel === null) return null;
+    return { scroll: panel.scrollWidth, client: panel.clientWidth };
+  });
+  expect(widths).not.toBeNull();
+  expect(widths?.scroll).toBeLessThanOrEqual(widths?.client ?? 0);
+});
+
+test('very long text wraps and neither page nor panel overflows', async ({
+  page,
+}) => {
+  await openWithResults(page);
+  await page.evaluate((marker) => {
+    const text = marker.repeat(400);
+    console.groupCollapsed('%c?%c %s', '', '', text);
+    console.log(text);
+    console.log('Pushed:', { line: text });
+    console.groupEnd();
+  }, '?');
+  await openMenu(page);
+
+  const header = await page.locator('summary.results__header').nth(0).textContent();
+  const line = await page.locator('p.results__line').nth(0).textContent();
+  const pushed = await page.locator('pre.results__pushed').nth(0).textContent();
+  expect(header).toBe(`? ${'?'.repeat(400)}`);
+  expect(line).toHaveLength(400);
+  expect(pushed).toContain('?'.repeat(400));
+
+  await page.locator('summary.results__header').nth(0).click();
+  await expect(page.locator('details.results__result').nth(0)).toHaveAttribute(
+    'open',
+    '',
+  );
+
+  expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+  const widths = await page.evaluate(() => {
+    const panel = document.querySelector('#visitor-menu');
+    if (panel === null) return null;
+    return { scroll: panel.scrollWidth, client: panel.clientWidth };
+  });
+  expect(widths?.scroll).toBeLessThanOrEqual(widths?.client ?? 0);
+});
+
+test('empty state wraps at 360px with no horizontal overflow', async ({ page }) => {
+  await openWithResults(page);
+  await openMenu(page);
+  await expect(page.locator('p.results__empty')).toHaveText(
+    "Quadrano hasn't loaded in this browser. On a phone, the likely cause is a content blocker stopping GTM.",
+  );
+  expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+});
+
+test('last Results row is reachable at 360px with 5 results', async ({ page }) => {
+  await withFiveResults(page, '/');
+  const last = page.locator('summary.results__header').nth(4);
+  await last.scrollIntoViewIfNeeded();
+  await expect(last).toBeInViewport();
 });

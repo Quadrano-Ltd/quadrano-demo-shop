@@ -11,6 +11,13 @@ import {
   test,
   visitorContainerId,
 } from './fixtures.ts';
+import {
+  PLAYGROUND_LABELS as WP05_PLAYGROUND_LABELS,
+  openWithResults,
+  rowCount,
+  serveSnippetAsGtm,
+  waitForBanner,
+} from './results-helpers.ts';
 
 /** The tag set NFR-002's "0 violations" is measured against. */
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
@@ -216,3 +223,294 @@ test('keyboard: toggle, menu, banner and playground work by keyboard alone', asy
   await page.keyboard.press('Space');
   expect((await pushedEntries(page)).length - beforeSpace).toBe(2);
 });
+
+test.describe('axe with the Results view on', () => {
+  for (const path of PAGES) {
+    test(`axe ${path} results view on, empty, Quadrano not loaded`, async ({
+      page,
+    }) => {
+      await openWithResults(page, path);
+      await openMenu(page);
+      await expect(page.locator('p.results__empty')).toHaveText(
+        "Quadrano hasn't loaded in this browser. On a phone, the likely cause is a content blocker stopping GTM.",
+      );
+      expect(await rowCount(page)).toBe(0);
+      await expectNoViolations(page);
+    });
+
+    test(`axe ${path} results view on, empty, Quadrano loaded`, async ({
+      page,
+    }) => {
+      await serveSnippetAsGtm(page);
+      await openWithResults(page, path);
+      await waitForBanner(page);
+      await openMenu(page);
+      await expect(page.locator('p.results__empty')).toHaveText('No output yet');
+      expect(await rowCount(page)).toBe(0);
+      await expectNoViolations(page);
+    });
+
+    test(`axe ${path} results view on, with results`, async ({ page }) => {
+      await serveSnippetAsGtm(page);
+      await openWithResults(page, path);
+      await waitForBanner(page);
+      await openMenu(page);
+
+      for (const [index, label] of WP05_PLAYGROUND_LABELS.entries()) {
+        if (index >= 5) break;
+        await page.getByRole('button', { name: label, exact: true }).click();
+        await expect(page.locator('li.results__row')).toHaveCount(index + 1);
+      }
+      await page.locator('summary.results__header').nth(0).click();
+      await page.locator('summary.results__header').nth(1).click();
+      await expect(page.locator('details.results__result').nth(0)).toHaveAttribute(
+        'open',
+        '',
+      );
+      await expect(page.locator('details.results__result').nth(1)).toHaveAttribute(
+        'open',
+        '',
+      );
+      expect(await rowCount(page)).toBe(5);
+      await expectNoViolations(page);
+    });
+  }
+
+  test('axe / results view off, menu open', async ({ page }) => {
+    await page.goto('/');
+    await openMenu(page);
+    const section = page.locator('section.results');
+    await expect(section).toBeVisible();
+    await expect(section.locator('p.results__empty')).toHaveCount(0);
+    await expect(section.locator('ul.results__list')).toHaveCount(0);
+    await expect(section.locator('#results-switch')).toBeVisible();
+    await expect(section.locator('#results-switch')).not.toBeChecked();
+    await expectNoViolations(page);
+  });
+
+  test('axe / results view off, sessionStorage blocked', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window, 'sessionStorage', {
+        configurable: true,
+        get() {
+          throw new DOMException('blocked', 'SecurityError');
+        },
+      });
+    });
+    await page.goto('/');
+    await openMenu(page);
+    await expect(page.locator('#results-switch')).toBeDisabled();
+    await expect(page.locator('#results-switch-note')).toHaveText(
+      "This browser blocks site storage, so this view can't be remembered. Open the shop from the talk's link to see it on one page.",
+    );
+    await expectNoViolations(page);
+  });
+});
+
+test('keyboard: the switch and every Results row are reached and operated', async ({
+  page,
+}) => {
+  await serveSnippetAsGtm(page);
+  await openWithResults(page);
+  await waitForBanner(page);
+  await openMenu(page);
+
+  const pressed = [
+    'add_to_cart',
+    'purchase · Correct',
+    'purchase · 1 · Missing value',
+  ];
+  for (const [index, label] of pressed.entries()) {
+    await page.getByRole('button', { name: label, exact: true }).click();
+    await expect(page.locator('li.results__row')).toHaveCount(index + 1);
+  }
+
+  const switchElement = page.locator('#results-switch');
+
+  // Tab from the panel heading until the Results switch is focused.
+  for (let tab = 0; tab < 60; tab += 1) {
+    const onSwitch = await page.evaluate(
+      () => document.activeElement?.id === 'results-switch',
+    );
+    if (onSwitch) break;
+    await page.keyboard.press('Tab');
+  }
+  await expect(switchElement).toBeFocused();
+  const switchFocusStyle = await page.evaluate(() => {
+    const el = document.activeElement;
+    if (!(el instanceof HTMLElement)) {
+      return { outline: 'none', shadow: 'none' };
+    }
+    const style = getComputedStyle(el);
+    return { outline: style.outlineStyle, shadow: style.boxShadow };
+  });
+  expect(
+    switchFocusStyle.outline !== 'none' || switchFocusStyle.shadow !== 'none',
+  ).toBe(true);
+
+  // Keep tabbing: each summary receives focus in list order (newest first).
+  const headers = page.locator('summary.results__header');
+  const focusedHeaders: string[] = [];
+  for (let tab = 0; tab < 60; tab += 1) {
+    const active = await page.evaluate(() => {
+      const el = document.activeElement;
+      return el instanceof HTMLElement && el.classList.contains('results__header')
+        ? (el.textContent ?? '')
+        : null;
+    });
+    if (active !== null) {
+      focusedHeaders.push(active);
+      if (focusedHeaders.length === 3) break;
+    }
+    await page.keyboard.press('Tab');
+  }
+  await expect(headers.nth(0)).toHaveText(mustText(focusedHeaders[0]));
+  await expect(headers.nth(1)).toHaveText(mustText(focusedHeaders[1]));
+  await expect(headers.nth(2)).toHaveText(mustText(focusedHeaders[2]));
+
+  // Enter opens the focused row; Space closes it; the others don't change.
+  await headers.nth(0).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('details.results__result').nth(0)).toHaveAttribute(
+    'open',
+    '',
+  );
+  await page.keyboard.press('Space');
+  await expect(page.locator('details.results__result').nth(0)).not.toHaveAttribute(
+    'open',
+    '',
+  );
+
+  await headers.nth(1).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('details.results__result').nth(1)).toHaveAttribute(
+    'open',
+    '',
+  );
+  await page.keyboard.press('Space');
+  await expect(page.locator('details.results__result').nth(1)).not.toHaveAttribute(
+    'open',
+    '',
+  );
+  await expect(page.locator('details.results__result').nth(0)).not.toHaveAttribute(
+    'open',
+    '',
+  );
+  await expect(page.locator('details.results__result').nth(2)).not.toHaveAttribute(
+    'open',
+    '',
+  );
+
+  // Escape from a focused summary closes the menu and returns focus to the toggle.
+  await headers.nth(0).focus();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#visitor-menu')).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Demo menu' })).toBeFocused();
+});
+
+test('keyboard: the switch turns the view on and off by Space alone', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await openMenu(page);
+
+  await page.locator('#results-switch').focus();
+  await expect(page.locator('#results-switch')).not.toBeChecked();
+  await page.keyboard.press('Space');
+  await expect(page.locator('html')).toHaveAttribute('data-results-view', 'on');
+
+  // The reload closed the menu; open it again and turn the view back off.
+  await openMenu(page);
+  await page.locator('#results-switch').focus();
+  await expect(page.locator('#results-switch')).toBeChecked();
+  await page.keyboard.press('Space');
+  await expect(page.locator('html')).not.toHaveAttribute('data-results-view', 'on');
+});
+
+test('7 of 7 presses: the status region holds each new header and focus stays', async ({
+  page,
+}) => {
+  await serveSnippetAsGtm(page);
+  await openWithResults(page);
+  await waitForBanner(page);
+  await openMenu(page);
+
+  for (const [index, label] of WP05_PLAYGROUND_LABELS.entries()) {
+    const button = page.getByRole('button', { name: label, exact: true });
+    await button.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('li.results__row')).toHaveCount(index + 1);
+
+    const header = await page
+      .locator('summary.results__header')
+      .nth(0)
+      .textContent();
+    await expect(page.locator('#results-status')).toHaveText(mustText(header));
+
+    const focused = await page.evaluate(
+      () => document.activeElement?.textContent?.trim(),
+    );
+    expect(focused).toBe(label);
+  }
+});
+
+test('the Results status region sits in the menu host, outside the panel', async ({
+  page,
+}) => {
+  await serveSnippetAsGtm(page);
+  await openWithResults(page);
+  await waitForBanner(page);
+
+  const status = page.locator('#results-status');
+  await expect(status).toHaveAttribute('role', 'status');
+  await expect(status).toHaveCount(1);
+
+  const insideHost = await page
+    .locator('.visitor-menu-host #results-status')
+    .count();
+  expect(insideHost).toBe(1);
+  const insidePanel = await page.locator('#visitor-menu #results-status').count();
+  expect(insidePanel).toBe(0);
+});
+
+test('announced with the menu closed and focus stays on Add to basket', async ({
+  page,
+}) => {
+  await serveSnippetAsGtm(page);
+  await openWithResults(page, '/product/');
+  await waitForBanner(page);
+
+  const add = page.getByRole('button', { name: 'Add to basket' });
+  await add.focus();
+  await page.keyboard.press('Enter');
+
+  await expect(page.locator('#results-status')).not.toHaveText('');
+  await expect(add).toBeFocused();
+});
+
+test('the layout live region and the Results status hold their own messages', async ({
+  page,
+}) => {
+  await serveSnippetAsGtm(page);
+  await openWithResults(page);
+  await waitForBanner(page);
+  await openMenu(page);
+
+  await page
+    .getByRole('button', { name: 'add_to_cart', exact: true })
+    .click();
+  await expect(page.locator('li.results__row')).toHaveCount(1);
+
+  await expect(page.locator('#app > p.visually-hidden[role="status"]')).toHaveText(
+    'Pushed add_to_cart',
+  );
+  const header = await page.locator('summary.results__header').nth(0).textContent();
+  await expect(page.locator('#results-status')).toHaveText(mustText(header));
+});
+
+function mustText(value: string | null | undefined): string {
+  if (value === null || value === undefined) {
+    throw new Error('missing text');
+  }
+  return value;
+}

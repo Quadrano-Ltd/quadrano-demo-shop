@@ -1,0 +1,79 @@
+{
+  "entries": [
+    {
+      "created_at": "2026-11-12T19:08:38.500080Z",
+      "decision_id": "01M78JJY73TNTBSZYYJD0Z50PZ",
+      "final_answer": "Ship before the talk, conditional on real-device checks",
+      "input_key": "ship_before_talk",
+      "mission_id": "01M78JHF4YQ0YCBB2PY5B6TAHS",
+      "mission_slug": "on-page-results-mirror-01M78JHF",
+      "opened_by": "cli",
+      "options": [
+        "Ship before the talk, conditional on real-device checks",
+        "Wait until after the talk",
+        "Other"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Should this ship before the talk on Thu 19 Nov (feature freeze Fri 13 Nov), or wait until after?",
+      "rationale": null,
+      "resolved_at": "2026-11-12T19:09:26.013538Z",
+      "resolved_by": null,
+      "slot_key": "specify.scope.ship-before-talk",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-11-12T20:07:20.250310Z",
+      "decision_id": "01M78NYDDTDCEGEP0S4BDQDNKM",
+      "final_answer": "This tab only (sessionStorage)",
+      "input_key": "results_setting_lifetime",
+      "mission_id": "01M78JHF4YQ0YCBB2PY5B6TAHS",
+      "mission_slug": "on-page-results-mirror-01M78JHF",
+      "opened_by": "cli",
+      "options": [
+        "This tab only (sessionStorage)",
+        "24 hours in this browser (localStorage, like the visitor container)",
+        "Until switched off (localStorage, no expiry)",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "How long should the Results view setting be remembered once the switch or the link turns it on?",
+      "rationale": null,
+      "resolved_at": "2026-11-12T20:18:19.302227Z",
+      "resolved_by": null,
+      "slot_key": "plan.storage.results-setting-lifetime",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-11-12T20:18:44.368468Z",
+      "decision_id": "01M78PK9GGHZSS6RFEYXKK4PXS",
+      "final_answer": "Show them as plain rows, verbatim",
+      "input_key": "ungrouped_quadrano_lines",
+      "mission_id": "01M78JHF4YQ0YCBB2PY5B6TAHS",
+      "mission_slug": "on-page-results-mirror-01M78JHF",
+      "opened_by": "cli",
+      "options": [
+        "Show them as plain rows, verbatim",
+        "Leave them out; show push groups only",
+        "Other"
+      ],
+      "origin_flow": "plan",
+      "other_answer": false,
+      "question": "Should Results also show Quadrano's single lines that aren't a push group (for example: No Event Definition, Couldn't check this push, Two Specifications loaded)?",
+      "rationale": null,
+      "resolved_at": "2026-11-12T20:20:16.651360Z",
+      "resolved_by": null,
+      "slot_key": "plan.capture.ungrouped-quadrano-lines",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    }
+  ],
+  "mission_id": "01M78JHF4YQ0YCBB2PY5B6TAHS",
+  "version": 1
+}

@@ -37,6 +37,7 @@ There are no runtime dependencies. Anything new needs a Charter amendment (QDR-0
 | `pnpm gates --ci` | as above, using the GitHub event ranges, plus a full-history no-secrets scan | same |
 | `pnpm verify:scenarios` | FR-012 invariants (not a gate) | non-zero on any violation |
 | `pnpm verify:container` | choice rules, malformed IDs, expiry and tamper, scanner still fires (not a gate) | non-zero on any violation |
+| `pnpm verify:results` | the Console lint rule still fires outside the capture file; verdict wording is still caught inside it; the capture file is self-contained (not a gate) | non-zero on any violation |
 | `pnpm test:e2e` | Playwright + axe; googletagmanager.com stubbed; builds to `.e2e-dist/` (not a gate) | non-zero on any failure |
 | `pnpm preview` | serves `dist/` locally (FR-022) | — |
 
@@ -64,6 +65,6 @@ Cloudflare Pages Git integration. Production branch `main`, build command `pnpm 
 
 - Relative imports carry the `.ts` extension; erasable syntax only (no `enum`, no `namespace`, no parameter properties).
 - Only `site/src/datalayer/push.ts` touches `dataLayer` (FR-016, enforced by lint).
-- No Console output and no verdict wording in `site/` (FR-017, enforced by lint).
+- No verdict wording in `site/`, and no Console use except in `site/src/results/console-mirror.ts`, which repeats the runtime's output (FR-017, Charter 1.2.0, enforced by lint).
 - No network requests from shop code beyond the site's own assets and GTM (NFR-004, enforced by lint).
 - Terminology Canon: use "Attribute" for a key in a pushed event; never "parameter", "property" or "field" for domain concepts.
