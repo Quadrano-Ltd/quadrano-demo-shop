@@ -65,7 +65,7 @@ function purchaseWrongCaseKey(transactionId: string): Record<string, unknown> {
   return {
     event: 'purchase',
     ecommerce: {
-      transaction_ID: transactionId,
+      transactionId: transactionId,
       currency: 'GBP',
       value: 12.99,
       items: [HERO_ITEM],
@@ -100,7 +100,7 @@ function purchaseBadTransactionId(): Record<string, unknown> {
 /** Reads a random transaction id off the pushed event and asserts its pattern. */
 function transactionIdFrom(
   pushed: PushedEvent,
-  key: 'transaction_id' | 'transaction_ID' = 'transaction_id',
+  key: 'transaction_id' | 'transactionId' = 'transaction_id',
 ): string {
   const id = pushed.ecommerce[key] as string;
   expect(id).toMatch(/^T-\d{6}$/);
@@ -128,7 +128,7 @@ const PLAYGROUND_BUTTONS: readonly PlaygroundButton[] = [
   },
   {
     label: 'purchase · 3 · Wrong-case key',
-    expected: (pushed) => purchaseWrongCaseKey(transactionIdFrom(pushed, 'transaction_ID')),
+    expected: (pushed) => purchaseWrongCaseKey(transactionIdFrom(pushed, 'transactionId')),
   },
   {
     label: 'purchase · 4 · Lower-case currency',

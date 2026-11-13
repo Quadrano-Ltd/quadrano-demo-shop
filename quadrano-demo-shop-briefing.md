@@ -34,7 +34,7 @@ by **Sun 8 Nov** and run clean in three rehearsals by **Thu 19 Nov**.
   broken** events covering the exact message categories in §1.1 step 7:
   - missing `value`
   - `value` is the string "12.99" instead of a number
-  - `transaction_ID` (wrong case → should suggest `transaction_id`)
+  - `transactionId` (camel case → should suggest `transaction_id`)
   - `currency: "gbp"` (not in GBP/EUR/USD)
 - A **scenario switcher** to walk the talk script quickly.
 

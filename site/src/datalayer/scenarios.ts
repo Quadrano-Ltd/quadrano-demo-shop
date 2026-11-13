@@ -80,7 +80,7 @@ const scenarioDefinitions: readonly Scenario[] = [
       const copy = clone(correct);
       const { transaction_id, ...rest } = copy.ecommerce;
       // Rebuild ecommerce so the renamed key keeps its position.
-      copy.ecommerce = { transaction_ID: transaction_id, ...rest };
+      copy.ecommerce = { transactionId: transaction_id, ...rest };
       return copy;
     },
   },

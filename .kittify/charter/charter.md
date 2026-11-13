@@ -111,7 +111,7 @@ These terms are used exactly, and with these meanings, in code, the data layer, 
 ## Verification that proves something
 
 - The whole point of the shop is honest signal: a correct push logs ✓, and each broken push logs ✗ with its exact message in Console output format v1 (published-artefact contract v1.0), as quoted in the mission specification. §1.1 step 7 of the build plan names the problems to show; the wording is format v1's.
-- Each deliberately-broken scenario is paired with the exact message it must produce: missing `value`; `value` as the string `"12.99"`; `transaction_ID` (wrong case → suggest `transaction_id`); `currency: "gbp"` (not in GBP/EUR/USD).
+- Each deliberately-broken scenario is paired with the exact message it must produce: missing `value`; `value` as the string `"12.99"`; `transactionId` (camel case → suggest `transaction_id`); `currency: "gbp"` (not in GBP/EUR/USD).
 - A check that can never fail is removed. The scenario switcher must be able to show every ✓ and ✗ in the talk script.
 - Reviewers re-run the gates themselves rather than trusting the implementer's report.
 - The shop never judges a push and writes no verdict of its own, on the page or in the Console. When a visitor turns on the Results view, the shop may repeat the runtime's Console output on the page, word for word; every verdict shown is still the runtime's (1.2.0).
