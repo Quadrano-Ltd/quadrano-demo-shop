@@ -18,6 +18,9 @@ requirement_refs:
 planning_base_branch: feat/on-page-results-mirror
 merge_target_branch: feat/on-page-results-mirror
 branch_strategy: Planning artifacts for this mission were generated on feat/on-page-results-mirror. During /spec-kitty.implement this WP may branch from a dependency-specific base, but completed changes must merge back into feat/on-page-results-mirror unless the human explicitly redirects the landing branch.
+base_branch: kitty/mission-on-page-results-mirror-01M78JHF
+base_commit: 1702f31119a13e28bf9379aea791052f981f88f7
+created_at: '2026-11-13T07:11:15.150195+00:00'
 subtasks:
 - T005
 - T006
