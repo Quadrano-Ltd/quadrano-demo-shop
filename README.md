@@ -54,7 +54,7 @@ Product → **Add to basket** → Checkout → **Place order** → thank-you →
 | Correct | `✓ purchase` |
 | 1 · Missing value | `✗ purchase · 1 error` — value is required but missing |
 | 2 · Value as text | `✗ purchase · 1 error` — value should be a number, got `"12.99"` |
-| 3 · Wrong-case key | `✗ purchase · 1 error, 1 warning` — missing `transaction_id`, `transaction_ID` not in the Event Definition |
+| 3 · Wrong-case key | `✗ purchase · 1 error, 1 warning` — missing `transaction_id`, `transactionId` not in the Event Definition |
 | 4 · Lower-case currency | `✗ purchase · 1 error` — currency should be GBP, EUR or USD |
 | Spare · Bad transaction ID | `✗ purchase · 1 error` — transaction_id should match the pattern |
 

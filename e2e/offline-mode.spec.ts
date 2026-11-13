@@ -53,7 +53,7 @@ const EXPECTED_SCENARIOS: readonly ExpectedScenario[] = [
     group: '✗ purchase · 1 error, 1 warning',
     details: [
       'ecommerce.transaction_id is required, but is missing.',
-      "ecommerce.transaction_ID isn't in the Event Definition. Did you mean transaction_id?",
+      "ecommerce.transactionId isn't in the Event Definition. Did you mean transaction_id?",
     ],
   },
   {

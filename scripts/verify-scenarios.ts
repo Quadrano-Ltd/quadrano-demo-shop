@@ -239,7 +239,7 @@ const checks: ReadonlyArray<readonly [string, () => void]> = [
         'value-as-text': ['changed ecommerce.value → "12.99" (string)'],
         'wrong-case-key': [
           'removed ecommerce.transaction_id',
-          'added ecommerce.transaction_ID',
+          'added ecommerce.transactionId',
         ],
         'lowercase-currency': ['changed ecommerce.currency → "gbp"'],
         'bad-transaction-id': ['changed ecommerce.transaction_id → "12345"'],
@@ -267,7 +267,7 @@ const checks: ReadonlyArray<readonly [string, () => void]> = [
         ecommerce: Record<string, unknown>;
       };
       assert.strictEqual(
-        wrong.ecommerce.transaction_ID,
+        wrong.ecommerce.transactionId,
         correct.ecommerce.transaction_id,
       );
     },
