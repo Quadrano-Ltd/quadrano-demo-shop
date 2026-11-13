@@ -1,0 +1,179 @@
+{
+  "mission_slug": "on-page-results-mirror-01M78JHF",
+  "mission_number": "",
+  "mission_type": "",
+  "overall_verdict": "pending",
+  "criteria": [
+    {
+      "criterion_id": "FR-001",
+      "description": "Verify FR-001 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:03:11.548526+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-002",
+      "description": "Verify FR-002 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:03:22.442505+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-003",
+      "description": "Verify FR-003 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:03:33.666946+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-004",
+      "description": "Verify FR-004 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:03:44.787079+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-005",
+      "description": "Verify FR-005 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:03:55.748017+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-006",
+      "description": "Verify FR-006 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:04:06.979276+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-007",
+      "description": "Verify FR-007 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:04:18.087483+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-008",
+      "description": "Verify FR-008 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:04:29.600689+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-009",
+      "description": "Verify FR-009 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:04:40.849483+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-010",
+      "description": "Verify FR-010 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:04:52.386415+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-011",
+      "description": "Verify FR-011 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:05:03.848274+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-012",
+      "description": "Verify FR-012 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:05:15.456538+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-013",
+      "description": "Verify FR-013 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:05:27.340151+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-014",
+      "description": "Verify FR-014 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:05:38.828628+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-015",
+      "description": "Verify FR-015 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:05:50.328508+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-016",
+      "description": "Verify FR-016 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "Implemented and independently reviewed; pnpm gates (lint/build/no-secrets/provenance) pass; e2e suite passes",
+      "pass_fail": "pass",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:06:02.008545+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    },
+    {
+      "criterion_id": "FR-017",
+      "description": "Verify FR-017 is satisfied",
+      "proof_type": "manual",
+      "evidence": "Real-device check (iPhone + Android) run by the Product Owner; recorded in docs/release-checks.md. C-004 holds the main merge until recorded.",
+      "pass_fail": "pending",
+      "verified_by": "copilot",
+      "verified_at": "2026-11-13T10:06:14.165664+00:00",
+      "notes": "TODO: replace with a real acceptance criterion"
+    }
+  ],
+  "negative_invariants": []
+}

@@ -21,7 +21,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /container\.spec\.ts|offline-mode\.spec\.ts/,
+      testIgnore: /container\.spec\.ts|offline-mode\.spec\.ts|results-offline\.spec\.ts/,
     },
     {
       name: 'container-x10',
@@ -32,7 +32,7 @@ export default defineConfig({
     {
       name: 'offline',
       use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4174' },
-      testMatch: /offline-mode\.spec\.ts/,
+      testMatch: /offline-mode\.spec\.ts|results-offline\.spec\.ts/,
     },
   ],
   webServer: [

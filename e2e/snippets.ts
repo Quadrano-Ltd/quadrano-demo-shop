@@ -35,3 +35,17 @@ export function specIdOf(snippet: string): string {
   }
   return match[0].slice('/*! quadrano '.length, match[0].length - 1);
 }
+
+const SNIPPET_SCRIPT = /<script[^>]*>([\s\S]*?)<\/script>/i;
+
+/**
+ * The body of a fixture snippet's script element: what a Custom HTML tag
+ * would run. Throws if the fixture holds no script element.
+ */
+export function scriptBodyOf(snippet: string): string {
+  const match = SNIPPET_SCRIPT.exec(snippet);
+  if (match === null || match[1] === undefined) {
+    throw new Error('fixture snippet holds no script element');
+  }
+  return match[1];
+}

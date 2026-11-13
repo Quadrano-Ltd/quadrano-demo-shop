@@ -1,0 +1,17 @@
+{
+  "rows": {
+    "#10": {
+      "evidence_ref": "Implemented by WP01-WP08, merged to feat/on-page-results-mirror; reaches main by PR. Real-device check (FR-017) tracked in docs/release-checks.md and held at the main merge per C-004.",
+      "fr": null,
+      "nfr": null,
+      "repo": null,
+      "sc": null,
+      "scope": null,
+      "source_file": null,
+      "title": null,
+      "verdict": "fixed",
+      "wp": "WP08"
+    }
+  },
+  "schema_version": 1
+}

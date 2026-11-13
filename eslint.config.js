@@ -129,6 +129,15 @@ export default tseslint.config(
     },
   },
   {
+    // Charter 1.2.0: the Results view repeats the runtime's Console output.
+    // This is the only file in site/ that may use the Console. The
+    // verdict-wording, network and dataLayer rules stay on here.
+    files: ['site/src/results/console-mirror.ts'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     files: ['site/src/container/**/*.ts'],
     rules: {
       'no-restricted-globals': [

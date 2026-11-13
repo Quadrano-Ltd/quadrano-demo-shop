@@ -6,6 +6,7 @@ import {
   type ContainerState,
 } from './banner.ts';
 import { mountPlayground } from './playground.ts';
+import { mountResults } from './results.ts';
 
 /**
  * The floating "Demo menu" disclosure (FR-005, FR-020): a fixed, labelled
@@ -23,7 +24,7 @@ const STORAGE_UNAVAILABLE_COPY =
 
 const PATH_1_SHOP_COPY = "You're using the shop's pre-built container.";
 const PATH_1_NONE_COPY = 'This build of the shop has no pre-built container.';
-const PATH_1_HINT = 'Open the browser Console to see the output.';
+const PATH_1_HINT = 'Open the browser Console to see the output. On a phone, turn on Results below.';
 
 // docs/spike/preview-spike.md run 2 assumes an unpublished container still runs
 // in Preview. If that changes, WP11 swaps only this string.
@@ -35,7 +36,7 @@ const INSTRUCTION_STEPS: readonly string[] = [
   'On quadrano.com/local, build a Specification and copy its snippet.',
   'In your container, add a Custom HTML tag with the snippet, triggered on Initialization – All Pages.',
   PREVIEW_STEP,
-  'Open the browser Console and use the event playground.',
+  'Open the browser Console, or turn on Results below, and use the event playground.',
 ];
 
 function statusCopy(state: ContainerState): string {
@@ -169,8 +170,16 @@ export function mountVisitorMenu(announce: (message: string) => void): void {
   playground.append(playgroundHeading);
   mountPlayground(playground, announce);
 
-  panel.append(title, close, status, path1, path2, playground);
+  // Results (on-page results mirror, FR-001): repeats the runtime's Console output.
+  const results = document.createElement('section');
+  results.className = 'visitor-menu__group results';
+  const resultsHeading = document.createElement('h3');
+  resultsHeading.textContent = 'Results';
+  results.append(resultsHeading);
+
+  panel.append(title, close, status, path1, path2, playground, results);
   host.append(toggle, panel);
+  mountResults(results, host);
 
   let storageChecked = false;
 
