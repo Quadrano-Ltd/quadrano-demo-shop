@@ -2,10 +2,9 @@
   "event_count": 61,
   "last_event_id": "01M7A67RYE3T7HP0Z8Z5RHQ6QP",
   "materialized_at": "2026-11-13T10:11:18.606859+00:00",
-  "mission_number": "2",
+  "mission_number": "",
   "mission_slug": "on-page-results-mirror-01M78JHF",
-  "mission_type": "software-dev",
-  "schema_version": 2,
+  "mission_type": "",
   "summary": {
     "approved": 0,
     "blocked": 0,
@@ -21,286 +20,138 @@
     "WP01": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67C8YF6GZZ8RE7GBJG8PE",
       "last_transition_at": "2026-11-13T10:11:05.630821+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "- 2026-11-13T07:01:56Z – copilot – shell_pid=32088 – charter.yaml: no Charter version field records 1.1.1 (only a historical (1.1.1) in QDR-004); QDR-001..QDR-007 hold no Console/verdict wording, so charter.yaml is left unchanged and agrees with charter.md.",
-        "Ready for review",
-        "Review passed: Charter 1.2.0 header, bullet, enforcement row and amendment-log row match the contract verbatim (date 2026-11-13); four Spec Kitty headings unchanged; charter.yaml has no version field and agrees with charter.md; only charter.md changed; pnpm gates passes."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP01-charter-1-2-0\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP01-charter-1-2-0/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 12524,
-      "shell_pid_created_at": "1794553402.01423",
-      "subtasks": {
-        "T001": "done",
-        "T002": "done",
-        "T003": "done",
-        "T004": "done"
-      }
+      "shell_pid": 32088,
+      "shell_pid_created_at": "1794552954.507433"
     },
     "WP02": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 1,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67E8QQXRR1VAQMMCKXTKW",
       "last_transition_at": "2026-11-13T10:11:07.671622+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review: capture script (site/src/results/console-mirror.ts), head wiring in vite.config.ts, globals.d.ts types, one-file lint override. pnpm gates exit 0; live-caller grep confirms console-mirror wired via CAPTURE_FILE/buildCaptureScript in transformIndexHtml; guard and lint probes recorded.",
-        "- 2026-11-13T07:58:53Z – frontend-freddy – Build-guard probe: adding an import to site/src/results/console-mirror.ts fails vite build with 'console-mirror.ts must stay self-contained (no import/export after inlining)' (exit 1); reverted.",
-        "- 2026-11-13T07:59:03Z – frontend-freddy – Build-guard probe: adding a string containing </script> to site/src/results/console-mirror.ts fails vite build with 'console-mirror.ts must not contain a closing script tag' (exit 1); reverted.",
-        "- 2026-11-13T07:59:13Z – frontend-freddy – Build-guard probe: adding an arrow function to site/src/results/console-mirror.ts fails vite build with 'console-mirror.ts must stay ES5-safe' (exit 1); reverted.",
-        "- 2026-11-13T07:59:24Z – frontend-freddy – Lint probe: adding console.log('x') to site/src/menu/playground.ts fails pnpm lint with 'Unexpected console statement no-console' (exit 1); reverted.",
-        "- 2026-11-13T07:59:34Z – frontend-freddy – Lint probe: adding the verdict-wording literal 'invalid' to site/src/results/console-mirror.ts fails pnpm lint with 'Shop text must not contain verdict wording (FR-017)' (no-restricted-syntax, exit 1); reverted.",
-        "- 2026-11-13T07:59:45Z – frontend-freddy – ES5 fix: renamed capture-file variables (entries->allEntries, listen->registerListener) so transformWithOxc cannot emit object-property shorthand, and replaced the token-scan ES5 guard in vite.config.ts with an AST walk (parseSync) that flags shorthand/computed/method and all post-ES5 syntax; emitted var results block now has explicit keys in both dist/ and dist-offline/.",
-        "Ready for review — ES5 fix + probe log",
-        "Review passed: emitted capture script is ES5-safe in both dist/ and dist-offline/ (explicit keys entries:allEntries, listen:registerListener; no shorthand). AST guard (parseSync) in vite.config.ts verified to fail build on shorthand/arrow/import/</script> probes (all exit 1, reverted). Guard and lint probe outcomes recorded in WP status event log. eslint no-console override is single literal path + one rule; capture script first in head on all 5 pages in both builds; only owned files changed; pnpm gates passes."
-      ],
-      "provider": "__resolved_provider_absent__",
-      "review": null,
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP02-capture-script-and-head-wiring\\review-cycle-2.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP02-capture-script-and-head-wiring/review-cycle-2.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 6732,
-      "shell_pid_created_at": "1794557110.1250868",
-      "subtasks": {
-        "T005": "done",
-        "T006": "done",
-        "T007": "done",
-        "T008": "done",
-        "T009": "done",
-        "T010": "done",
-        "T011": "done",
-        "T012": "done"
-      }
+      "shell_pid": 33060,
+      "shell_pid_created_at": "1794555830.5501077"
     },
     "WP03": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67FX0DS31DNT6S026VZBA",
       "last_transition_at": "2026-11-13T10:11:09.344838+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: 4 owned files only; switch/link/off-state and storage-blocked states correct; textContent-only rows newest-first; own polite live region, no focus steal; no Console/verdict wording/dataLayer in site; pnpm gates green (lint/build/no-secrets/provenance) and 203 e2e tests passed"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP03-results-section-in-demo-menu\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP03-results-section-in-demo-menu/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 35540,
-      "shell_pid_created_at": "1794558497.123197",
-      "subtasks": {
-        "T013": "done",
-        "T014": "done",
-        "T015": "done",
-        "T016": "done",
-        "T017": "done",
-        "T018": "done",
-        "T019": "done"
-      }
+      "shell_pid": 32568,
+      "shell_pid_created_at": "1794557808.4706657"
     },
     "WP04": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67HHNATQDVQVKEV04XP03",
       "last_transition_at": "2026-11-13T10:11:11.029861+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "- 2026-11-13T08:49:37Z – copilot – shell_pid=38160 – Done: scripts/verify-results.ts + verify:results script + AGENTS.md/README.md docs. Type-stripping route: Vite transformWithOxc (stripTypeScriptTypes prints an ExperimentalWarning). pnpm verify:results exits 0 (13 ok lines); pnpm lint 0; pnpm gates 0 (lint/build/no-secrets/provenance). Five probes run and reverted, each with its not ok line: (1) override widened to site/src/** (Console rule fires outside fails), (2) override widened to results/** (only-the-capture-file names results-setting.ts), (3) no-restricted-syntax off in override (verdict wording fails), (4) import added to capture file (no import/export fails), (5) key changed in results-setting.ts (setting key fails). Lockfile untouched; not added to gates. Agent: copilot",
-        "Review passed: verify:results is a genuine negative-invariant prover (13 checks; widening the override and killing the verdict rule both exit 1), package.json adds only verify:results, AGENTS.md rule matches the contract verbatim, README documents FR-016 phone reach, verify:results not wired into gates/CI; pnpm gates and pnpm verify:results both exit 0"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP04-lint-proof-and-documents\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP04-lint-proof-and-documents/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 3404,
-      "shell_pid_created_at": "1794559870.3112204",
-      "subtasks": {
-        "T020": "done",
-        "T021": "done",
-        "T022": "done",
-        "T023": "done",
-        "T024": "done",
-        "T025": "done"
-      }
+      "shell_pid": 38160,
+      "shell_pid_created_at": "1794559022.3709605"
     },
     "WP05": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67K6EER9VKEPVM4HCYVE5",
       "last_transition_at": "2026-11-13T10:11:12.718709+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "- 2026-11-13T08:57:08Z – copilot – shell_pid=2852 – Fixture-drift probe (T028): copied offline-snippet-before-step8.txt to a temp file and changed the group format string '%c %s' to '%c  %s'. Served it via serveSnippetAsGtm in a scratch spec; the first press produced 0 rows so toHaveCount(1) timed out, confirming the suite fails when the runtime's format changes (NFR-003). Scratch files discarded; no fixture files were modified.",
-        "Ready for review",
-        "Review passed: 14/14 spec tests green (42/42 with repeat-each=3); only the 3 owned files changed; real-snippet verification of FR-001/002/003; drift probe fails as expected; pnpm gates pass."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP05-e2e-rows-and-capture\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP05-e2e-rows-and-capture/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 24896,
-      "shell_pid_created_at": "1794560355.775132",
-      "subtasks": {
-        "T026": "done",
-        "T027": "done",
-        "T028": "done",
-        "T029": "done",
-        "T030": "done",
-        "T031": "done"
-      }
+      "shell_pid": 2852,
+      "shell_pid_created_at": "1794559054.79471"
     },
     "WP06": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67MXD96E5AHETNE6MGST8",
       "last_transition_at": "2026-11-13T10:11:14.478186+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: only e2e/results-setting.spec.ts added; FR-004/005/006/011/012, SC-002/003/004, C-002 each with same-test control; pnpm gates pass; 28 tests pass (84 with repeat-each=3); no secrets/ID literals."
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP06-e2e-off-state-switch-and-link\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP06-e2e-off-state-switch-and-link/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 36356,
-      "shell_pid_created_at": "1794562138.5294363",
-      "subtasks": {
-        "T032": "done",
-        "T033": "done",
-        "T034": "done",
-        "T035": "done",
-        "T036": "done",
-        "T037": "done",
-        "T038": "done"
-      }
+      "shell_pid": 35280,
+      "shell_pid_created_at": "1794560990.878136"
     },
     "WP07": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 0,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67PYY0CNBC1ZDERV6BC0R",
       "last_transition_at": "2026-11-13T10:11:16.574256+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "Ready for review",
-        "Review passed: offline/a11y/layout specs and config routing verified; gates and all specs green"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP07-e2e-offline-accessibility-and-layout\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP07-e2e-offline-accessibility-and-layout/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 36044,
-      "shell_pid_created_at": "1794562407.164101",
-      "subtasks": {
-        "T039": "done",
-        "T040": "done",
-        "T041": "done",
-        "T042": "done",
-        "T043": "done",
-        "T044": "done"
-      }
+      "shell_pid": 17316,
+      "shell_pid_created_at": "1794561023.97496"
     },
     "WP08": {
       "actor": "merge",
       "agent": "copilot",
-      "agent_profile": "__resolved_profile_absent__",
-      "agent_profile_version": "__resolved_profile_version_absent__",
       "force_count": 2,
       "implementer_of_record": "copilot",
       "lane": "done",
       "last_event_id": "01M7A67RYE3T7HP0Z8Z5RHQ6QP",
       "last_transition_at": "2026-11-13T10:11:18.606859+00:00",
-      "model": "__resolved_model_absent__",
-      "notes": [
-        "- 2026-11-13T09:55:03Z – copilot – shell_pid=13608 – T048 left pending: the real-device check (FR-017, SC-006) needs one real iPhone and one real Android phone, run by the Product Owner. The device-check pack is written and marked not yet run; T048 will be marked done when the Product Owner reports results. C-004 recorded as 'Not yet' — mission stays unmerged until FR-017 is recorded or after the talk.",
-        "Ready for review: evidence prepared, device check pending (T048). C-004 recorded as Not yet - mission stays unmerged until FR-017 is recorded.",
-        "Review passed: evidence prepared, device check (FR-017) pending per C-004"
-      ],
-      "provider": "__resolved_provider_absent__",
       "review_result": {
         "feedback_path": "C:\\Users\\barry_quadrano\\gh\\quadrano-demo-shop\\.worktrees\\on-page-results-mirror-01M78JHF-coord\\kitty-specs\\on-page-results-mirror-01M78JHF\\tasks\\WP08-release-evidence-and-device-check\\review-cycle-1.md",
         "reference": "review-cycle://on-page-results-mirror-01M78JHF/WP08-release-evidence-and-device-check/review-cycle-1.md",
         "reviewer": "copilot",
         "verdict": "approved"
       },
-      "role": "reviewer",
-      "shell_pid": 9264,
-      "shell_pid_created_at": "1794563788.005284",
-      "subtasks": {
-        "T045": "done",
-        "T046": "done",
-        "T047": "done",
-        "T049": "done"
-      }
+      "shell_pid": 13608,
+      "shell_pid_created_at": "1794562733.1603355"
     }
   }
 }
