@@ -13,5 +13,7 @@
   "purpose_tldr": "Let attendees on phones see what Quadrano says about each push, on the page, by repeating the runtime's own Console output in the Demo menu.",
   "slug": "on-page-results-mirror-01M78JHF",
   "target_branch": "feat/on-page-results-mirror",
-  "topology": "coord"
+  "topology": "coord",
+  "vcs": "git",
+  "vcs_locked_at": "2026-11-13T06:56:04.342665+00:00"
 }
