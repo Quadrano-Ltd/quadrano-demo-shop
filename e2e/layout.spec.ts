@@ -90,7 +90,7 @@ for (const path of PAGES) {
     await page.goto(path);
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     const toggle = await requireBox(page, '.visitor-menu__toggle');
-    const footer = await requireBox(page, '.site-footer p');
+    const footer = await requireBox(page, '.site-footer > p');
     expect(intersects(toggle, footer)).toBe(false);
   });
 }

@@ -60,6 +60,26 @@ Product → **Add to basket** → Checkout → **Place order** → thank-you →
 
 The exact, character-for-character text is in [`kitty-specs/demo-shop-01M5QW5Y/contracts/datalayer-pushes.md`](kitty-specs/demo-shop-01M5QW5Y/contracts/datalayer-pushes.md) — compare against that.
 
+## Custom event: `newsletter_signup` (built on stage)
+
+A non-GA4 event with a flat shape (no `ecommerce` group), so the talk can build its Event Definition live:
+
+```js
+{ event: "newsletter_signup", signup_location: "footer", marketing_opt_in: true }
+```
+
+| Attribute | Rule to build on stage |
+|---|---|
+| `signup_location` | required string, one of `footer`, `checkout` |
+| `marketing_opt_in` | required boolean |
+
+Where it is pushed (one push each, no `{ ecommerce: null }` before it):
+
+- **Footer sign-up form**, on every page: **Sign up** pushes the correct event. `marketing_opt_in` is the opt-in box's state (unticked by default). The email address is never pushed.
+- **Demo menu → Event playground:** `newsletter_signup · Correct` (opt-in `true`) and `newsletter_signup · Opt-in as text` (`marketing_opt_in: "true"`, the one difference).
+
+Suggested beat: push it **before** the Event Definition exists (the runtime, at log level "all", logs `Quadrano · No Event Definition for "newsletter_signup".`) → build the Event Definition → reload with the new Version → push again for `✓ newsletter_signup` → press **Opt-in as text** for `✗ newsletter_signup · 1 error`. Rehearse how the new Version reaches the page (reload vs. GTM publish) before the talk.
+
 ## Before going on stage
 
 Chrome, with DevTools Console open and **"Preserve log" off**, Tag Assistant connected, and the "Demo Shop" Specification's tag installed in the shop's GTM container.

@@ -99,3 +99,42 @@ export function buildPurchase(input: {
     },
   };
 }
+
+/*
+ * newsletter_signup: a custom (non-GA4) event for the talk's on-stage build.
+ * Flat, with no `ecommerce` group, so it is pushed without the ecommerce clear.
+ */
+
+export type SignupLocation = 'footer' | 'checkout';
+
+export interface NewsletterSignupPush {
+  event: 'newsletter_signup';
+  signup_location: SignupLocation;
+  marketing_opt_in: boolean;
+}
+
+/** The deliberately broken variant: the opt-in sent as text, not a boolean. */
+export interface NewsletterSignupOptInAsTextPush {
+  event: 'newsletter_signup';
+  signup_location: SignupLocation;
+  marketing_opt_in: string;
+}
+
+export function buildNewsletterSignup(input: {
+  location: SignupLocation;
+  marketingOptIn: boolean;
+}): NewsletterSignupPush {
+  return {
+    event: 'newsletter_signup',
+    signup_location: input.location,
+    marketing_opt_in: input.marketingOptIn,
+  };
+}
+
+/** Exactly one difference from the correct push: `marketing_opt_in` is "true". */
+export function buildNewsletterSignupOptInAsText(): NewsletterSignupOptInAsTextPush {
+  return {
+    ...buildNewsletterSignup({ location: 'footer', marketingOptIn: true }),
+    marketing_opt_in: 'true',
+  };
+}

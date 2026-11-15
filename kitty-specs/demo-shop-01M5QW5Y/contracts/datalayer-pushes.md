@@ -4,7 +4,7 @@ Provisional until the W2 freeze (Tue 27 Oct 2026, FR-024). Attribute names and t
 
 ## Sequence per action
 
-Every action makes two `window.dataLayer.push` calls, in this order:
+Every ecommerce action makes two `window.dataLayer.push` calls, in this order (the custom `newsletter_signup` event is one push; see its section):
 
 1. `{ ecommerce: null }` (has no `event`, so Quadrano writes nothing: contract §5.8)
 2. the event object below
@@ -16,7 +16,7 @@ Every action makes two `window.dataLayer.push` calls, in this order:
 
 Switching scenario, navigating, and "Order again" push nothing.
 
-> **Event playground** (visitor menu, mission `byo-gtm-container-01M64PAZ`): one button per push in this file — `add_to_cart` and `purchase` in every scenario — makes the same two calls with the same shapes, using the hero product and a fresh transaction id. It pushes nothing else.
+> **Event playground** (visitor menu, mission `byo-gtm-container-01M64PAZ`): one button per push in this file — `add_to_cart`, `purchase` in every scenario, and the two `newsletter_signup` variants — makes the same calls with the same shapes, using the hero product and a fresh transaction id. It pushes nothing else.
 
 ## `add_to_cart` (all scenarios)
 
@@ -59,9 +59,35 @@ Expected Console group: `✓ purchase`
 | `lowercase-currency` | `currency: "gbp"` | `✗ purchase · 1 error` / `ecommerce.currency should be one of "GBP", "EUR", "USD", but got "gbp".` |
 | `bad-transaction-id` (spare) | `transaction_id: "12345"` | `✗ purchase · 1 error` / `ecommerce.transaction_id should match the pattern ^T-[0-9]{6}$, but got "12345".` (the pattern is rendered as the Event Definition holds it) |
 
+## `newsletter_signup` (custom event, talk's on-stage build)
+
+A non-GA4 event with no `ecommerce` group. It is **one** push: no `{ ecommerce: null }` before it.
+
+| Action | Where | Event |
+|---|---|---|
+| Sign up (footer form, every page) | on submit | `newsletter_signup`, correct, `marketing_opt_in` = the opt-in box's state |
+| Event playground `newsletter_signup · Correct` | on click | `newsletter_signup`, correct, `marketing_opt_in: true` |
+| Event playground `newsletter_signup · Opt-in as text` | on click | the broken variant below |
+
+```js
+{
+  event: "newsletter_signup",
+  signup_location: "footer",          // one of "footer", "checkout"
+  marketing_opt_in: true               // boolean
+}
+```
+
+The email address typed into the form is never pushed.
+
+| Variant | Difference | Expected Console group |
+|---|---|---|
+| Correct | — | `✓ newsletter_signup` (once the Event Definition exists) |
+| Opt-in as text | `marketing_opt_in: "true"` | `✗ newsletter_signup · 1 error` (message text to be confirmed in rehearsal; expected by analogy: `marketing_opt_in should be a boolean, but got "true".`) |
+| Either, before the Event Definition exists | — | no group; at log level "all": `Quadrano · No Event Definition for "newsletter_signup".` |
+
 ## Invariants (checked by `pnpm verify:scenarios`)
 
 - Each broken scenario's object differs from the correct object at exactly one Attribute path, by a deep diff.
 - No scenario changes `add_to_cart`.
 - The correct `value` equals Σ `price × quantity`, rounded to 2 decimals, and is a number.
-- No push object contains a key outside `event` and `ecommerce`.
+- No ecommerce push object contains a key outside `event` and `ecommerce` (`newsletter_signup` is flat by design and is not an ecommerce push).
