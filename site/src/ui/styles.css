@@ -136,6 +136,59 @@ button {
   font-size: 0.9rem;
 }
 
+/* Newsletter sign-up (custom newsletter_signup event) */
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 28rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+}
+
+.newsletter__heading {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.newsletter__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.newsletter__email {
+  flex: 1 1 12rem;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  font: inherit;
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+}
+
+.newsletter__opt-in {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+}
+
+.newsletter__opt-in input {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.newsletter__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 /* Product grid (listing) */
 .product-grid {
   display: grid;

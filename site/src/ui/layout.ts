@@ -4,6 +4,7 @@ import { createVisitorBanner, readContainerState } from '../menu/banner.ts';
 import { mountOfflinePanel } from '../menu/offline-mode.ts';
 import { mountVisitorMenu } from '../menu/visitor-menu.ts';
 import { currentScenario, withScenario } from '../switcher/scenario-url.ts';
+import { createNewsletterForm } from './newsletter.ts';
 import { mountScenarioSwitcher, syncScenarioLinks } from '../switcher/switcher.ts';
 
 /**
@@ -112,7 +113,7 @@ export function renderLayout(page: PageId, heading: string): HTMLElement {
   footer.className = 'site-footer';
   const footerLine = document.createElement('p');
   footerLine.textContent = 'A fictional shop for a live demo. Nothing here is for sale.';
-  footer.append(footerLine);
+  footer.append(createNewsletterForm(announce), footerLine);
 
   const live = document.createElement('p');
   live.className = 'visually-hidden';

@@ -17,6 +17,19 @@ interface PushedEvent {
   readonly ecommerce: Record<string, unknown>;
 }
 
+/** The custom event, as written in the push contract. Flat: no `ecommerce`. */
+const NEWSLETTER_SIGNUP_EVENT = {
+  event: 'newsletter_signup',
+  signup_location: 'footer',
+  marketing_opt_in: true,
+};
+
+const NEWSLETTER_SIGNUP_OPT_IN_AS_TEXT = {
+  event: 'newsletter_signup',
+  signup_location: 'footer',
+  marketing_opt_in: 'true',
+};
+
 const ADD_TO_CART_EVENT = {
   event: 'add_to_cart',
   ecommerce: {
@@ -110,33 +123,51 @@ function transactionIdFrom(
 interface PlaygroundButton {
   readonly label: string;
   readonly expected: (pushed: PushedEvent) => Record<string, unknown>;
+  /** Ecommerce events push `{ ecommerce: null }` first; the custom event does not. */
+  readonly clears: boolean;
 }
 
 const PLAYGROUND_BUTTONS: readonly PlaygroundButton[] = [
-  { label: 'add_to_cart', expected: () => ADD_TO_CART_EVENT },
+  { label: 'add_to_cart', expected: () => ADD_TO_CART_EVENT, clears: true },
   {
     label: 'purchase · Correct',
     expected: (pushed) => purchaseCorrect(transactionIdFrom(pushed)),
+    clears: true,
   },
   {
     label: 'purchase · 1 · Missing value',
     expected: (pushed) => purchaseMissingValue(transactionIdFrom(pushed)),
+    clears: true,
   },
   {
     label: 'purchase · 2 · Value as text',
     expected: (pushed) => purchaseValueAsText(transactionIdFrom(pushed)),
+    clears: true,
   },
   {
     label: 'purchase · 3 · Wrong-case key',
     expected: (pushed) => purchaseWrongCaseKey(transactionIdFrom(pushed, 'transactionId')),
+    clears: true,
   },
   {
     label: 'purchase · 4 · Lower-case currency',
     expected: (pushed) => purchaseLowercaseCurrency(transactionIdFrom(pushed)),
+    clears: true,
   },
   {
     label: 'purchase · Spare · Bad transaction ID',
     expected: () => purchaseBadTransactionId(),
+    clears: true,
+  },
+  {
+    label: 'newsletter_signup · Correct',
+    expected: () => NEWSLETTER_SIGNUP_EVENT,
+    clears: false,
+  },
+  {
+    label: 'newsletter_signup · Opt-in as text',
+    expected: () => NEWSLETTER_SIGNUP_OPT_IN_AS_TEXT,
+    clears: false,
   },
 ];
 
@@ -151,12 +182,12 @@ const SCENARIO_IDS = [
   'bad-transaction-id',
 ] as const;
 
-test('the playground has exactly 7 buttons in the contract order', async ({ page }) => {
+test('the playground has exactly 9 buttons in the contract order', async ({ page }) => {
   await page.goto('/');
   await openMenu(page);
 
   const buttons = page.locator('.visitor-menu__playground button');
-  await expect(buttons).toHaveCount(7);
+  await expect(buttons).toHaveCount(9);
   expect(await buttons.allTextContents()).toEqual(
     PLAYGROUND_BUTTONS.map((entry) => entry.label),
   );
@@ -182,9 +213,11 @@ for (const path of ['/', '/basket/'] as const) {
 
       const after = await pushedEntries(page);
       const added = after.slice(before);
-      expect(added).toHaveLength(2);
-      expect(added[0]).toEqual({ ecommerce: null });
-      const pushed = added[1] as PushedEvent;
+      expect(added).toHaveLength(entry.clears ? 2 : 1);
+      if (entry.clears) {
+        expect(added[0]).toEqual({ ecommerce: null });
+      }
+      const pushed = added[added.length - 1] as PushedEvent;
       expect(pushed).toEqual(entry.expected(pushed));
 
       await expect(page.locator(LIVE_REGION)).toContainText(`Pushed ${entry.label}`);
@@ -230,5 +263,31 @@ test('?scenario= links set the switcher and nav links carry the scenario (SC-006
         new RegExp(`[?&]scenario=${id}(?:&|$)`),
       );
     }
+  }
+});
+
+test('the footer sign-up pushes newsletter_signup with the opt-in box state, never the email', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const form = page.locator('form.newsletter');
+  const optInBox = form.getByRole('checkbox', { name: 'Send me offers and new arrivals' });
+  await expect(optInBox).not.toBeChecked();
+
+  for (const optIn of [false, true]) {
+    await form.getByLabel('Email').fill('someone@example.com');
+    if (optIn) {
+      await optInBox.check();
+    }
+    const before = (await pushedEntries(page)).length;
+    await form.getByRole('button', { name: 'Sign up' }).click();
+
+    const added = (await pushedEntries(page)).slice(before);
+    expect(added).toEqual([
+      { event: 'newsletter_signup', signup_location: 'footer', marketing_opt_in: optIn },
+    ]);
+    expect(JSON.stringify(added)).not.toContain('example.com');
+    await expect(page.locator(LIVE_REGION)).toContainText('Pushed newsletter_signup');
+    await expect(form.getByLabel('Email')).toHaveValue('');
   }
 });

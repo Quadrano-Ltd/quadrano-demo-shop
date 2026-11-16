@@ -1,5 +1,7 @@
 import {
   pushAddToCart,
+  pushNewsletterSignup,
+  pushNewsletterSignupOptInAsText,
   pushPurchase,
 } from '../datalayer/push.ts';
 import { newTransactionId, type PushLine } from '../datalayer/events.ts';
@@ -32,7 +34,10 @@ interface PlaygroundEntry {
   readonly press: () => void;
 }
 
-/** Button 1 plus buttons 2 to 7 derived from `SCENARIOS` in order. */
+/**
+ * Button 1, buttons 2 to 7 derived from `SCENARIOS` in order, then the custom
+ * `newsletter_signup` event: the correct push and the opt-in-as-text one.
+ */
 function entries(): readonly PlaygroundEntry[] {
   const line = heroLine();
   return [
@@ -46,6 +51,14 @@ function entries(): readonly PlaygroundEntry[] {
           scenario: scenario.id,
         }),
     })),
+    {
+      label: 'newsletter_signup · Correct',
+      press: () => pushNewsletterSignup({ location: 'footer', marketingOptIn: true }),
+    },
+    {
+      label: 'newsletter_signup · Opt-in as text',
+      press: () => pushNewsletterSignupOptInAsText(),
+    },
   ];
 }
 
