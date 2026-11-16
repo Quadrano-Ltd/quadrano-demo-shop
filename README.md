@@ -84,6 +84,18 @@ Suggested beat: push it **before** the Event Definition exists (the runtime, at 
 
 Chrome, with DevTools Console open and **"Preserve log" off**, Tag Assistant connected, and the "Demo Shop" Specification's tag installed in the shop's GTM container.
 
+### Finding Quadrano's output in a busy Console
+
+In Console format v1, the banner, info lines and warnings start with `Quadrano ·`, but the push groups (`✓ purchase`, `✗ purchase · 1 error`) do not. A plain `Quadrano` filter therefore hides the results. Paste this regex into the Console filter box instead:
+
+```
+/^[✓✗⚠] |^Quadrano/
+```
+
+It keeps the banner and every push group, and hides the rest of the page's output. Confirmed in Chrome on 2026-11-16.
+
+**If someone in the audience asks why the groups can't be filtered by name**, the answer is: "Today, this regex finds everything. Console format v2 puts a `Quadrano ·` prefix on every line, so a plain-text filter will work." Format v2 is planned after the talk. It is a change to the frozen published-artefact contract, so it isn't on this demo.
+
 ## Attendees on phones (Results view)
 
 A phone has no Console, so the Demo menu can repeat Quadrano's Console output on the page.
