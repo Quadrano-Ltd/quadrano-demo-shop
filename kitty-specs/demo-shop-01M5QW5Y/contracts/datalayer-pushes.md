@@ -82,7 +82,7 @@ The email address typed into the form is never pushed.
 | Variant | Difference | Expected Console group |
 |---|---|---|
 | Correct | — | `✓ newsletter_signup` (once the Event Definition exists) |
-| Opt-in as text | `marketing_opt_in: "true"` | `✗ newsletter_signup · 1 error` (message text to be confirmed in rehearsal; expected by analogy: `marketing_opt_in should be a boolean, but got "true".`) |
+| Opt-in as text | `marketing_opt_in: "true"` | `✗ newsletter_signup · 1 error` / `marketing_opt_in should be true or false, but got "true".` (from the format v1 `type` template; confirm in rehearsal) |
 | Either, before the Event Definition exists | — | no group; at log level "all": `Quadrano · No Event Definition for "newsletter_signup".` |
 
 ## Invariants (checked by `pnpm verify:scenarios`)
